@@ -27,6 +27,7 @@ model_info = {
         "na_type": ""},
 }
 
+# ===== Web driver =====
 def make_driver():
     if browser_type.lower() == "chrome":
         return webdriver.Chrome()
