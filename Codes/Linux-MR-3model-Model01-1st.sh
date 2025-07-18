@@ -1,0 +1,99 @@
+parent_directory=""
+mkdir -p "${parent_directory}/MR-Model01-1st"
+file_path="${parent_directory}/MR-Model01-1st"
+cd "${file_path}"
+pdb_directory_1="${file_path}/Model01"
+pdb_directory_2="${file_path}/Model02i"
+pdb_directory_3="${file_path}/Model03i"
+finish_directory="${pdb_directory_1}/finish"
+mkdir -p "${pdb_directory_1}"
+mkdir -p "${pdb_directory_2}"
+mkdir -p "${pdb_directory_3}"
+mkdir -p "${finish_directory}"
+cp "${parent_directory}/Model01-1"/*.pdb "${pdb_directory_1}"
+rm -f "${pdb_directory_1}"/??????.pdb
+cp "${parent_directory}/Model02-1"/??????.pdb "${pdb_directory_2}"
+cp "${parent_directory}/Model03-1"/??????.pdb "${pdb_directory_3}"
+for pdb_file_1 in "${pdb_directory_1}"/*.pdb; do
+  for pdb_file_2 in "${pdb_directory_2}"/*.pdb; do
+    for pdb_file_3 in "${pdb_directory_3}"/*.pdb; do
+      base_name_1=$(basename "${pdb_file_1}" .pdb)
+      base_name_2=$(basename "${pdb_file_2}" .pdb)
+      base_name_3=$(basename "${pdb_file_3}" .pdb)
+      output_directory="phaser-${base_name_1}-${base_name_2}-${base_name_3}"
+      mkdir -p "${output_directory}"
+      phaser <<EOF
+TITLe ${base_name_1}-${base_name_2}-${base_name_3}
+MODE MR_AUTO
+HKLIn reflections.mtz
+ENSEmble ${base_name_1} PDB ${pdb_file_1} IDENtity 80
+ENSEmble ${base_name_2} PDB ${pdb_file_2} IDENtity 80
+ENSEmble ${base_name_3} PDB ${pdb_file_3} IDENtity 80
+COMPosition NUCLeic MW 1000 NUM 1
+COMPosition NUCLeic MW 2000 NUM 2
+COMPosition NUCLeic MW 3000 NUM 3
+SEARch ENSEmble ${base_name_1} NUM 1
+SEARch ENSEmble ${base_name_2} NUM 2
+SEARch ENSEmble ${base_name_3} NUM 3
+EOF
+      mv PHASER.sol "${output_directory}/"
+      mv PHASER.1.mtz "${output_directory}/"
+      mv PHASER.1.pdb "${output_directory}/"
+    done
+  done
+  cp "${pdb_file_1}" "${finish_directory}/"
+done
+output_file="./extracted_data.txt"
+for folder_path in ./phaser-*/; do
+    for phaser_sol in "${folder_path}"PHASER.sol; do
+        if [ -f "$phaser_sol" ]; then
+            folder_name=$(awk 'NR==1 {print $2; exit}' "$phaser_sol")
+            solu_set_line=$(awk '/SOLU SET/ {print; exit}' "$phaser_sol")
+            if [ -n "$solu_set_line" ]; then
+                result=$(echo "$solu_set_line" | awk '{for (i=1; i<=NF; i++) {if ($i ~ /LLG=/ || $i ~ /TFZ=/) {printf "%s\t", $i}} print ""}')
+                if [ -n "$result" ]; then
+                    echo -e "\n$folder_name\n$result" >> "$output_file"
+                fi
+            fi
+        fi
+    done
+done
+output_file="./extracted_data_LGG.txt"
+llg_output_file="./TopLLG.txt"
+for folder_path in ./phaser-*/; do
+    for phaser_sol in "${folder_path}"PHASER.sol; do
+        if [ -f "$phaser_sol" ]; then
+            folder_name=$(awk 'NR==1 {print $2; exit}' "$phaser_sol")
+            solu_set_line=$(awk '/SOLU SET/ {print; exit}' "$phaser_sol")
+            if [ -n "$solu_set_line" ]; then
+                result=$(echo "$solu_set_line" | awk '{for (i=1; i<=NF; i++) {if ($i ~ /LLG=/) {gsub(/[^0-9.]/, "", $i); printf "%s\t", $i}} print ""}')
+                if [ -n "$result" ]; then
+                    echo -e "\n$folder_name\n$result" >> "$output_file"
+                    numeric_result=$(echo "$result" | sed 's/[^0-9 \t]//g')
+                    max_value=$(echo "$numeric_result" | awk '{max=$1; for(i=2;i<=NF;i++) if($i>max) max=$i; print max}')
+                    echo -e "\n$folder_name\t$max_value" >> "$llg_output_file"
+                fi
+            fi
+        fi
+    done
+done
+output_file="./extracted_data_TFZ.txt"
+tfz_output_file="./TopTFZ.txt"
+for folder_path in ./phaser-*/; do
+    for phaser_sol in "${folder_path}"PHASER.sol; do
+        if [ -f "$phaser_sol" ]; then
+            folder_name=$(awk 'NR==1 {print $2; exit}' "$phaser_sol")
+            solu_set_line=$(awk '/SOLU SET/ {print; exit}' "$phaser_sol")
+            if [ -n "$solu_set_line" ]; then
+                result=$(echo "$solu_set_line" | awk '{for (i=1; i<=NF; i++) {if ($i ~ /TFZ=/) {gsub(/[^0-9.]/, "", $i); printf "%s\t", $i}} print ""}')
+                if [ -n "$result" ]; then
+                    echo -e "\n$folder_name\n$result" >> "$output_file"
+                    max_value=$(echo "$result" | awk '{max=$1; for(i=2;i<=NF;i++) if($i>max) max=$i; print max}')
+                    echo -e "\n$folder_name\t$max_value" >> "$tfz_output_file"
+                fi
+            fi
+        fi
+    done
+done
+paste "./TopLLG.txt" "./TopTFZ.txt" | cut -f 1,2,4 --output-delimiter=" " | awk 'NF' > "./results.txt"
+sed -i '1iModel TopLLG TopTFZ' "${file_path}/results.txt"
