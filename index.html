@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="Icons/icon-120.png" />
+  <link rel="manifest" href="./manifest.json" />
+  <meta name="theme-color" content="#F2F2F2" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="apple-touch-icon" sizes="120x120" href="Icons/icon-120.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="Icons/icon-152.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="Icons/icon-180.png" />
+  <title>4MRNA</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script>
+    const isSmartphone = /iPhone|iPod|Android.*Mobile/i.test(navigator.userAgent);
+    if (isSmartphone) {
+      const meta = document.querySelector('meta[name="viewport"]');
+      meta.setAttribute(
+        'content',
+        'width=device-width, initial-scale=0.5, maximum-scale=0.5, user-scalable=no'
+      );
+    }
+  </script>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    .container {
+      width: 800px;
+      max-width: 100%;
+    }
+    table {
+      border-collapse: collapse;
+      margin: 0 auto 20px auto;
+      width: 100%;
+      text-align: left;
+    }
+    #basic-settings table {
+      table-layout: fixed;
+    }
+    #basic-settings table th,
+    #basic-settings table td {
+      width: 50%;
+    }
+    th, td {
+      border: 1px solid #999;
+      padding: 8px;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .section {
+      margin-bottom: 30px;
+    }
+    .button-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .file-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .file-item span {
+      flex-grow: 1;
+    }
+    .file-item button {
+      margin-left: 10px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    .download-link {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 15px;
+      background-color: black;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+    }
+    #basic-settings table td input[type="text"] {
+      width: 100%;
+      box-sizing: border-box;
+    }
+    #naTable input.sequenceInput {
+      width: 100%;
+      box-sizing: border-box;
+    }
+    #naTable input.mwOutput,
+    #naTable input.numInAU {
+      width: 100%;
+      box-sizing: border-box;
+      text-align: right;
+    }
+    #naTable th:nth-child(3),
+    #naTable td:nth-child(3) {
+      width: 50%;
+    }
+    #naTable th:nth-child(4),
+    #naTable td:nth-child(4) {
+      width: 12.5%;
+    }
+    #naTable th:nth-child(5),
+    #naTable td:nth-child(5) {
+      width: 12.5%;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Programming Code Generator for 4MRNA</h1>
+    <p>
+      <center>
+        <a href="https://github.com/S-Ando-Biophysics/4MRNA?tab=readme-ov-file#instructions" target="_blank">
+          Click here for the instructions.
+        </a>
+      </center>
+    </p>
+    <br><br>
+
+    <div class="section" id="basic-settings">
+      <table>
+        <tr>
+          <th>Select browser</th>
+          <td>
+            <select id="browserSelect">
+              <option value="Chrome" selected>Google Chrome</option>
+	      <option value="Edge">Microsoft Edge</option>
+              <option value="Firefox">Firefox</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th>Default download directory of selected browser</th>
+          <td><input type="text" id="downloadDir" placeholder="e.g. C:/Users/name/Downloads" /></td>
+        </tr>
+        <tr>
+          <th>Working directory</th>
+          <td><input type="text" id="workingDir" placeholder="e.g. D:/Sample/4MRNA" /></td>
+        </tr>
+        <tr>
+          <th>Path and name of reflection file used in 4MRNA</th>
+          <td><input type="text" id="reflectionFile" placeholder="e.g. D:/Sample/Phenix/reflections.mtz" /></td>
+        </tr>
+        <tr>
+          <th>No. of models</th>
+          <td>
+            <select id="numModels">
+              <option value="1" selected>1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+          </td>
+        </tr>
+
+      </table>
+    </div>
+
+    <div class="section" id="model-settings">
+      <table id="naTable">
+        <tr>
+          <th>Model</th>
+          <th>Type</th>
+          <th>Sequence of one strand of duplex (5'→3')</th>
+          <th>MW</th>
+          <th>No. in AU</th>
+        </tr>
+        <tr data-model-index="1">
+          <th>Model 01</th>
+          <td>
+            <select class="typeSelect">
+              <option value="A-DNA">A-form DNA</option>
+              <option value="B-DNA">B-form DNA</option>
+              <option value="A-RNA">A-form RNA</option>
+            </select>
+          </td>
+          <td><input type="text" class="sequenceInput" placeholder="e.g. ATG CAT GCA" /></td>
+          <td><input type="text" class="mwOutput" value="0" readonly /></td>
+          <td><input type="number" class="numInAU" min="1" value="1" /></td>
+        </tr>
+        <tr data-model-index="2">
+          <th>Model 02</th>
+          <td>
+            <select class="typeSelect">
+              <option value="A-DNA">A-form DNA</option>
+              <option value="B-DNA">B-form DNA</option>
+              <option value="A-RNA">A-form RNA</option>
+            </select>
+          </td>
+          <td><input type="text" class="sequenceInput" placeholder="e.g. TGC ATG CA" /></td>
+          <td><input type="text" class="mwOutput" value="0" readonly /></td>
+          <td><input type="number" class="numInAU" min="1" value="1" /></td>
+        </tr>
+        <tr data-model-index="3">
+          <th>Model 03</th>
+          <td>
+            <select class="typeSelect">
+              <option value="A-DNA">A-form DNA</option>
+              <option value="B-DNA">B-form DNA</option>
+              <option value="A-RNA">A-form RNA</option>
+            </select>
+          </td>
+          <td><input type="text" class="sequenceInput" placeholder="e.g. GCA TGC AT" /></td>
+          <td><input type="text" class="mwOutput" value="0" readonly /></td>
+          <td><input type="number" class="numInAU" min="1" value="1" /></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section button-container">
+      <button id="generateBtn" class="download-link">Generate codes</button>
+    </div>
+
+    <div class="section" id="generatedCodesContainer" style="display: none;">
+      <div id="generatedCodes"></div>
+      <div id="downloadButtonContainer" style="margin-top: 20px; text-align: center;"></div>
+    </div>
+  </div>
+
+  <script>
+    function formatSequence(rawSeq, type) {
+      const isRNA = (type === 'A-RNA');
+      let seq = rawSeq.toUpperCase().replace(/\s+/g, '');
+      const allowedPattern = isRNA ? /[AUGC]/g : /[ATGC]/g;
+      const matches = seq.match(allowedPattern);
+      seq = matches ? matches.join('') : '';
+      return seq.replace(/(.{3})/g, '$1 ').trim();
+    }
+
+    function getComplement(seq, type) {
+      const isRNA = (type === 'A-RNA');
+      const complementMapDNA = {'A':'T','T':'A','G':'C','C':'G'};
+      const complementMapRNA = {'A':'U','U':'A','G':'C','C':'G'};
+      const map = isRNA ? complementMapRNA : complementMapDNA;
+      let comp = '';
+      seq = seq.toUpperCase().replace(/\s+/g, '');
+      for (let base of seq) comp += (map[base] || base);
+      return comp;
+    }
+
+    function calculateMW(seq, type) {
+      const isRNA = (type === 'A-RNA');
+      seq = seq.toUpperCase().replace(/[^ATGCU]/g, '');
+      const counts = {'G':0,'A':0,'C':0,'T':0,'U':0};
+      for (let base of seq) if (counts.hasOwnProperty(base)) counts[base]++;
+      const totalBases = counts.G + counts.A + counts.C + (isRNA ? counts.U : counts.T);
+      let molecularWeight = 0;
+      if (isRNA) {
+        molecularWeight = counts.G * 363.22 + counts.A * 347.22 + counts.C * 323.20 + counts.U * 324.18;
+      } else {
+        molecularWeight = counts.G * 347.22 + counts.A * 331.22 + counts.C * 307.20 + counts.T * 322.21;
+      }
+      molecularWeight -= 18 * (totalBases - 1) + 78.97;
+
+      const compSeq = getComplement(seq, type);
+      const compCounts = {'G':0,'A':0,'C':0,'T':0,'U':0};
+      for (let base of compSeq) if (compCounts.hasOwnProperty(base)) compCounts[base]++;
+      const compTotalBases = compCounts.G + compCounts.A + compCounts.C + (isRNA ? compCounts.U : compCounts.T);
+      let compMW = 0;
+      if (isRNA) {
+        compMW = compCounts.G * 363.22 + compCounts.A * 347.22 + compCounts.C * 323.20 + compCounts.U * 324.18;
+      } else {
+        compMW = compCounts.G * 347.22 + compCounts.A * 331.22 + compCounts.C * 307.20 + compCounts.T * 322.21;
+      }
+      compMW -= 18 * (compTotalBases - 1) + 78.97;
+
+      return Math.round((molecularWeight + compMW) * 100) / 100;
+    }
+
+    function escapeForPythonPath(winPath) {
+      return winPath.replace(/\\/g, "\\\\");
+    }
+
+    function convertToLinuxPath(winPath) {
+      const forward = winPath.replace(/\\/g, "/");
+      const drive = forward.charAt(0).toLowerCase();
+      const rest  = forward.slice(2);
+      return `/mnt/${drive}${rest}`;
+    }
+
+    const PY1_URL      = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Python-CreatingModels-1st.py";
+    const PY2_URL      = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Python-CreatingModels-2nd.py";
+    const L1_01_1_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-1model-Model01-1st.txt";
+    const L1_01_2_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-1model-Model01-2nd.txt";
+    const L2_01_1_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-2model-Model01-1st.txt";
+    const L2_01_2_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-2model-Model01-2nd.txt";
+    const L2_02_1_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-2model-Model02-1st.txt";
+    const L2_02_2_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-2model-Model02-2nd.txt";
+    const L3_01_1_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-3model-Model01-1st.txt";
+    const L3_01_2_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-3model-Model01-2nd.txt";
+    const L3_02_1_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-3model-Model02-1st.txt";
+    const L3_02_2_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-3model-Model02-2nd.txt";
+    const L3_03_1_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-3model-Model03-1st.txt";
+    const L3_03_2_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-3model-Model03-2nd.txt";
+
+    function getTemplatesFor1Model() {
+      return [
+        { url: PY1_URL,     outName: "01.Python-CreatingModels-1st.py" },
+        { url: L1_01_1_URL, outName: "02.Linux-MR-1model-Model01-1st.txt" },
+        { url: PY2_URL,     outName: "03.Python-CreatingModels-2nd.py" },
+        { url: L1_01_2_URL, outName: "04.Linux-MR-1model-Model01-2nd.txt" }
+      ];
+    }
+    function getTemplatesFor2Models() {
+      return [
+        { url: PY1_URL,     outName: "01.Python-CreatingModels-1st.py" },
+        { url: L2_01_1_URL, outName: "02.Linux-MR-2model-Model01-1st.txt" },
+        { url: PY2_URL,     outName: "03.Python-CreatingModels-2nd.py" },
+        { url: L2_01_2_URL, outName: "04.Linux-MR-2model-Model01-2nd.txt" },
+        { url: L2_02_1_URL, outName: "05.Linux-MR-2model-Model02-1st.txt" },
+        { url: PY2_URL,     outName: "06.Python-CreatingModels-2nd.py" },
+        { url: L2_02_2_URL, outName: "07.Linux-MR-2model-Model02-2nd.txt" }
+      ];
+    }
+    function getTemplatesFor3Models() {
+      return [
+        { url: PY1_URL,     outName: "01.Python-CreatingModels-1st.py" },
+        { url: L3_01_1_URL, outName: "02.Linux-MR-3model-Model01-1st.txt" },
+        { url: PY2_URL,     outName: "03.Python-CreatingModels-2nd.py" },
+        { url: L3_01_2_URL, outName: "04.Linux-MR-3model-Model01-2nd.txt" },
+        { url: L3_02_1_URL, outName: "05.Linux-MR-3model-Model02-1st.txt" },
+        { url: PY2_URL,     outName: "06.Python-CreatingModels-2nd.py" },
+        { url: L3_02_2_URL, outName: "07.Linux-MR-3model-Model02-2nd.txt" },
+        { url: L3_03_1_URL, outName: "08.Linux-MR-3model-Model03-1st.txt" },
+        { url: PY2_URL,     outName: "09.Python-CreatingModels-2nd.py" },
+        { url: L3_03_2_URL, outName: "10.Linux-MR-3model-Model03-2nd.txt" }
+      ];
+    }
+
+    function attachMWListeners() {
+      document.querySelectorAll('#naTable tr[data-model-index]').forEach(row => {
+        const typeSelect = row.querySelector('.typeSelect');
+        const seqInput   = row.querySelector('.sequenceInput');
+        const mwOutput   = row.querySelector('.mwOutput');
+        if (!typeSelect || !seqInput) return;
+
+        function updateSequenceAndMW() {
+          const rawSeq = seqInput.value;
+          const type   = typeSelect.value;
+          const formatted = formatSequence(rawSeq, type);
+          seqInput.value = formatted;
+          const seqForMW = formatted.replace(/\s+/g, '');
+          if (!seqForMW) {
+            mwOutput.value = '0';
+          } else {
+            mwOutput.value = calculateMW(seqForMW, type);
+          }
+        }
+
+        typeSelect.addEventListener('change', updateSequenceAndMW);
+        seqInput.addEventListener('input', updateSequenceAndMW);
+        updateSequenceAndMW();
+      });
+    }
+
+    function fetchTemplates(list) {
+      const promises = list.map(item => fetch(item.url).then(resp => {
+        if (!resp.ok) throw new Error(`Failed to fetch ${item.url}: ${resp.statusText}`);
+        return resp.text().then(text => ({ fileName: item.outName, content: text }));
+      }));
+      return Promise.all(promises);
+    }
+
+    function downloadSingleFile(filename, content) {
+      const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    document.getElementById('generateBtn').addEventListener('click', function() {
+  const browserType = document.getElementById("browserSelect").value.toLowerCase();
+      let reflectionWin = document.getElementById('reflectionFile').value.trim();
+      if (reflectionWin && !reflectionWin.toLowerCase().endsWith('.mtz')) {
+        reflectionWin += '.mtz';
+        document.getElementById('reflectionFile').value = reflectionWin;
+      }
+      const pythonReflectionPath = escapeForPythonPath(reflectionWin);
+      const linuxReflectionPath  = convertToLinuxPath(reflectionWin);
+
+      const downloadDirWin    = document.getElementById('downloadDir').value.trim();
+      const workingDirWin     = document.getElementById('workingDir').value.trim();
+      const pythonDownloadDir = escapeForPythonPath(downloadDirWin);
+      const pythonWorkingDir  = escapeForPythonPath(workingDirWin);
+      const linuxParentDir    = convertToLinuxPath(workingDirWin);
+
+      const numModels      = document.getElementById('numModels').value;
+      const rows           = document.querySelectorAll('#naTable tr[data-model-index]');
+      const modelData      = [];
+      rows.forEach(row => {
+        const idx         = row.getAttribute('data-model-index');
+        const type        = row.querySelector('.typeSelect').value;
+        const formattedSeq = row.querySelector('.sequenceInput').value.trim();
+        const rawSeq      = formattedSeq.replace(/\s+/g, '');
+        const mw          = row.querySelector('.mwOutput').value.trim();
+        const numInAU     = row.querySelector('.numInAU').value;
+        modelData.push({ index: idx, type, sequence: rawSeq, mw, numInAU });
+      });
+
+      let templateList;
+      if (numModels === "1")      templateList = getTemplatesFor1Model();
+      else if (numModels === "2") templateList = getTemplatesFor2Models();
+      else if (numModels === "3") templateList = getTemplatesFor3Models();
+      else {
+        alert("Please select 1, 2, or 3 for No. of models.");
+        return;
+      }
+
+      fetchTemplates(templateList)
+        .then(templates => {
+          const generated = [];
+          templates.forEach(item => {
+            let tmpl  = item.content;
+            const fname = item.fileName;
+
+            if (fname === "01.Python-CreatingModels-1st.py") {
+              tmpl = tmpl.replace(/^browser_type\s*=.*$/m, `browser_type = "${browserType}"`);
+              tmpl = tmpl.replace(/^download\s*=.*$/m, `download = "${pythonDownloadDir}"`);
+              tmpl = tmpl.replace(/^parent_directory\s*=.*$/m, `parent_directory = "${pythonWorkingDir}"`);
+              tmpl = tmpl.replace(/^num_models\s*=.*$/m,     `num_models = ${numModels}`);
+
+              const seq1  = modelData[0].sequence;
+              const type1 = modelData[0].type;
+              tmpl = tmpl.replace(
+                /1:\s*\{\s*"directory":\s*os\.path\.join\([^}]*?"Model01-1"\),[\s\S]*?"sequence":\s*".*?",[\s\S]*?"na_type":\s*".*?"\s*\}/,
+                `1: {"directory": os.path.join(parent_directory, "Model01-1"),\n        "sequence": "${seq1}",\n        "na_type": "${type1}"}`
+
+              );
+
+              if (numModels === "2" || numModels === "3") {
+                const seq2  = modelData[1].sequence;
+                const type2 = modelData[1].type;
+                tmpl = tmpl.replace(
+                  /2:\s*\{\s*"directory":\s*os\.path\.join\([^}]*?"Model02-1"\),[\s\S]*?"sequence":\s*".*?",[\s\S]*?"na_type":\s*".*?"\s*\}/,
+                  `2: {"directory": os.path.join(parent_directory, "Model02-1"),\n        "sequence": "${seq2}",\n        "na_type": "${type2}"}`
+
+                );
+              }
+
+              if (numModels === "3") {
+                const seq3  = modelData[2].sequence;
+                const type3 = modelData[2].type;
+                tmpl = tmpl.replace(
+                  /3:\s*\{\s*"directory":\s*os\.path\.join\([^}]*?"Model03-1"\),[\s\S]*?"sequence":\s*".*?",[\s\S]*?"na_type":\s*".*?"\s*\}/,
+                  `3: {"directory": os.path.join(parent_directory, "Model03-1"),\n        "sequence": "${seq3}",\n        "na_type": "${type3}"}`
+
+                );
+              }
+            }
+
+            if (fname.endsWith('.txt')) {
+              tmpl = tmpl.replace(
+                /^parent_directory\s*=.*$/m,
+                `parent_directory="${linuxParentDir}"`
+              );
+              tmpl = tmpl.replace(
+                /HKLIn reflections\.mtz/,
+                `HKLIn ${linuxReflectionPath}`
+              );
+
+              for (let i = 0; i < modelData.length; i++) {
+                tmpl = tmpl.replace(
+                  /COMPosition NUCLeic MW \d+ NUM \d+/,
+                  `COMPosition NUCLeic MW ${modelData[i].mw} NUM ${modelData[i].numInAU}`
+                );
+              }
+
+              for (let i = 0; i < modelData.length; i++) {
+                const idx = i + 1;
+                const regex = new RegExp(`SEARch ENSEmble \\$\\{base_name_${idx}\\} NUM \\d+`);
+                tmpl = tmpl.replace(
+                  regex,
+                  `SEARch ENSEmble \${base_name_${idx}} NUM ${modelData[i].numInAU}`
+                );
+              }
+            }
+
+            if (fname === "03.Python-CreatingModels-2nd.py"
+             || fname === "06.Python-CreatingModels-2nd.py"
+             || fname === "09.Python-CreatingModels-2nd.py") {
+
+              const parts = fname.split('.');
+              const num   = parseInt(parts[0], 10);
+              let modelIndex;
+              if (num === 3)  modelIndex = 0;
+              else if (num === 6) modelIndex = 1;
+              else if (num === 9) modelIndex = 2;  
+
+              tmpl = tmpl.replace(/^browser_type\s*=.*$/m, `browser_type = "${browserType}"`);
+              tmpl = tmpl.replace(/download\s*=.*/,  `download = "${pythonDownloadDir}"`);
+              tmpl = tmpl.replace(
+                /directory\s*=.*/,
+                `directory = "${pythonWorkingDir}/Model0${modelData[modelIndex].index}-2"`
+              );
+              tmpl = tmpl.replace(/na_type\s*=.*/, `na_type = "${modelData[modelIndex].type}"`);
+            }
+
+            generated.push({ fileName: fname, content: tmpl });
+          });
+
+          const container = document.getElementById('generatedCodes');
+          container.innerHTML = '';
+          generated.forEach(item => {
+            const fileDiv = document.createElement('div');
+            fileDiv.className = 'file-item';
+
+            const nameSpan = document.createElement('span');
+            nameSpan.textContent = item.fileName;
+
+            const buttonGroup = document.createElement('div');
+
+            const showBtn = document.createElement('button');
+            showBtn.textContent = 'Show this code';
+            showBtn.addEventListener('click', () => {
+              const win = window.open('', '_blank', 'width=800,height=600,scrollbars=yes');
+              const pre = win.document.createElement('pre');
+              pre.textContent = item.content;
+              win.document.body.appendChild(pre);
+              win.document.title = item.fileName;
+            });
+
+            const downloadBtn = document.createElement('button');
+            downloadBtn.textContent = 'Download this code';
+            downloadBtn.addEventListener('click', () => {
+              downloadSingleFile(item.fileName, item.content);
+            });
+
+            fileDiv.appendChild(nameSpan);
+            buttonGroup.appendChild(showBtn);
+            buttonGroup.appendChild(downloadBtn);
+            fileDiv.appendChild(buttonGroup);
+            container.appendChild(fileDiv);
+          });
+
+          document.getElementById('generatedCodesContainer').style.display = 'block';
+
+          const zip = new JSZip();
+          generated.forEach(item => zip.file(item.fileName, item.content));
+          zip.generateAsync({ type: 'blob' })
+            .then(blob => {
+              const dlContainer = document.getElementById('downloadButtonContainer');
+              dlContainer.innerHTML = '';
+              const a = document.createElement('a');
+              a.href = URL.createObjectURL(blob);
+              a.download = '4MRNA-Generated-Codes.zip';
+              a.textContent = 'Download all codes';
+              a.className = 'download-link';
+              dlContainer.appendChild(a);
+            });
+
+        })
+        .catch(err => {
+          alert(`Template fetch failed: ${err}`);
+          console.error(err);
+        });
+    });
+
+    function updateModelRows() {
+      const selectedNum = parseInt(document.getElementById('numModels').value, 10);
+      document.querySelectorAll('#naTable tr[data-model-index]').forEach(row => {
+        const idx = parseInt(row.getAttribute('data-model-index'), 10);
+        row.style.display = (idx <= selectedNum) ? '' : 'none';
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', function() {
+      attachMWListeners();
+      updateModelRows();
+    });
+
+    document.getElementById('numModels').addEventListener('change', updateModelRows);
+  </script>
+  <script>
+    window.addEventListener('beforeinstallprompt', function(e) {
+      e.preventDefault();
+      console.log('beforeinstallprompt has been suppressed.');
+    });
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then(reg => console.log('SW registered:', reg.scope))
+          .catch(err => console.error('SW registration failed:', err));
+      });
+    }
+  </script>
+</body>
+</html>
