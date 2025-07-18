@@ -18,7 +18,8 @@ To address these issues, the new strategy 4MRNA includes generating a large numb
 
     | Required infomation | What to do |
     | :----- | :----- |
-    | **Default download directory of Microsoft Edge** | Please enter the folder where files are automatically saved when using the Microsoft Edge. You can check it as follows: open the Microsoft Edge → Settings → Downloads → check the location |
+    | **Select browser** | Please select the type of browser from Google Chrome, Microsoft Edge or Firefox. |
+    | **Default download directory of selected browser** | Please enter the folder where files are automatically saved when using the selected browser above. |
     | **Working directory** | Please enter the folder where you want to run 4MRNA. |
     | **Path and name of reflection file used in 4MRNA** | Please enter the location and name of the reflection file to be used for 4MRNA. For example, if there is a file named `reflections.mtz` in `D:/Sample/Phenix`, enter `D:/Sample/Phenix/reflections.mtz`. |
     | **No. of models** | Please select how many types of models you want to create. For example, in the case of a double-stranded molecule that contains loop regions, you divide it into several sections (stems) by avoiding the loop regions, and then you create models for each section. When dividing it into two stem sections, please select “2” here. |
@@ -59,8 +60,9 @@ Please install and set up the following software in advance.
 | **Python** | https://www.python.org/downloads/windows/ | **Required** | After installing Python, open the command prompt and run `pip install selenium`. |
 | **Ubuntu** | https://apps.microsoft.com/search?query=Ubuntu | **Required** | It is necessary to turn on "**Windows Subsystem for Linux**" in the Windows settings to be able to use Linux code. |
 | **Phaser** | https://phenix-online.org/download | **Required** | Even if you have already installed the Windows ver. of Phenix, you need to install the Linux command line ver. [*2] |
-| **Microsoft Edge** | https://www.microsoft.com/en-us/edge | **Required** | If your computer is a Windows PC, this is included by default, so there’s no need to download it. |
-| Microsoft Edge WebDriver | https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver | Required in some cases [*3] | After downloading the driver, you can use it either by specifying the file directly or by adding it to your PATH. |
+| **Google Chrome** | https://www.google.com/chrome/ | **Required** | Google Chrome, Microsoft Edge or Firefox are required. |
+| **Microsoft Edge** | https://www.microsoft.com/en-us/edge | **Required** | Google Chrome, Microsoft Edge or Firefox are required. |
+| **Firefox** | https://www.firefox.com/en-US/browsers/desktop/ | **Required** | Google Chrome, Microsoft Edge or Firefox are required. |
 | Xming | https://sourceforge.net/projects/xming/ | Required in some cases | When using Phaser, you <ins>may</ins> need to launch X server. |
 | Visual Studio Code | https://code.visualstudio.com/ | Recommended | In addition, download the extension of Python. |
 | Microsoft Excel | https://www.microsoft.com/en-us/microsoft-365 | Recommended  | This is useful for checking the results of molecular replacement. |
@@ -78,9 +80,6 @@ Please install and set up the following software in advance.
     cd /home/name
     vi .bashrc
     source /usr/local/phenix-1.21.1-5286/phenix_env.sh    # add to the last line
-
-[*3] When using Selenium and WebDriver to automate the browser, you used to have to download the driver yourself, but since Selenium 4.6.0 (released on 2022-11-04), it automatically downloads the driver, so there is no need to prepare it in advance.
-
 
 ## Reference
 - Ando, S., & Kondo, J. (2025), A new approach for nucleic acid structure determination: molecular replacement using massive multi-type models created through helical parameter adjustment. _Nucleic acids research_, in revision.
