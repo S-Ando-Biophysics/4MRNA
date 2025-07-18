@@ -18,7 +18,7 @@ To address these issues, the new strategy 4MRNA includes generating a large numb
 
     | Required infomation | What to do |
     | :----- | :----- |
-    | **Select browser** | Please select the type of browser from Google Chrome, Microsoft Edge or Firefox. |
+    | **Browser** | Please select the type of browser from Google Chrome, Microsoft Edge or Firefox. |
     | **Default download directory of selected browser** | Please enter the folder where files are automatically saved when using the selected browser above. |
     | **Working directory** | Please enter the folder where you want to run 4MRNA. |
     | **Path and name of reflection file used in 4MRNA** | Please enter the location and name of the reflection file to be used for 4MRNA. For example, if there is a file named `reflections.mtz` in `D:/Sample/Phenix`, enter `D:/Sample/Phenix/reflections.mtz`. |
