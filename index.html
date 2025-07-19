@@ -147,15 +147,15 @@
         </tr>
         <tr>
           <th>Default download directory of selected browser</th>
-          <td><input type="text" id="downloadDir" placeholder="e.g. C:/Users/name/Downloads" /></td>
+          <td><input type="text" id="downloadDir" /></td>
         </tr>
         <tr>
           <th>Working directory</th>
-          <td><input type="text" id="workingDir" placeholder="e.g. D:/Sample/4MRNA" /></td>
+          <td><input type="text" id="workingDir" /></td>
         </tr>
         <tr>
           <th>Path and name of reflection file used in 4MRNA</th>
-          <td><input type="text" id="reflectionFile" placeholder="e.g. D:/Sample/Phenix/reflections.mtz" /></td>
+          <td><input type="text" id="reflectionFile" /></td>
         </tr>
         <tr>
           <th>No. of models</th>
@@ -233,6 +233,40 @@
   </div>
 
   <script>
+
+    function getOS() {
+        const platform = navigator.platform.toLowerCase();
+        if (platform.startsWith('win')) { return 'windows'; }
+        if (platform.startsWith('mac')) { return 'macos'; }
+        if (platform.startsWith('linux')) { return 'linux'; }
+        return 'unknown';
+    }
+
+    function updatePlaceholders(os) {
+        const placeholders = {
+            windows: {
+                download: 'e.g. C:\\Users\\name\\Downloads',
+                working: 'e.g. D:\\Sample\\4MRNA',
+                reflection: 'e.g. D:\\Sample\\Phenix\\reflections.mtz'
+            },
+            macos: {
+                download: 'e.g. /Users/name/Downloads',
+                working: 'e.g. /Users/name/Documents/4MRNA',
+                reflection: 'e.g. /Users/name/Documents/Phenix/reflections.mtz'
+            },
+            linux: {
+                download: 'e.g. /home/name/Downloads',
+                working: 'e.g. /home/name/Documents/4MRNA',
+                reflection: 'e.g. /home/name/Documents/Phenix/reflections.mtz'
+            }
+        };
+        const osPlaceholders = placeholders[os] || placeholders.linux; // Default to Linux style
+
+        document.getElementById('downloadDir').placeholder = osPlaceholders.download;
+        document.getElementById('workingDir').placeholder = osPlaceholders.working;
+        document.getElementById('reflectionFile').placeholder = osPlaceholders.reflection;
+    }
+
     function formatSequence(rawSeq, type) {
       const isRNA = (type === 'A-RNA');
       let seq = rawSeq.toUpperCase().replace(/\s+/g, '');
@@ -281,11 +315,7 @@
 
       return Math.round((molecularWeight + compMW) * 100) / 100;
     }
-
-    function escapeForPythonPath(winPath) {
-      return winPath.replace(/\\/g, "\\\\");
-    }
-
+    
     function convertToLinuxPath(winPath) {
       const forward = winPath.replace(/\\/g, "/");
       const drive = forward.charAt(0).toLowerCase();
@@ -389,32 +419,49 @@
     }
 
     document.getElementById('generateBtn').addEventListener('click', function() {
-  const browserType = document.getElementById("browserSelect").value.toLowerCase();
-      let reflectionWin = document.getElementById('reflectionFile').value.trim();
-      if (reflectionWin && !reflectionWin.toLowerCase().endsWith('.mtz')) {
-        reflectionWin += '.mtz';
-        document.getElementById('reflectionFile').value = reflectionWin;
+      const userOS = getOS();
+      let reflectionPathInput = document.getElementById('reflectionFile').value.trim();
+      const downloadDirInput = document.getElementById('downloadDir').value.trim();
+      const workingDirInput = document.getElementById('workingDir').value.trim();
+
+      // Ensure reflection file has .mtz extension
+      if (reflectionPathInput && !reflectionPathInput.toLowerCase().endsWith('.mtz')) {
+        reflectionPathInput += '.mtz';
+        document.getElementById('reflectionFile').value = reflectionPathInput;
       }
-      const pythonReflectionPath = escapeForPythonPath(reflectionWin);
-      const linuxReflectionPath  = convertToLinuxPath(reflectionWin);
 
-      const downloadDirWin    = document.getElementById('downloadDir').value.trim();
-      const workingDirWin     = document.getElementById('workingDir').value.trim();
-      const pythonDownloadDir = escapeForPythonPath(downloadDirWin);
-      const pythonWorkingDir  = escapeForPythonPath(workingDirWin);
-      const linuxParentDir    = convertToLinuxPath(workingDirWin);
+      let pythonReflectionPath, linuxReflectionPath, pythonDownloadDir, pythonWorkingDir, linuxParentDir;
 
-      const numModels      = document.getElementById('numModels').value;
-      const rows           = document.querySelectorAll('#naTable tr[data-model-index]');
-      const modelData      = [];
+      if (userOS === 'windows') {
+        // Windows: escape for Python, convert to WSL path for shell
+        pythonReflectionPath = reflectionPathInput.replace(/\\/g, "\\\\");
+        linuxReflectionPath  = convertToLinuxPath(reflectionPathInput);
+        pythonDownloadDir = downloadDirInput.replace(/\\/g, "\\\\");
+        pythonWorkingDir  = workingDirInput.replace(/\\/g, "\\\\");
+        linuxParentDir    = convertToLinuxPath(workingDirInput);
+      } else {
+        // macOS/Linux: use paths as is
+        pythonReflectionPath = reflectionPathInput;
+        linuxReflectionPath  = reflectionPathInput;
+        pythonDownloadDir = downloadDirInput;
+        pythonWorkingDir  = workingDirInput;
+        linuxParentDir    = workingDirInput;
+      }
+      
+      const browserType = document.getElementById("browserSelect").value.toLowerCase();
+      const numModels = document.getElementById('numModels').value;
+      const rows = document.querySelectorAll('#naTable tr[data-model-index]');
+      const modelData = [];
       rows.forEach(row => {
-        const idx         = row.getAttribute('data-model-index');
-        const type        = row.querySelector('.typeSelect').value;
-        const formattedSeq = row.querySelector('.sequenceInput').value.trim();
-        const rawSeq      = formattedSeq.replace(/\s+/g, '');
-        const mw          = row.querySelector('.mwOutput').value.trim();
-        const numInAU     = row.querySelector('.numInAU').value;
-        modelData.push({ index: idx, type, sequence: rawSeq, mw, numInAU });
+        if (row.style.display !== 'none') {
+            const idx = row.getAttribute('data-model-index');
+            const type = row.querySelector('.typeSelect').value;
+            const formattedSeq = row.querySelector('.sequenceInput').value.trim();
+            const rawSeq = formattedSeq.replace(/\s+/g, '');
+            const mw = row.querySelector('.mwOutput').value.trim();
+            const numInAU = row.querySelector('.numInAU').value;
+            modelData.push({ index: idx, type, sequence: rawSeq, mw, numInAU });
+        }
       });
 
       let templateList;
@@ -435,16 +482,15 @@
 
             if (fname === "01.Python-CreatingModels-1st.py") {
               tmpl = tmpl.replace(/^browser_type\s*=.*$/m, `browser_type = "${browserType}"`);
-              tmpl = tmpl.replace(/^download\s*=.*$/m, `download = "${pythonDownloadDir}"`);
-              tmpl = tmpl.replace(/^parent_directory\s*=.*$/m, `parent_directory = "${pythonWorkingDir}"`);
-              tmpl = tmpl.replace(/^num_models\s*=.*$/m,     `num_models = ${numModels}`);
+              tmpl = tmpl.replace(/^download\s*=.*$/m, `download = r"${pythonDownloadDir}"`);
+              tmpl = tmpl.replace(/^parent_directory\s*=.*$/m, `parent_directory = r"${pythonWorkingDir}"`);
+              tmpl = tmpl.replace(/^num_models\s*=.*$/m, `num_models = ${numModels}`);
 
               const seq1  = modelData[0].sequence;
               const type1 = modelData[0].type;
               tmpl = tmpl.replace(
                 /1:\s*\{\s*"directory":\s*os\.path\.join\([^}]*?"Model01-1"\),[\s\S]*?"sequence":\s*".*?",[\s\S]*?"na_type":\s*".*?"\s*\}/,
                 `1: {"directory": os.path.join(parent_directory, "Model01-1"),\n        "sequence": "${seq1}",\n        "na_type": "${type1}"}`
-
               );
 
               if (numModels === "2" || numModels === "3") {
@@ -453,7 +499,6 @@
                 tmpl = tmpl.replace(
                   /2:\s*\{\s*"directory":\s*os\.path\.join\([^}]*?"Model02-1"\),[\s\S]*?"sequence":\s*".*?",[\s\S]*?"na_type":\s*".*?"\s*\}/,
                   `2: {"directory": os.path.join(parent_directory, "Model02-1"),\n        "sequence": "${seq2}",\n        "na_type": "${type2}"}`
-
                 );
               }
 
@@ -463,58 +508,42 @@
                 tmpl = tmpl.replace(
                   /3:\s*\{\s*"directory":\s*os\.path\.join\([^}]*?"Model03-1"\),[\s\S]*?"sequence":\s*".*?",[\s\S]*?"na_type":\s*".*?"\s*\}/,
                   `3: {"directory": os.path.join(parent_directory, "Model03-1"),\n        "sequence": "${seq3}",\n        "na_type": "${type3}"}`
-
                 );
               }
             }
 
             if (fname.endsWith('.txt')) {
-              tmpl = tmpl.replace(
-                /^parent_directory\s*=.*$/m,
-                `parent_directory="${linuxParentDir}"`
-              );
-              tmpl = tmpl.replace(
-                /HKLIn reflections\.mtz/,
-                `HKLIn ${linuxReflectionPath}`
-              );
+              tmpl = tmpl.replace(/^parent_directory\s*=.*$/m, `parent_directory="${linuxParentDir}"`);
+              tmpl = tmpl.replace(/HKLIn reflections\.mtz/, `HKLIn ${linuxReflectionPath}`);
 
               for (let i = 0; i < modelData.length; i++) {
-                tmpl = tmpl.replace(
-                  /COMPosition NUCLeic MW \d+ NUM \d+/,
-                  `COMPosition NUCLeic MW ${modelData[i].mw} NUM ${modelData[i].numInAU}`
-                );
-              }
+                const regexMW = new RegExp(`COMPosition NUCLeic MW \\d+(\\.\\d+)? NUM ${i + 1}`);
+                tmpl = tmpl.replace(regexMW, `COMPosition NUCLeic MW ${modelData[i].mw} NUM ${modelData[i].numInAU}`);
 
-              for (let i = 0; i < modelData.length; i++) {
-                const idx = i + 1;
-                const regex = new RegExp(`SEARch ENSEmble \\$\\{base_name_${idx}\\} NUM \\d+`);
-                tmpl = tmpl.replace(
-                  regex,
-                  `SEARch ENSEmble \${base_name_${idx}} NUM ${modelData[i].numInAU}`
-                );
+                const regexSearch = new RegExp(`SEARch ENSEmble \\$\\{base_name_${i + 1}\\} NUM \\d+`);
+                tmpl = tmpl.replace(regexSearch, `SEARch ENSEmble \${base_name_${i + 1}} NUM ${modelData[i].numInAU}`);
               }
             }
 
-            if (fname === "03.Python-CreatingModels-2nd.py"
-             || fname === "06.Python-CreatingModels-2nd.py"
-             || fname === "09.Python-CreatingModels-2nd.py") {
-
-              const parts = fname.split('.');
-              const num   = parseInt(parts[0], 10);
+            if (fname.includes("Python-CreatingModels-2nd.py")) {
               let modelIndex;
-              if (num === 3)  modelIndex = 0;
-              else if (num === 6) modelIndex = 1;
-              else if (num === 9) modelIndex = 2;  
+              if (fname.startsWith("03.")) modelIndex = 0;
+              else if (fname.startsWith("06.")) modelIndex = 1;
+              else if (fname.startsWith("09.")) modelIndex = 2;
+
+              let pyWorkingDir2nd = pythonWorkingDir;
+              if (userOS === 'windows') {
+                  pyWorkingDir2nd += `\\\\Model0${modelData[modelIndex].index}-2`;
+              } else {
+                  pyWorkingDir2nd += `/Model0${modelData[modelIndex].index}-2`;
+              }
 
               tmpl = tmpl.replace(/^browser_type\s*=.*$/m, `browser_type = "${browserType}"`);
-              tmpl = tmpl.replace(/download\s*=.*/,  `download = "${pythonDownloadDir}"`);
-              tmpl = tmpl.replace(
-                /directory\s*=.*/,
-                `directory = "${pythonWorkingDir}/Model0${modelData[modelIndex].index}-2"`
-              );
+              tmpl = tmpl.replace(/download\s*=.*/, `download = r"${pythonDownloadDir}"`);
+              tmpl = tmpl.replace(/directory\s*=.*/, `directory = r"${pyWorkingDir2nd}"`);
               tmpl = tmpl.replace(/na_type\s*=.*/, `na_type = "${modelData[modelIndex].type}"`);
             }
-
+            
             generated.push({ fileName: fname, content: tmpl });
           });
 
@@ -567,7 +596,6 @@
               a.className = 'download-link';
               dlContainer.appendChild(a);
             });
-
         })
         .catch(err => {
           alert(`Template fetch failed: ${err}`);
@@ -582,19 +610,15 @@
         row.style.display = (idx <= selectedNum) ? '' : 'none';
       });
     }
-
+    
     window.addEventListener('DOMContentLoaded', function() {
+      const userOS = getOS();
+      updatePlaceholders(userOS);
       attachMWListeners();
       updateModelRows();
     });
 
     document.getElementById('numModels').addEventListener('change', updateModelRows);
-  </script>
-  <script>
-    window.addEventListener('beforeinstallprompt', function(e) {
-      e.preventDefault();
-      console.log('beforeinstallprompt has been suppressed.');
-    });
 
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
