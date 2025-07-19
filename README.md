@@ -40,7 +40,7 @@ There is a web application called Web 3DNA that generates structural models base
 | Type | Extension |  How to run |
 | :----- | :----- | :----- |
 | **Python** | **.py** | Please open the code in a text editor like VS Code and run it. |
-| **Linux** | **.txt** | Please paste the code into Ubuntu and run it. Alternatively, change the file extension to `.sh` and run it using the `sh` command. |
+| **shell scripts** | **.txt** | Please paste the code into Ubuntu or Terminal and run it. Alternatively, change the file extension to `.sh` and run it using the `sh` command. |
 
 [Note] When running the code "**Python-CreatingModels-2nd.py**", please make sure to perform the following operations.
 
@@ -55,11 +55,11 @@ Please install and set up the following software in advance.
 | Name | URL | Priority | Remarks |
 | :----- | :----- | :----- | :----- |
 | **Python** | https://www.python.org/downloads/windows/ | **Required** | After installing Python, open the command prompt and run `pip install selenium`. |
-| **Ubuntu** | https://apps.microsoft.com/search?query=Ubuntu | **Required** | It is necessary to turn on "**Windows Subsystem for Linux**" in the Windows settings to be able to use Linux code. |
+| **Ubuntu** | https://apps.microsoft.com/search?query=Ubuntu | **Required on Windows** | It is necessary to turn on "**Windows Subsystem for Linux**" in the Windows settings to be able to use shell scripts. |
 | **Phaser** | https://phenix-online.org/download | **Required** | Even if you have already installed the Windows ver. of Phenix, you need to install the Linux command line ver. [*2] |
-| **Google Chrome** | https://www.google.com/chrome/ | **Required** | Google Chrome, Microsoft Edge or Firefox are required. |
-| **Microsoft Edge** | https://www.microsoft.com/en-us/edge | **Required** | Google Chrome, Microsoft Edge or Firefox are required. |
-| **Firefox** | https://www.firefox.com/en-US/browsers/desktop/ | **Required** | Google Chrome, Microsoft Edge or Firefox are required. |
+| **Google Chrome** | https://www.google.com/chrome/ | **Required** | Either Google Chrome, Microsoft Edge, or Firefox is required.|
+| **Microsoft Edge** | https://www.microsoft.com/en-us/edge | **Required** | Either Google Chrome, Microsoft Edge, or Firefox is required. |
+| **Firefox** | https://www.firefox.com/en-US/browsers/desktop/ | **Required** | Either Google Chrome, Microsoft Edge, or Firefox is required. |
 | Xming | https://sourceforge.net/projects/xming/ | Required in some cases | When using Phaser, you <ins>may</ins> need to launch X server. |
 | Visual Studio Code | https://code.visualstudio.com/ | Recommended | In addition, download the extension of Python. |
 | Microsoft Excel | https://www.microsoft.com/en-us/microsoft-365 | Recommended  | This is useful for checking the results of molecular replacement. |
@@ -82,7 +82,8 @@ Please install and set up the following software in advance.
 | | Operating System | Browser |
 | :----- | :----- | :----- |
 | **Website** | Windows, macOS, iOS, Android | Google Chrome, Microsoft Edge, Firefox, Safari |
-| **Generated programming codes** | Windows, macOS | Google Chrome, Microsoft Edge, Firefox |
+| **Generated Python codes** | Windows, macOS | Google Chrome, Microsoft Edge, Firefox |
+| **Generated shell scripts** | Windows (Windows Subsystem for Linux), macOS |  |
 
 ## Reference
 - Ando, S., & Kondo, J. (2025), A new approach for nucleic acid structure determination: molecular replacement using massive multi-type models created through helical parameter adjustment. _Nucleic acids research_, in revision.
