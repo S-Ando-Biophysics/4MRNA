@@ -54,7 +54,7 @@ Please install and set up the following software in advance.
 
 | Name | URL | Priority | Remarks |
 | :----- | :----- | :----- | :----- |
-| **Python** | https://www.python.org/downloads/windows/ | **Required** | After installing Python, open the command prompt and run `pip install selenium`. |
+| **Python** | https://www.python.org/downloads/ | **Required** | After installing Python, open the command prompt and run `pip install selenium`. |
 | **Ubuntu** | https://apps.microsoft.com/search?query=Ubuntu | **Required on Windows** | It is necessary to turn on "**Windows Subsystem for Linux**" in the Windows settings to be able to use shell scripts. |
 | **Phaser** | https://phenix-online.org/download | **Required** | Even if you have already installed the Windows ver. of Phenix, you need to install the Linux command line ver. [*2] |
 | **Google Chrome** | https://www.google.com/chrome/ | **Required** | Either Google Chrome, Microsoft Edge, or Firefox is required.|
