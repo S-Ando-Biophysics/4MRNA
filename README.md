@@ -81,9 +81,9 @@ Please install and set up the following software in advance.
 ## Supported environment
 | | Operating System | Browser |
 | :----- | :----- | :----- |
-| **Website** | Windows, macOS, iOS, Android | Google Chrome, Microsoft Edge, Firefox, Safari |
-| **Generated Python codes** | Windows, macOS | Google Chrome, Microsoft Edge, Firefox |
-| **Generated shell scripts** | Windows (Windows Subsystem for Linux), macOS |  |
+| **Website** | Windows, Android, iOS | Google Chrome, Microsoft Edge, Firefox, Safari |
+| **Generated Python codes** | Windows | Google Chrome, Microsoft Edge, Firefox |
+| **Generated shell scripts** | Windows (Windows Subsystem for Linux) |  |
 
 ## Reference
 - Ando, S., & Kondo, J. (2025), A new approach for nucleic acid structure determination: molecular replacement using massive multi-type models created through helical parameter adjustment. _Nucleic acids research_, in revision.
