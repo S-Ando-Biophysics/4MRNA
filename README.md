@@ -7,10 +7,9 @@ You can access this website via the following URL. https://s-ando-biophysics.git
 
 Applying molecular replacement (MR) commonly used for structure determination to nucleic acids poses unique challenges that are not present for proteins. To solve these challenges, we developed a new innovative strategy called 4MRNA.
 
-One challenge is that nucleic acids can have different 3D structures even with the same sequence, which means that models existing in the database may not be suitable as a search model.Moreover, it is empirically known that MR of nucleic acids can fail even when the search model and the target structure differ only slightly.
+One challenge is that nucleic acids can have different 3D structures even with the same sequence, which means that models existing in the database may not be suitable as a search model. Moreover, it is empirically known that MR of nucleic acids can fail even when the search model and the target structure differ only slightly. To address these issues, the new strategy 4MRNA includes generating a large number of diverse search models and applying them to MR.
 
-To address these issues, the new strategy 4MRNA includes generating a large number of diverse search models and applying them to MR.
-
+There is a web application called Web 3DNA that generates structural models based on parameters that control the three-dimensional structure of nucleic acids. We have discovered a strategy for adjusting these parameters to improve the success rate of MR. Based on this strategy, we decided to use Web 3DNA to create a wide variety of models. The processes of parameter adjustment and model creation have been automated using Python. Subsequently, MR is performed for each of the many models created. Since this operation needs to be repeated many times, we automated this process using shell scripts on Linux.
 
 ## Instructions
 ### How to use the website
@@ -18,7 +17,7 @@ To address these issues, the new strategy 4MRNA includes generating a large numb
 
     | Required infomation | What to do |
     | :----- | :----- |
-    | **Browser** | Please select the type of browser from Google Chrome, Microsoft Edge or Firefox. |
+    | **Browser** | Please select your browser from Google Chrome, Microsoft Edge, or Firefox. |
     | **Default download directory of selected browser** | Please enter the folder where files are automatically saved when using the selected browser above. |
     | **Working directory** | Please enter the folder where you want to run 4MRNA. |
     | **Path and name of reflection file used in 4MRNA** | Please enter the location and name of the reflection file to be used for 4MRNA. For example, if there is a file named `reflections.mtz` in `D:/Sample/Phenix`, enter `D:/Sample/Phenix/reflections.mtz`. |
@@ -43,9 +42,7 @@ To address these issues, the new strategy 4MRNA includes generating a large numb
 | **Python** | **.py** | Please open the code in a text editor like VS Code and run it. |
 | **Linux** | **.txt** | Please paste the code into Ubuntu and run it. Alternatively, change the file extension to `.sh` and run it using the `sh` command. |
 
-[Note 1] The generated programming codes have only been tested on Windows PCs. 
-
-[Note 2] [**Important**] When running the code "**Python-CreatingModels-2nd.py**", please make sure to perform the following operations.
+[Note] When running the code "**Python-CreatingModels-2nd.py**", please make sure to perform the following operations.
 
 1. As a result of running "**02.Linux-MR-1model-<ins>Model01-1</ins>st.txt**", a file named "**results.txt**" will be generated. Open this file and identify the number corresponding to the parameter (Tilt, Roll, Twist) pattern  that shows good statistical values (LLG and TFZ).
 2. The files containing parameter patterns are located in a folder named something like "3DNA-ARNA" within the directory "**<ins>Model01-1</ins>**". Locate the file with the number identified in Step 1, then copy and paste them into the directory "**<ins>Model01-2</ins>**".
@@ -57,7 +54,7 @@ Please install and set up the following software in advance.
 
 | Name | URL | Priority | Remarks |
 | :----- | :----- | :----- | :----- |
-| **Python** | https://www.python.org/downloads/windows/ | **Required** | After installing Python, open the command prompt and run `pip install selenium webdriver-manager`. |
+| **Python** | https://www.python.org/downloads/windows/ | **Required** | After installing Python, open the command prompt and run `pip install selenium`. |
 | **Ubuntu** | https://apps.microsoft.com/search?query=Ubuntu | **Required** | It is necessary to turn on "**Windows Subsystem for Linux**" in the Windows settings to be able to use Linux code. |
 | **Phaser** | https://phenix-online.org/download | **Required** | Even if you have already installed the Windows ver. of Phenix, you need to install the Linux command line ver. [*2] |
 | **Google Chrome** | https://www.google.com/chrome/ | **Required** | Google Chrome, Microsoft Edge or Firefox are required. |
@@ -80,6 +77,12 @@ Please install and set up the following software in advance.
     cd /home/name
     vi .bashrc
     source /usr/local/phenix-1.21.1-5286/phenix_env.sh    # add to the last line
+
+## Supported environment
+| | Operating System | Browser |
+| :----- | :----- | :----- |
+| **Website** | Windows, macOS, iOS, Android | Google Chrome, Microsoft Edge, Firefox, Safari |
+| **Generated programming codes** | Windows, macOS | Google Chrome, Microsoft Edge, Firefox |
 
 ## Reference
 - Ando, S., & Kondo, J. (2025), A new approach for nucleic acid structure determination: molecular replacement using massive multi-type models created through helical parameter adjustment. _Nucleic acids research_, in revision.
