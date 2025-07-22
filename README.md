@@ -79,7 +79,7 @@ Please install and set up the following software in advance.
     mv /mnt/c/Users/name/Downloads/ccp4-9.0.010-linux64.tar.gz .
     gunzip ccp4-9.0.010-linux64.tar.gz
     tar -xvf ccp4-9.0.010-linux64.tar
-    ./ccp4-9.0-setup    # If an error occurs due to a missing library being displayed, install it using apt install <library-name> and run this command again.
+    ./ccp4-9.0-setup    # If an error occurs due to a missing library being displayed, install it using "apt install <library-name>" and run this command again.
     cd /opt/xtal/ccp4-9.0
     ./BINARY.setup
     exit
