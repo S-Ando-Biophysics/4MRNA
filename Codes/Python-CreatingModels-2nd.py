@@ -23,6 +23,8 @@ def make_driver():
         return webdriver.Edge()
     elif browser_type.lower() == "firefox":
         return webdriver.Firefox()
+    elif browser_type.lower() == "safari":
+        return webdriver.Safari()
     else:
         raise ValueError(f"Unsupported browser_type: {browser_type}")
 
