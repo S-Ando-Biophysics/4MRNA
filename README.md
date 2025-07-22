@@ -9,7 +9,7 @@ Applying molecular replacement (MR) commonly used for structure determination to
 
 One challenge is that nucleic acids can have different 3D structures even with the same sequence, which means that models existing in the database may not be suitable as a search model. Moreover, it is empirically known that MR of nucleic acids can fail even when the search model and the target structure differ only slightly. To address these issues, the new strategy 4MRNA includes generating a large number of diverse search models and applying them to MR.
 
-There is a web application called Web 3DNA that generates structural models based on parameters that control the three-dimensional structure of nucleic acids. We have discovered a strategy for adjusting these parameters to improve the success rate of MR. Based on this strategy, we decided to use Web 3DNA to create a wide variety of models. The processes of parameter adjustment and model creation have been automated using Python. Subsequently, MR is performed for each of the many models created. Since this operation needs to be repeated many times, we automated this process using shell scripts on Linux.
+There is a web application called Web 3DNA that generates structural models based on parameters that control the three-dimensional structure of nucleic acids. We have discovered a strategy for adjusting these parameters to improve the success rate of MR. Based on this strategy, we decided to use Web 3DNA to create a wide variety of models. The processes of parameter adjustment and model creation have been automated using Python. Subsequently, MR is performed for each of the many models created. Since this operation needs to be repeated many times, we automated this process using Shell scripts on Linux.
 
 ## Instructions
 ### How to use the website
@@ -17,7 +17,7 @@ There is a web application called Web 3DNA that generates structural models base
 
     | Required infomation | What to do |
     | :----- | :----- |
-    | **Browser** | Please select your browser from Google Chrome, Microsoft Edge, or Firefox. |
+    | **Browser** | Please select your browser from Google Chrome, Microsoft Edge, Firefox, or Safari. |
     | **Default download directory of selected browser** | Please enter the folder where files are automatically saved when using the selected browser above. |
     | **Working directory** | Please enter the folder where you want to run 4MRNA. |
     | **Path and name of reflection file used in 4MRNA** | Please enter the location and name of the reflection file to be used for 4MRNA. For example, if there is a file named `reflections.mtz` in `D:\Sample\Phenix`, enter `D:\Sample\Phenix\reflections.mtz`. |
@@ -29,7 +29,7 @@ There is a web application called Web 3DNA that generates structural models base
 
    [*1] The calculation is done using the Matthews coefficient etc.
 
-3. Click the button labeled "**Generate codes**". This will generate Python and Linux code.
+3. Click the button labeled "**Generate codes**". This will generate Python codes and Shell scripts.
 
 4. Click the button labeled "**Download this code**" or "**Download all codes**" to save the generated code.
 
@@ -40,7 +40,7 @@ There is a web application called Web 3DNA that generates structural models base
 | Type | Extension |  How to run |
 | :----- | :----- | :----- |
 | **Python** | **.py** | Please open the code in a text editor like VS Code and run it. |
-| **shell scripts** | **.txt** | Please paste the code into Ubuntu or Terminal and run it. Alternatively, change the file extension to `.sh` and run it using the `bash` command. |
+| **Shell** | **.txt** | Please paste the code into Ubuntu or Terminal and run it. Alternatively, change the file extension to `.sh` and run it using the `bash` command. |
 
 [Note] When running the code "**Python-CreatingModels-2nd.py**", please make sure to perform the following operations.
 
@@ -110,7 +110,7 @@ Please install and set up the following software in advance.
 | **Firefox** | 〇 |  | 〇 | 
 | **Safari** | - |  | -| 
 
-### Generated Programming Codes (shell)
+### Generated Programming Codes (Shell)
 
 | Windows (Windows Subsystem for Linux; Ubuntu) | macOS | Linux (Rocky Linux) |
 | :-----: | :-----: | :-----: |
