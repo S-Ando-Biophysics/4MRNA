@@ -94,7 +94,7 @@ Please install and set up the following software in advance.
 | **Firefox** | 〇 |  | 〇 | 
 | **Safari** | - |  | -| 
 
-[Note] Since it iss published using GitHub Pages, this website itself (including the code generation) is, in principle, compatible with all major operating systems and browsers.
+[Note] Since it is published using GitHub Pages, this website itself (having the code generation) is, in principle, compatible with all major operating systems and browsers.
 
 ### Generated Programming Codes (Python)
 
