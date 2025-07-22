@@ -87,7 +87,7 @@ Please install and set up the following software in advance.
 ## Supported environment
 ### This website (Programming Code Generator for 4MRNA)
 | | Google Chrome | Microsoft Edge | Firefox | Safari |
-| :----- | :----- | :----- | :----- | :----- |
+| :-----: | :-----: | :-----: | :-----: | :-----: |
 | **Windows** | 〇 | 〇 | 〇 | - | 
 | **macOS** |  |  |  |  | 
 | **Linux (Rocky Linux)** | 〇 | 〇 | 〇 | - | 
