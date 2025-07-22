@@ -94,30 +94,22 @@ Please install and set up the following software in advance.
 | **Firefox** | 〇 |  | 〇 | 
 | **Safari** | - |  | -| 
 
-
-| | Google Chrome | Microsoft Edge | Firefox | Safari |
-| :-----: | :-----: | :-----: | :-----: | :-----: |
-| **Windows** | 〇 | 〇 | 〇 | - | 
-| **macOS** |  |  |  |  | 
-| **Linux (Rocky Linux)** | 〇 | 〇 | 〇 | - | 
-| **Android** | 〇 | 〇 | 〇 | - | 
-| **iOS** | 〇 | 〇 | 〇 | 〇 | 
-
-[Note] Since it's published using GitHub Pages, this website itself (including the code generation) is, in principle, compatible with all major operating systems and browsers.
+[Note] Since it iss published using GitHub Pages, this website itself (including the code generation) is, in principle, compatible with all major operating systems and browsers.
 
 ### Generated Programming Codes (Python)
 
-| | Google Chrome | Microsoft Edge | Firefox | Safari |
-| :-----: | :-----: | :-----: | :-----: | :-----: |
-| **Windows** | 〇 | 〇 | 〇 | - | 
-| **macOS** |  |  |  |  | 
-| **Linux (Rocky Linux)** | 〇 | 〇 | 〇 | - | 
+| | Windows | macOS | Linux (Rocky Linux) |
+| :-----: | :-----: | :-----: | :-----: |
+| **Google Chrome** | 〇 |  | 〇 |
+| **Microsoft Edge** | 〇 |  | 〇 |
+| **Firefox** | 〇 |  | 〇 | 
+| **Safari** | - |  | -| 
 
+### Generated Programming Codes (shell)
 
-| :----- | :----- | :----- |
-| **Website** | Windows, Linux (RochyLinux), Android, iOS | Google Chrome, Microsoft Edge, Firefox, Safari |
-| **Generated Python codes** | Windows | Google Chrome, Microsoft Edge, Firefox |
-| **Generated shell scripts** | Windows (Windows Subsystem for Linux) |  |
+| Windows (Windows Subsystem for Linux; Ubuntu) | macOS | Linux (Rocky Linux) |
+| :-----: | :-----: | :-----: |
+| 〇 |  | 〇 |
 
 ## Reference
 - Ando, S., & Kondo, J. (2025), A new approach for nucleic acid structure determination: molecular replacement using massive multi-type models created through helical parameter adjustment. _Nucleic acids research_, in revision.
