@@ -434,14 +434,14 @@
       let pythonReflectionPath, linuxReflectionPath, pythonDownloadDir, pythonWorkingDir, linuxParentDir;
 
       if (userOS === 'windows') {
-        // Windows: escape for Python, convert to WSL path for shell
+
         pythonReflectionPath = reflectionPathInput.replace(/\\/g, "\\\\");
         linuxReflectionPath  = convertToLinuxPath(reflectionPathInput);
         pythonDownloadDir = downloadDirInput.replace(/\\/g, "\\\\");
         pythonWorkingDir  = workingDirInput.replace(/\\/g, "\\\\");
         linuxParentDir    = convertToLinuxPath(workingDirInput);
       } else {
-        // macOS/Linux: use paths as is
+
         pythonReflectionPath = reflectionPathInput;
         linuxReflectionPath  = reflectionPathInput;
         pythonDownloadDir = downloadDirInput;
