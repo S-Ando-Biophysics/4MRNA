@@ -86,6 +86,7 @@ Please install and set up the following software in advance.
 
 ## Supported environment
 ### This website (Programming Code Generator for 4MRNA)
+
 | | Google Chrome | Microsoft Edge | Firefox | Safari |
 | :-----: | :-----: | :-----: | :-----: | :-----: |
 | **Windows** | 〇 | 〇 | 〇 | - | 
@@ -93,9 +94,18 @@ Please install and set up the following software in advance.
 | **Linux (Rocky Linux)** | 〇 | 〇 | 〇 | - | 
 | **Android** | 〇 | 〇 | 〇 | - | 
 | **iOS** | 〇 | 〇 | 〇 | 〇 | 
+
 [Note] Since it's published using GitHub Pages, this website itself (including the code generation) is, in principle, compatible with all major operating systems and browsers.
 
-| | Operating System | Browser |
+### Generated Programming Codes (Python)
+
+| | Google Chrome | Microsoft Edge | Firefox | Safari |
+| :-----: | :-----: | :-----: | :-----: | :-----: |
+| **Windows** | 〇 | 〇 | 〇 | - | 
+| **macOS** |  |  |  |  | 
+| **Linux (Rocky Linux)** | 〇 | 〇 | 〇 | - | 
+
+
 | :----- | :----- | :----- |
 | **Website** | Windows, Linux (RochyLinux), Android, iOS | Google Chrome, Microsoft Edge, Firefox, Safari |
 | **Generated Python codes** | Windows | Google Chrome, Microsoft Edge, Firefox |
