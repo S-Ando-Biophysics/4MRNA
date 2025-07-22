@@ -68,7 +68,7 @@ Please install and set up the following software in advance.
 | Xming | https://sourceforge.net/projects/xming/ | Required in some cases | When using Phaser, you <ins>may</ins> need to launch X server. |
 | Microsoft Excel | https://www.microsoft.com/en-us/microsoft-365 | Recommended  | This is useful for checking the results of molecular replacement. |
 
-[*2] The following steps are for Windows. The procedure for macOS is similar.
+[*2] The following steps are for Windows (Ubuntu). The procedure for macOS is similar.
 
     # Please change the directory name and Phenix version as appropriate.
     # Assume that "ccp4-9.0.010-linux64.tar.gz" has been downloaded to "C:\Users\name\Downloads".
