@@ -93,6 +93,7 @@ Please install and set up the following software in advance.
 | **Linux (Rocky Linux)** | 〇 | 〇 | 〇 | - | 
 | **Android** | 〇 | 〇 | 〇 | - | 
 | **iOS** | 〇 | 〇 | 〇 | 〇 | 
+[Note] Since it's published using GitHub Pages, this website itself (including the code generation) is, in principle, compatible with all major operating systems and browsers.
 
 | | Operating System | Browser |
 | :----- | :----- | :----- |
