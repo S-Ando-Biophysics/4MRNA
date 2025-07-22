@@ -52,21 +52,21 @@ There is a web application called Web 3DNA that generates structural models base
 ### Preparation
 Please install and set up the following software in advance.
 
-| Type | Name | URL | Priority | Remarks |
-| :----- | :----- | :----- | :----- | :----- |
-| Language & environment | **Python** | https://www.python.org/downloads/ | **Required** | After installing Python, open the command prompt and run `pip install selenium pandas`. |
-| Language & environment | Visual Studio Code | https://code.visualstudio.com/ | Recommended | In addition, download the extension of Python. |
-| Language & environment | **Ubuntu** | https://apps.microsoft.com/search?query=Ubuntu | **Required on Windows** | It is necessary to turn on "**Windows Subsystem for Linux**" in the Windows settings to be able to use shell scripts. |
-| Software | **Phaser** | https://phenix-online.org/download | **Required** | Even if you have already installed the GUI ver. of Phenix, you need to install the command line ver. [*2] |
-| Browser | **Google Chrome** | https://www.google.com/chrome/ | **Required** | Either Google Chrome, Microsoft Edge, Firefox, or Safari is required. |
-| Browser | **Microsoft Edge** | https://www.microsoft.com/en-us/edge | **Required** | Either Google Chrome, Microsoft Edge, Firefox, or Safari is required. |
-| Browser | **Firefox** | https://www.firefox.com/en-US/browsers/desktop/ | **Required** | Either Google Chrome, Microsoft Edge, Firefox, or Safari is required. |
-| Browser | **Safari** |  | **Required** | Either Google Chrome, Microsoft Edge, Firefox, or Safari is required. For Safari, enable "**Allow Remote Automation**" in the developer settings. |
-| WebDriver | ChromeDriver | https://sites.google.com/chromium.org/driver/ | Required in some cases [*3] | [for Google Chrome] After downloading the driver, you can use it either by specifying the file directly or by adding it to your PATH. |
-| WebDriver | Microsoft Edge WebDriver | https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver | Required in some cases [*3] | [for Microsoft Edge] After downloading the driver, you can use it either by specifying the file directly or by adding it to your PATH. |
-| WebDriver | geckodriver | https://github.com/mozilla/geckodriver | Required in some cases [*3] | [for Firefox] After downloading the driver, you can use it either by specifying the file directly or by adding it to your PATH. |
-| Other | Xming | https://sourceforge.net/projects/xming/ | Required in some cases | When using Phaser, you <ins>may</ins> need to launch X server. |
-| Other | Microsoft Excel | https://www.microsoft.com/en-us/microsoft-365 | Recommended  | This is useful for checking the results of molecular replacement. |
+| Name | URL | Priority | Remarks |
+| :----- | :----- | :----- | :----- |
+| **Python** | https://www.python.org/downloads/ | **Required** | After installing Python, open the command prompt and run `pip install selenium pandas`. |
+| Visual Studio Code | https://code.visualstudio.com/ | Recommended | In addition, download the extension of Python. |
+| **Ubuntu** | https://apps.microsoft.com/search?query=Ubuntu | **Required on Windows** | It is necessary to turn on "**Windows Subsystem for Linux**" in the Windows settings to be able to use shell scripts. |
+| **Phaser** | https://phenix-online.org/download | **Required** | Even if you have already installed the GUI ver. of Phenix, you need to install the command line ver. [*2] |
+| **Google Chrome** | https://www.google.com/chrome/ | **Required** | Either Google Chrome, Microsoft Edge, Firefox, or Safari is required. |
+| **Microsoft Edge** | https://www.microsoft.com/en-us/edge | **Required** | Either Google Chrome, Microsoft Edge, Firefox, or Safari is required. |
+| **Firefox** | https://www.firefox.com/en-US/browsers/desktop/ | **Required** | Either Google Chrome, Microsoft Edge, Firefox, or Safari is required. |
+| **Safari** |  | **Required** | Either Google Chrome, Microsoft Edge, Firefox, or Safari is required. For Safari, enable "**Allow Remote Automation**" in the developer settings. |
+| ChromeDriver | https://sites.google.com/chromium.org/driver/ | Required in some cases [*3] | [WebDriver for Google Chrome] After downloading the driver, you can use it either by specifying the file directly or by adding it to your PATH. |
+| Microsoft Edge WebDriver | https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver | Required in some cases [*3] | [WebDriver for Microsoft Edge] After downloading the driver, you can use it either by specifying the file directly or by adding it to your PATH. |
+| geckodriver | https://github.com/mozilla/geckodriver | Required in some cases [*3] | [WebDriver for Firefox] After downloading the driver, you can use it either by specifying the file directly or by adding it to your PATH. |
+| Xming | https://sourceforge.net/projects/xming/ | Required in some cases | When using Phaser, you <ins>may</ins> need to launch X server. |
+| Microsoft Excel | https://www.microsoft.com/en-us/microsoft-365 | Recommended  | This is useful for checking the results of molecular replacement. |
 
 [*2] https://phenix-online.org/documentation/install-setup-run.html#command-line-installer-macos-and-linux
 
@@ -85,11 +85,18 @@ Please install and set up the following software in advance.
 [*3] When using Selenium and Webdriver to automate the browser, you used to have to download the driver yourself, but since Selenium 4.6.0 (released on 2022-11-04), it automatically downloads the driver, so there is no need to prepare it in advance.
 
 ## Supported environment
-
+### This website (Programming Code Generator for 4MRNA)
+| | Google Chrome | Microsoft Edge | Firefox | Safari |
+| :----- | :----- | :----- | :----- | :----- |
+| **Windows** | 〇 | 〇 | 〇 | - | 
+| **macOS** |  |  |  |  | 
+| **Linux (Rocky Linux)** | 〇 | 〇 | 〇 | - | 
+| **Android** | 〇 | 〇 | 〇 | - | 
+| **iOS** | 〇 | 〇 | 〇 | 〇 | 
 
 | | Operating System | Browser |
 | :----- | :----- | :----- |
-| **Website** | Windows, Linux (Rocht Linux), Android, iOS | Google Chrome, Microsoft Edge, Firefox, Safari |
+| **Website** | Windows, Linux (RochyLinux), Android, iOS | Google Chrome, Microsoft Edge, Firefox, Safari |
 | **Generated Python codes** | Windows | Google Chrome, Microsoft Edge, Firefox |
 | **Generated shell scripts** | Windows (Windows Subsystem for Linux) |  |
 
