@@ -57,7 +57,7 @@ Please install and set up the following software in advance.
 | **Python** | https://www.python.org/downloads/ | **Required** | After installing Python, open the command prompt and run `pip install selenium pandas`. |
 | Visual Studio Code | https://code.visualstudio.com/ | Recommended | In addition, download the extension of Python. |
 | **Ubuntu** | https://apps.microsoft.com/search?query=Ubuntu | **Required on Windows** | It is necessary to turn on "**Windows Subsystem for Linux**" in the Windows settings to be able to use shell scripts. |
-| **Phaser** | https://phenix-online.org/download | **Required** | Even if you have already installed the GUI ver. of Phenix, you need to install the command line ver. [*2] |
+| **Phaser** | https://www.ccp4.ac.uk/download | **Required** | The command "phaser" is included in CCP4. If you have not installed CCP4, please install it. [*2] |
 | **Google Chrome** | https://www.google.com/chrome/ | **Required** | Either Google Chrome, Microsoft Edge, Firefox, or Safari is required. |
 | **Microsoft Edge** | https://www.microsoft.com/en-us/edge | **Required** | Either Google Chrome, Microsoft Edge, Firefox, or Safari is required. |
 | **Firefox** | https://www.firefox.com/en-US/browsers/desktop/ | **Required** | Either Google Chrome, Microsoft Edge, Firefox, or Safari is required. |
@@ -68,19 +68,24 @@ Please install and set up the following software in advance.
 | Xming | https://sourceforge.net/projects/xming/ | Required in some cases | When using Phaser, you <ins>may</ins> need to launch X server. |
 | Microsoft Excel | https://www.microsoft.com/en-us/microsoft-365 | Recommended  | This is useful for checking the results of molecular replacement. |
 
-[*2] https://phenix-online.org/documentation/install-setup-run.html#command-line-installer-macos-and-linux
+[*2] The following steps are for Windows. The procedure for macOS is similar.
 
     # Please change the directory name and Phenix version as appropriate.
+    # Assume that "ccp4-9.0.010-linux64.tar.gz" has been downloaded to "C:\Users\name\Downloads".
     sudo su
-    cd /usr/local/bin
-    mv /mnt/c/Users/name/Downloads/phenix-installer-1.21.1-5286-intel-linux-2.6-x86_64-centos6.tar.gz .
-    gunzip phenix-installer-1.21.1-5286-intel-linux-2.6-x86_64-centos6.tar.gz
-    tar -xvf phenix-installer-1.21.1-5286-intel-linux-2.6-x86_64-centos6.tar
-    cd phenix-installer-1.21.1-5286-intel-linux-2.6-x86_64-centos6
-    ./install
+    cd /usr/local
+    mkdir ccp4
+    cd ccp4
+    mv /mnt/c/Users/name/Downloads/ccp4-9.0.010-linux64.tar.gz .
+    gunzip ccp4-9.0.010-linux64.tar.gz
+    tar -xvf ccp4-9.0.010-linux64.tar
+    ./ccp4-9.0-setup    # If an error occurs due to a missing library being displayed, install it using apt install <library-name> and run this command again.
+    cd /opt/xtal/ccp4-9.0
+    ./BINARY.setup
+    exit
     cd /home/name
     vi .bashrc
-    source /usr/local/phenix-1.21.1-5286/phenix_env.sh    # add to the last line
+    source /opt/xtal/ccp4-9.0/bin/ccp4.setup-sh    # add to the last line
 
 [*3] When using Selenium and Webdriver to automate the browser, you used to have to download the driver yourself, but since Selenium 4.6.0 (released on 2022-11-04), it automatically downloads the driver, so there is no need to prepare it in advance.
 
