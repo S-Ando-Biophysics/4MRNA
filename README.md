@@ -40,7 +40,7 @@ There is a web application called Web 3DNA that generates structural models base
 | Type | Extension |  How to run |
 | :----- | :----- | :----- |
 | **Python** | **.py** | Please open the code in a text editor like VS Code and run it. |
-| **shell scripts** | **.txt** | Please paste the code into Ubuntu or Terminal and run it. Alternatively, change the file extension to `.sh` and run it using the `sh` command. |
+| **shell scripts** | **.txt** | Please paste the code into Ubuntu or Terminal and run it. Alternatively, change the file extension to `.sh` and run it using the `bash` command. |
 
 [Note] When running the code "**Python-CreatingModels-2nd.py**", please make sure to perform the following operations.
 
