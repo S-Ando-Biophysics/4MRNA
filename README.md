@@ -60,6 +60,7 @@ Please install and set up the following software in advance.
 | **Google Chrome** | https://www.google.com/chrome/ | **Required** | Either Google Chrome, Microsoft Edge, or Firefox is required.|
 | **Microsoft Edge** | https://www.microsoft.com/en-us/edge | **Required** | Either Google Chrome, Microsoft Edge, or Firefox is required. |
 | **Firefox** | https://www.firefox.com/en-US/browsers/desktop/ | **Required** | Either Google Chrome, Microsoft Edge, or Firefox is required. |
+| WebDriver | https://developer.chrome.com/docs/chromedriver/downloads https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver https://github.com/mozilla/geckodriver | Required in some cases [*3] | After downloading the driver, you can use it either by specifying the file directly or by adding it to your PATH. |
 | Xming | https://sourceforge.net/projects/xming/ | Required in some cases | When using Phaser, you <ins>may</ins> need to launch X server. |
 | Visual Studio Code | https://code.visualstudio.com/ | Recommended | In addition, download the extension of Python. |
 | Microsoft Excel | https://www.microsoft.com/en-us/microsoft-365 | Recommended  | This is useful for checking the results of molecular replacement. |
@@ -77,6 +78,8 @@ Please install and set up the following software in advance.
     cd /home/name
     vi .bashrc
     source /usr/local/phenix-1.21.1-5286/phenix_env.sh    # add to the last line
+
+[*3] When using Selenium and Webdriver to automate the browser, you used to have to download the driver yourself, but since Selenium 4.6.0 (released on 2022-11-04), it automatically downloads the driver, so there is no need to prepare it in advance.
 
 ## Supported environment
 | | Operating System | Browser |
