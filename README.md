@@ -60,7 +60,7 @@ Please install and set up the following software in advance.
 | **Google Chrome** | https://www.google.com/chrome/ | **Required** | Either Google Chrome, Microsoft Edge, or Firefox is required.|
 | **Microsoft Edge** | https://www.microsoft.com/en-us/edge | **Required** | Either Google Chrome, Microsoft Edge, or Firefox is required. |
 | **Firefox** | https://www.firefox.com/en-US/browsers/desktop/ | **Required** | Either Google Chrome, Microsoft Edge, or Firefox is required. |
-| WebDriver | - https://developer.chrome.com/docs/chromedriver/downloads - https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver - https://github.com/mozilla/geckodriver | Required in some cases [*3] | After downloading the driver, you can use it either by specifying the file directly or by adding it to your PATH. |
+| WebDriver | + https://developer.chrome.com/docs/chromedriver/downloads  + https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver  + https://github.com/mozilla/geckodriver | Required in some cases [*3] | After downloading the driver, you can use it either by specifying the file directly or by adding it to your PATH. |
 | Xming | https://sourceforge.net/projects/xming/ | Required in some cases | When using Phaser, you <ins>may</ins> need to launch X server. |
 | Visual Studio Code | https://code.visualstudio.com/ | Recommended | In addition, download the extension of Python. |
 | Microsoft Excel | https://www.microsoft.com/en-us/microsoft-365 | Recommended  | This is useful for checking the results of molecular replacement. |
