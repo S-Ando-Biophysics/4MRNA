@@ -77,4 +77,7 @@ for folder_path in ./phaser-*/; do
     done
 done
 paste "./TopLLG.txt" "./TopTFZ.txt" | cut -f 1,2,4 --output-delimiter=" " | awk 'NF' > "./results.txt"
-sed -i '1iModel TopLLG TopTFZ' "${file_path}/results.txt"
+tmp_file=$(mktemp)
+echo 'Model TopLLG TopTFZ' > "$tmp_file"
+cat "${file_path}/results.txt" >> "$tmp_file"
+mv "$tmp_file" "${file_path}/results.txt"
