@@ -78,7 +78,7 @@ for folder_path in ./phaser-*/; do
     done
 done
 paste ./TopLLG.txt ./TopTFZ.txt \
-| awk -F'\t' 'NF { print $1" "$2" "$4 }' \
+| awk -F'\t' -v OFS=' ' 'NF { print $1, $2, $4 }' \
 > ./results.txt
 tmp_file=$(mktemp)
 echo 'Model TopLLG TopTFZ' > "$tmp_file"
