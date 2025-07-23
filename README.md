@@ -56,7 +56,7 @@ Please install and set up the following software in advance.
 | :----- | :----- | :----- | :----- |
 | **Python** | https://www.python.org/downloads/ | **Required** | After installing Python, open the command prompt and run `pip install selenium pandas`. |
 | Visual Studio Code | https://code.visualstudio.com/ | Recommended | In addition, download the extension of Python. |
-| **Ubuntu** | https://apps.microsoft.com/search?query=Ubuntu | **Required on Windows** | It is necessary to turn on "**Windows Subsystem for Linux**" in the Windows settings to be able to use shell scripts. |
+| **Ubuntu** | https://apps.microsoft.com/search?query=Ubuntu | **Required on Windows** | It is necessary to turn on "**Windows Subsystem for Linux (WSL)**" in the Windows settings to be able to use shell scripts. |
 | **Phaser** | https://www.ccp4.ac.uk/download | **Required** | The command "phaser" is included in CCP4. If you have not installed CCP4, please install it. [*2] |
 | **Google Chrome** | https://www.google.com/chrome/ | **Required** | Either Google Chrome, Microsoft Edge, Firefox, or Safari is required. |
 | **Microsoft Edge** | https://www.microsoft.com/en-us/edge | **Required** | Either Google Chrome, Microsoft Edge, Firefox, or Safari is required. |
@@ -91,24 +91,11 @@ Please install and set up the following software in advance.
 
 ## Supported environment
 
-|  |  |
-|---|---|
-| This website (Programming Code Generator for 4MRNA) | Since it is published using GitHub Pages, this website itself (having the code generation) is, in principle, compatible with all major operating systems and browsers.
-+ Operating system: Windows, macOS, Linux (Rocky Linux) 
-+ Browser: Google Chrome, Microsoft Edge, Firefox, Safari |
-|  |  |
-
-### This website (Programming Code Generator for 4MRNA)
-Since it is published using GitHub Pages, this website itself (having the code generation) is, in principle, compatible with all major operating systems and browsers.
-+ Operating system: Windows, macOS, Linux (Rocky Linux) 
-+ Browser: Google Chrome, Microsoft Edge, Firefox, Safari
-
-### Generated Programming Codes (Python)
-+ Operating system: Windows, macOS, Linux (Rocky Linux) 
-+ Browser: Google Chrome, Microsoft Edge, Firefox, Safari
-
-### Generated Programming Codes (Shell)
-+ Operating system: Windows (Windows Subsystem for Linux; Ubuntu), macOS, Linux (Rocky Linux) 
+|  | Operating system | Browser |
+| :----- | :----- | :----- |
+| **This website** | Windows, macOS, Linux (Rocky Linux) | Google Chrome, Microsoft Edge, Firefox, Safari |
+| **Generateed Python codes** | Windows, macOS, Linux (Rocky Linux) | Google Chrome, Microsoft Edge, Firefox, Safari |
+| **Generateed Shell scripts** | Windows (WSL; Ubuntu), macOS, Linux (Rocky Linux) | - |
 
 ## Reference
 - Ando, S., & Kondo, J. (2025), A new approach for nucleic acid structure determination: molecular replacement using massive multi-type models created through helical parameter adjustment. _Nucleic acids research_, in revision.
