@@ -91,30 +91,16 @@ Please install and set up the following software in advance.
 
 ## Supported environment
 ### This website (Programming Code Generator for 4MRNA)
-
-| | Windows | macOS | Linux (Rocky Linux) |
-| :-----: | :-----: | :-----: | :-----: |
-| **Google Chrome** | 〇 | 〇 | 〇 |
-| **Microsoft Edge** | 〇 | 〇 | 〇 |
-| **Firefox** | 〇 | 〇 | 〇 | 
-| **Safari** | - | 〇 | -| 
-
-[Note] Since it is published using GitHub Pages, this website itself (having the code generation) is, in principle, compatible with all major operating systems and browsers.
+Since it is published using GitHub Pages, this website itself (having the code generation) is, in principle, compatible with all major operating systems and browsers.
++ Operating system: Windows, macOS, Linux (Rocky Linux) 
++ Browser: Google Chrome, Microsoft Edge, Firefox, Safari
 
 ### Generated Programming Codes (Python)
-
-| | Windows | macOS | Linux (Rocky Linux) |
-| :-----: | :-----: | :-----: | :-----: |
-| **Google Chrome** | 〇 | 〇 | 〇 |
-| **Microsoft Edge** | 〇 | 〇 | 〇 |
-| **Firefox** | 〇 | 〇 | 〇 | 
-| **Safari** | - | 〇 | -| 
++ Operating system: Windows, macOS, Linux (Rocky Linux) 
++ Browser: Google Chrome, Microsoft Edge, Firefox, Safari
 
 ### Generated Programming Codes (Shell)
-
-| Windows (Windows Subsystem for Linux; Ubuntu) | macOS | Linux (Rocky Linux) |
-| :-----: | :-----: | :-----: |
-| 〇 | 〇 | 〇 |
++ Operating system: Windows, macOS, Linux (Rocky Linux) 
 
 ## Reference
 - Ando, S., & Kondo, J. (2025), A new approach for nucleic acid structure determination: molecular replacement using massive multi-type models created through helical parameter adjustment. _Nucleic acids research_, in revision.
