@@ -36,68 +36,61 @@ SEARch ENSEmble ${base_name_1} NUM 1
 SEARch ENSEmble ${base_name_2} NUM 2
 SEARch ENSEmble ${base_name_3} NUM 3
 EOF
-      mv PHASER.sol "${output_directory}/"
-      mv PHASER.1.mtz "${output_directory}/"
-      mv PHASER.1.pdb "${output_directory}/"
-    done
-  done
+  mv PHASER.sol PHASER.1.mtz PHASER.1.pdb "${output_directory}/"
   cp "${pdb_file_1}" "${finish_directory}/"
 done
-output_file="./extracted_data.txt"
-for folder_path in ./phaser-*/; do
-    for phaser_sol in "${folder_path}"PHASER.sol; do
-        if [ -f "$phaser_sol" ]; then
-            folder_name=$(awk 'NR==1 {print $2; exit}' "$phaser_sol")
-            solu_set_line=$(awk '/SOLU SET/ {print; exit}' "$phaser_sol")
-            if [ -n "$solu_set_line" ]; then
-                result=$(echo "$solu_set_line" | awk '{for (i=1; i<=NF; i++) {if ($i ~ /LLG=/ || $i ~ /TFZ=/) {printf "%s\t", $i}} print ""}')
-                if [ -n "$result" ]; then
-                    echo -e "\n$folder_name\n$result" >> "$output_file"
-                fi
-            fi
-        fi
-    done
-done
-output_file="./extracted_data_LGG.txt"
+llg_extracted="./extracted_data_LGG.txt"
 llg_output_file="./TopLLG.txt"
+: > "$llg_extracted"; : > "$llg_output_file"
 for folder_path in ./phaser-*/; do
-    for phaser_sol in "${folder_path}"PHASER.sol; do
-        if [ -f "$phaser_sol" ]; then
-            folder_name=$(awk 'NR==1 {print $2; exit}' "$phaser_sol")
-            solu_set_line=$(awk '/SOLU SET/ {print; exit}' "$phaser_sol")
-            if [ -n "$solu_set_line" ]; then
-                result=$(echo "$solu_set_line" | awk '{for (i=1; i<=NF; i++) {if ($i ~ /LLG=/) {gsub(/[^0-9.]/, "", $i); printf "%s\t", $i}} print ""}')
-                if [ -n "$result" ]; then
-                    echo -e "\n$folder_name\n$result" >> "$output_file"
-                    numeric_result=$(echo "$result" | sed 's/[^0-9 \t]//g')
-                    max_value=$(echo "$numeric_result" | awk '{max=$1; for(i=2;i<=NF;i++) if($i>max) max=$i; print max}')
-                    echo -e "\n$folder_name\t$max_value" >> "$llg_output_file"
-                fi
-            fi
-        fi
-    done
+  phaser_sol="${folder_path}PHASER.sol"
+  [ -f "$phaser_sol" ] || continue
+  folder_name=$(awk 'NR==1{print $2; exit}' "$phaser_sol")
+  solu_set_line=$(awk '/SOLU SET/ {print; exit}' "$phaser_sol")
+  [ -n "$solu_set_line" ] || continue
+  result=$(echo "$solu_set_line" | awk '{
+    sep="";
+    for(i=1;i<=NF;i++){
+      if($i ~ /LLG=/){
+        gsub(/[^0-9.]/,"",$i);
+        printf "%s%s", sep, $i;
+        sep=",";
+      }
+    }
+    printf "\n"
+  }')
+  [ -n "$result" ] || continue
+  printf '\n%s\n%s\n' "$folder_name" "$result" >> "$llg_extracted"
+  max_value=$(echo "$result" | awk -F',' '{max=$1; for(i=2;i<=NF;i++) if($i>max) max=$i; print max}')
+  printf '\n%s,%s\n' "$folder_name" "$max_value" >> "$llg_output_file"
 done
-output_file="./extracted_data_TFZ.txt"
+tfz_extracted="./extracted_data_TFZ.txt"
 tfz_output_file="./TopTFZ.txt"
+: > "$tfz_extracted"; : > "$tfz_output_file"
 for folder_path in ./phaser-*/; do
-    for phaser_sol in "${folder_path}"PHASER.sol; do
-        if [ -f "$phaser_sol" ]; then
-            folder_name=$(awk 'NR==1 {print $2; exit}' "$phaser_sol")
-            solu_set_line=$(awk '/SOLU SET/ {print; exit}' "$phaser_sol")
-            if [ -n "$solu_set_line" ]; then
-                result=$(echo "$solu_set_line" | awk '{for (i=1; i<=NF; i++) {if ($i ~ /TFZ=/) {gsub(/[^0-9.]/, "", $i); printf "%s\t", $i}} print ""}')
-                if [ -n "$result" ]; then
-                    echo -e "\n$folder_name\n$result" >> "$output_file"
-                    max_value=$(echo "$result" | awk '{max=$1; for(i=2;i<=NF;i++) if($i>max) max=$i; print max}')
-                    echo -e "\n$folder_name\t$max_value" >> "$tfz_output_file"
-                fi
-            fi
-        fi
-    done
+  phaser_sol="${folder_path}PHASER.sol"
+  [ -f "$phaser_sol" ] || continue
+  folder_name=$(awk 'NR==1{print $2; exit}' "$phaser_sol")
+  solu_set_line=$(awk '/SOLU SET/ {print; exit}' "$phaser_sol")
+  [ -n "$solu_set_line" ] || continue
+  result=$(echo "$solu_set_line" | awk '{
+    sep="";
+    for(i=1;i<=NF;i++){
+      if($i ~ /TFZ=/){
+        gsub(/[^0-9.]/,"",$i);
+        printf "%s%s", sep, $i;
+        sep=",";
+      }
+    }
+    printf "\n"
+  }')
+  [ -n "$result" ] || continue
+  printf '\n%s\n%s\n' "$folder_name" "$result" >> "$tfz_extracted"
+  max_value=$(echo "$result" | awk -F',' '{max=$1; for(i=2;i<=NF;i++) if($i>max) max=$i; print max}')
+  printf '\n%s,%s\n' "$folder_name" "$max_value" >> "$tfz_output_file"
 done
-paste "./TopLLG.txt" "./TopTFZ.txt" | cut -f 1,2,4 --output-delimiter=" " | awk 'NF' > "./results.txt"
-tmp_file=$(mktemp)
-echo 'Model TopLLG TopTFZ' > "$tmp_file"
-cat "${file_path}/results.txt" >> "$tmp_file"
-mv "$tmp_file" "${file_path}/results.txt"
+{
+  printf 'Model TopLLG TopTFZ\n'
+  awk -F',' 'NR==FNR{llg[$1]=$2; next} {print $1, llg[$1], $2}' OFS=' ' TopLLG.txt TopTFZ.txt
+} > "${file_path}/results.txt"
 mkdir -p "${parent_directory}/Model03-2"
