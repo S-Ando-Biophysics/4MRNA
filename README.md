@@ -90,6 +90,14 @@ Please install and set up the following software in advance.
 [*3] When using Selenium and Webdriver to automate the browser, you used to have to download the driver yourself, but since Selenium 4.6.0 (released on 2022-11-04), it automatically downloads the driver, so there is no need to prepare it in advance.
 
 ## Supported environment
+
+|  |  |
+|---|---|
+| This website (Programming Code Generator for 4MRNA) | Since it is published using GitHub Pages, this website itself (having the code generation) is, in principle, compatible with all major operating systems and browsers.
++ Operating system: Windows, macOS, Linux (Rocky Linux) 
++ Browser: Google Chrome, Microsoft Edge, Firefox, Safari |
+|  |  |
+
 ### This website (Programming Code Generator for 4MRNA)
 Since it is published using GitHub Pages, this website itself (having the code generation) is, in principle, compatible with all major operating systems and browsers.
 + Operating system: Windows, macOS, Linux (Rocky Linux) 
@@ -100,7 +108,7 @@ Since it is published using GitHub Pages, this website itself (having the code g
 + Browser: Google Chrome, Microsoft Edge, Firefox, Safari
 
 ### Generated Programming Codes (Shell)
-+ Operating system: Windows, macOS, Linux (Rocky Linux) 
++ Operating system: Windows (Windows Subsystem for Linux; Ubuntu), macOS, Linux (Rocky Linux) 
 
 ## Reference
 - Ando, S., & Kondo, J. (2025), A new approach for nucleic acid structure determination: molecular replacement using massive multi-type models created through helical parameter adjustment. _Nucleic acids research_, in revision.
