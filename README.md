@@ -24,7 +24,7 @@ There is a web application called Web 3DNA that generates structural models base
     | **No. of models** | Please select how many types of models you want to create. For example, in the case of a double-stranded molecule that contains loop regions, you divide it into several sections (stems) by avoiding the loop regions, and then you create models for each section. When dividing it into two stem sections, please select “2” here. |
     | **Type** | Please select the type of nucleic acid from A-form DNA, B-form DNA or A-form RNA. |
     | **Sequence of one strand of duplex** | Please enter the base sequence of the model (duplex) you want to create. Only the sequence of one strand of duplex is required. The complementary strand is processed automatically. |
-    | **MW** | The molecular weight is calculated from the input sequence, including the complementary sequence. If necessary, you can modify it by yourself. |
+    | **MW** | The molecular weight is calculated from the input sequence, including the complementary sequence. |
     | **No. in AU** | Please enter how many of the models are contained in the asymmetric unit of the crystal. [*1]  |
 
    [*1] The calculation is done using the Matthews coefficient etc.
