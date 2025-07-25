@@ -73,18 +73,16 @@ Please install and set up the following software in advance.
     # Assume that "ccp4-<ver>-linux64.tar.gz" has been downloaded to "C:\Users\name\Downloads".
     sudo su
     cd /usr/local
-    mkdir ccp4
-    cd ccp4
-    mv /mnt/c/Users/name/Downloads/ccp4-<ver>-linux64.tar.gz .
-    gunzip ccp4-<ver>-linux64.tar.gz
-    tar -xvf ccp4-<ver>-linux64.tar
-    ./ccp4-<ver>-setup    # If an error occurs due to a missing library being displayed, install it using "apt install <library-name>" and run this command again.
-    cd /opt/xtal/ccp4-<ver>
+    mv /mnt/c/Users/name/Downloads/ccp4-9.0.010-linux64.tar.gz .
+    gunzip ccp4-9.0.010-linux64.tar.gz
+    tar -xvf ccp4-9.0.010-linux64.tar
+    cd ccp4-9
     ./BINARY.setup
     exit
     cd /home/name
     vi .bashrc
-    source /opt/xtal/ccp4-<ver>/bin/ccp4.setup-sh    # Please add to the last line.
+    source /usr/local/ccp4-9/bin/ccp4.setup-sh    # Please add to the last line.
+
 
 [*3] When using Selenium and Webdriver to automate the browser, you used to have to download the driver yourself, but since Selenium 4.6.0 (released on 2022-11-04), it automatically downloads the driver, so there is no need to prepare it in advance.
 
