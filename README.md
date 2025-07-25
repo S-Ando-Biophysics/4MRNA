@@ -70,7 +70,7 @@ Please install and set up the following software in advance.
 
 [*2] The following steps are for Windows (Ubuntu). The procedure for macOS is similar.
 
-    # Please change the directory name and Phenix version as appropriate.
+    # Please change the directory name and CCP4 version as appropriate.
     # Assume that "ccp4-<ver>-linux64.tar.gz" has been downloaded to "C:\Users\name\Downloads".
     sudo su
     cd /usr/local
