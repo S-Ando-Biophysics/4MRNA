@@ -65,7 +65,6 @@ Please install and set up the following software in advance.
 | ChromeDriver | https://sites.google.com/chromium.org/driver/ | Required in some cases [*3] | [WebDriver for Google Chrome] After downloading the driver, you can use it either by specifying the file directly or by adding it to your PATH. |
 | Microsoft Edge WebDriver | https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver | Required in some cases [*3] | [WebDriver for Microsoft Edge] After downloading the driver, you can use it either by specifying the file directly or by adding it to your PATH. |
 | geckodriver | https://github.com/mozilla/geckodriver | Required in some cases [*3] | [WebDriver for Firefox] After downloading the driver, you can use it either by specifying the file directly or by adding it to your PATH. |
-| Xming | https://sourceforge.net/projects/xming/ | Required in some cases | When using Phaser, you <ins>may</ins> need to launch X server. |
 | Microsoft Excel | https://www.microsoft.com/en-us/microsoft-365 | Recommended  | This is useful for checking the results of molecular replacement. |
 
 [*2] The following steps are for Windows (Ubuntu). The procedure for macOS is similar.
