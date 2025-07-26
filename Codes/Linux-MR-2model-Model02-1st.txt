@@ -10,7 +10,7 @@ mkdir -p "${pdb_directory_2}"
 mkdir -p "${finish_directory}"
 cp "${parent_directory}/Model02-1"/*.pdb "${pdb_directory_2}"
 rm -f "${pdb_directory_2}"/??????.pdb
-cp "${parent_directory}/Model01-1"/??????.pdb "${pdb_directory_1}"
+cp "${parent_directory}/Model01-2"/Model01best.pdb "${pdb_directory_1}"
 for pdb_file_1 in "${pdb_directory_1}"/*.pdb; do
   for pdb_file_2 in "${pdb_directory_2}"/*.pdb; do
     base_name_1=$(basename "${pdb_file_1}" .pdb)
