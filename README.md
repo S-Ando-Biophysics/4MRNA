@@ -1,7 +1,6 @@
 # Programming Code Generator for 4MRNA
 You can access this website via the following URL. https://s-ando-biophysics.github.io/4MRNA/
 
-
 ## About 4MRNA
 **4MRNA** means <ins>**M**</ins>assive <ins>**M**</ins>ulti-type <ins>**M**</ins>odel <ins>**M**</ins>olecular <ins>**R**</ins>eplacement for <ins>**N**</ins>ucleic <ins>**A**</ins>cids.
 
@@ -17,8 +16,8 @@ There is a web application called Web 3DNA [*] that generates structural models 
 
 Please refer to the user manual.
 
-- English ver.: https://github.com/S-Ando-Biophysics/4MRNA/blob/main/Docs/4MRNA%20User%20Manual%20English%20Version.pdf
-- Japanese ver.: https://github.com/S-Ando-Biophysics/4MRNA/blob/main/Docs/4MRNA%20User%20Manual%20Japanese%20Version.pdf
+- [English Version](https://github.com/S-Ando-Biophysics/4MRNA/blob/main/Docs/4MRNA%20User%20Manual%20English%20Version.pdf)
+- [Japanese Version ](https://github.com/S-Ando-Biophysics/4MRNA/blob/main/Docs/4MRNA%20User%20Manual%20Japanese%20Version.pdf)
 
 ### How to use the website
 1. Enter the required information.
