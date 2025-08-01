@@ -9,9 +9,17 @@ Applying molecular replacement (MR) commonly used for structure determination to
 
 One challenge is that nucleic acids can have different 3D structures even with the same sequence, which means that models existing in the database may not be suitable as a search model. Moreover, it is empirically known that MR of nucleic acids can fail even when the search model and the target structure differ only slightly. To address these issues, the new strategy 4MRNA includes generating a large number of diverse search models and applying them to MR.
 
-There is a web application called Web 3DNA that generates structural models based on parameters that control the three-dimensional structure of nucleic acids. We have discovered a strategy for adjusting these parameters to improve the success rate of MR. Based on this strategy, we decided to use Web 3DNA to create a wide variety of models. The processes of parameter adjustment and model creation have been automated using Python. Subsequently, MR is performed for each of the many models created. Since this operation needs to be repeated many times, we automated this process using Shell scripts on Linux.
+There is a web application called Web 3DNA [*] that generates structural models based on parameters that control the three-dimensional structure of nucleic acids. We have discovered a strategy for adjusting these parameters to improve the success rate of MR. Based on this strategy, we decided to use Web 3DNA to create a wide variety of models. The processes of parameter adjustment and model creation have been automated using Python. Subsequently, MR is performed for each of the many models created. Since this operation needs to be repeated many times, we automated this process using Shell scripts on Linux.
+
+[*] Li, S., Olson, W. K., & Lu, X. J. (2019). Web 3DNA 2.0 for the analysis, visualization, and modeling of 3D nucleic acid structures. Nucleic acids research, 47(W1), W26–W34. https://doi.org/10.1093/nar/gkz394.
 
 ## Instructions
+
+Please refer to the user manual.
+
+- English ver.: https://github.com/S-Ando-Biophysics/4MRNA/blob/main/Docs/4MRNA%20User%20Manual%20English%20Version.pdf
+- Japanese ver.: https://github.com/S-Ando-Biophysics/4MRNA/blob/main/Docs/4MRNA%20User%20Manual%20Japanese%20Version.pdf
+
 ### How to use the website
 1. Enter the required information.
 
@@ -45,7 +53,7 @@ There is a web application called Web 3DNA that generates structural models base
 [Note] When running the code "**Python-CreatingModels-2nd.py**", please make sure to perform the following operations.
 
 1. As a result of running "**02.Linux-MR-1model-<ins>Model01-1</ins>st.txt**", a file named "**results.txt**" will be generated. Open this file and identify the number corresponding to the parameter (Tilt, Roll, Twist) pattern  that shows good statistical values (LLG and TFZ).
-2. The files containing parameter patterns are located in a folder named something like "3DNA-ARNA" within the directory "**<ins>Model01-1</ins>**". Locate the file with the number identified in Step 1, then copy and paste them into the directory "**<ins>Model01-2</ins>**".
+2. The files containing parameter patterns are located in a folder named something like "3DNA-○○NA" within the directory "**<ins>Model01-1</ins>**". Locate the file with the number identified in Step 1, then copy and paste them into the directory "**<ins>Model01-2</ins>**".
 3. Run the code named "**03.Python-CreatingModels-2nd.py**". Subsequently, please run "**04.Linux-MR-1model-<ins>Model01-2</ins>nd.txt**".
 - The above is an example for when "No. of models" is set to 1. For 2 or 3, please follow the same procedure.
 
@@ -55,7 +63,7 @@ Please install and set up the following software in advance.
 | Name | URL | Priority | Remarks |
 | :----- | :----- | :----- | :----- |
 | **Python** | https://www.python.org/downloads/ | **Required** | After installing Python, open the command prompt and run `pip install selenium pandas`. |
-| Visual Studio Code | https://code.visualstudio.com/ | Recommended | In addition, download the extension of Python. |
+| Visual Studio Code (VS Code) | https://code.visualstudio.com/ | Recommended | In addition, download the extension of Python. |
 | **Ubuntu** | https://apps.microsoft.com/search?query=Ubuntu | **Required on Windows** | It is necessary to turn on "**Windows Subsystem for Linux (WSL)**" and **Virtual Machine Platform** in the Windows settings to be able to use shell scripts. |
 | **Phaser** | https://www.ccp4.ac.uk/download | **Required** | The command "phaser" is included in CCP4. If you have not installed CCP4, please install it. [*2] |
 | **Google Chrome** | https://www.google.com/chrome/ | **Required** | Either Google Chrome, Microsoft Edge, Firefox, or Safari is required. |
