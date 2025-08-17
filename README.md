@@ -14,7 +14,7 @@ There is a web application called Web 3DNA [*] that generates structural models 
 
 ## Instructions
 
-### 📢　Announcement
+### !! Announcement !!
 
 #### Update Initiated on August 18, 2025 ！
 Overview  
