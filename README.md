@@ -13,6 +13,17 @@ There is a web application called Web 3DNA [*] that generates structural models 
 [*] Li, S., Olson, W. K., & Lu, X. J. (2019). Web 3DNA 2.0 for the analysis, visualization, and modeling of 3D nucleic acid structures. Nucleic acids research, 47(W1), W26–W34.
 
 ## Instructions
+
+### Announcement  
+
+#### Update Initiated on August 18, 2025  
+Overview  
+- A new version is scheduled for release on **August 20, 2025**.  
+  (The user manual will also be updated accordingly, possibly on **August 21**.)  
+- Several manual operations previously required have been eliminated, making the system easier to use.  
+  From now on, users only need to execute the code by pressing the **Run** button or hitting **Enter**!  
+- The old version will remain available during the transition period from **August 18 to August 20, 2025**.  
+
 ### User manual
 Please refer to the user manual.
 
