@@ -3,17 +3,16 @@ You can access this website via the following URL. https://s-ando-biophysics.git
 
 The explanation of what 4MRNA is is provided after the instructions below.
 
-## Instructions
+## Announcement
+On **August 18, 2025**, the new version has been released. This update transforms the program from a semi-automated workflow into **a fully automated system**, making nucleic acid structure analysis easier and more efficient!
 
-### !! Announcement !!
-Last Updated: **2025-08-18**
-(The program has been updated. A revised version of the manual is scheduled to be released on August 19, 2025.)
+## Instructions
 
 ### User Manual
 Please refer to the user manual.
 
-- [English Version](https://github.com/S-Ando-Biophysics/4MRNA/blob/main/Docs/Manual-EN.pdf) (Latest update: 2025-08-19?)
-- [Japanese Version](https://github.com/S-Ando-Biophysics/4MRNA/blob/main/Docs/Manual-JP.pdf) (Latest update: 2025-08-19?) 
+- [English Version](https://github.com/S-Ando-Biophysics/4MRNA/blob/main/Docs/4MRNA-Manual-EN.pdf) (Latest update: 2025-08-18)
+- [Japanese Version](https://github.com/S-Ando-Biophysics/4MRNA/blob/main/Docs/4MRNA-Manual-JP.pdf) (Latest update: 2025-08-18) 
 
 ### How to Use (Summarized Version of the User Manual)
 1. Enter the required information.
