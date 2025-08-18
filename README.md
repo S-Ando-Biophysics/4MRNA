@@ -3,8 +3,6 @@ You can access this website via the following URL. https://s-ando-biophysics.git
 
 The explanation of what 4MRNA is is provided after the instructions below.
 
-Please cite [our paper](https://github.com/S-Ando-Biophysics/4MRNA/tree/main?tab=readme-ov-file#reference) if you use 4MRNA.
-
 ## Instructions
 
 ### !! Announcement !!
