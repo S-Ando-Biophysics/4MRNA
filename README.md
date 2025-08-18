@@ -1,18 +1,7 @@
 # Programming Code Generator for 4MRNA
 You can access this website via the following URL. https://s-ando-biophysics.github.io/4MRNA/
 
-## About 4MRNA
-**4MRNA** means <ins>**M**</ins>assive <ins>**M**</ins>ulti-type <ins>**M**</ins>odel <ins>**M**</ins>olecular <ins>**R**</ins>eplacement for <ins>**N**</ins>ucleic <ins>**A**</ins>cids.
-
-Applying molecular replacement (MR) commonly used for structure determination to nucleic acids poses unique challenges that are not present for proteins. To solve these challenges, we developed a new innovative strategy called 4MRNA.
-
-One challenge is that nucleic acids can have different 3D structures even with the same sequence, which means that models existing in the database may not be suitable as a search model. Moreover, it is empirically known that MR of nucleic acids can fail even when the search model and the target structure differ only slightly. To address these issues, the new strategy 4MRNA includes generating a large number of diverse search models and applying them to MR.
-
-There is a web application called Web 3DNA [*] that generates structural models based on parameters that control the 3D structure of nucleic acids. We have discovered a strategy for adjusting these parameters to improve the success rate of MR. 
-
-Based on this strategy, we decided to use Web 3DNA to create a wide variety of models. The processes of parameter adjustment and model creation have been automated using Python. Subsequently, MR is performed for each of the many models created. Since this operation needs to be repeated many times, we automated this process using Shell scripts on Linux.
-
-[*] Li, S., Olson, W. K., & Lu, X. J. (2019). Web 3DNA 2.0 for the analysis, visualization, and modeling of 3D nucleic acid structures. _Nucleic acids research_, 47(W1), W26–W34.
+The explanation of what 4MRNA is is provided after the instructions below.
 
 ## Instructions
 
@@ -87,7 +76,7 @@ Please install and set up the following software in advance.
     source /usr/local/ccp4-9/bin/ccp4.setup-sh    # Please add to the last line.
 
 
-## Supported environment
+### Supported environment
 
 |  | Operating system | Browser |
 | :----- | :----- | :----- |
@@ -95,9 +84,22 @@ Please install and set up the following software in advance.
 | **Generated Python codes** | Windows, macOS, Linux (Rocky Linux) | Google Chrome, Microsoft Edge, Firefox, Safari |
 | **Generated Shell scripts** | Windows (WSL; Ubuntu), macOS, Linux (Rocky Linux) | - |
 
-## Release Notes
+### Release Notes
 - **2025-08-01** The beta version has been released.
 - **2025-08-18** The official version has been released. In the beta version, manual steps were required between code blocks, but in the official version, these steps have been eliminated.
+
+## About 4MRNA
+**4MRNA** means <ins>**M**</ins>assive <ins>**M**</ins>ulti-type <ins>**M**</ins>odel <ins>**M**</ins>olecular <ins>**R**</ins>eplacement for <ins>**N**</ins>ucleic <ins>**A**</ins>cids.
+
+Applying molecular replacement (MR) commonly used for structure determination to nucleic acids poses unique challenges that are not present for proteins. To solve these challenges, we developed a new innovative strategy called 4MRNA.
+
+One challenge is that nucleic acids can have different 3D structures even with the same sequence, which means that models existing in the database may not be suitable as a search model. Moreover, it is empirically known that MR of nucleic acids can fail even when the search model and the target structure differ only slightly. To address these issues, the new strategy 4MRNA includes generating a large number of diverse search models and applying them to MR.
+
+There is a web application called Web 3DNA [*] that generates structural models based on parameters that control the 3D structure of nucleic acids. We have discovered a strategy for adjusting these parameters to improve the success rate of MR. 
+
+Based on this strategy, we decided to use Web 3DNA to create a wide variety of models. The processes of parameter adjustment and model creation have been automated using Python. Subsequently, MR is performed for each of the many models created. Since this operation needs to be repeated many times, we automated this process using Shell scripts on Linux.
+
+[*] Li, S., Olson, W. K., & Lu, X. J. (2019). Web 3DNA 2.0 for the analysis, visualization, and modeling of 3D nucleic acid structures. _Nucleic acids research_, 47(W1), W26–W34.
 
 ## Reference
 - Ando, S., & Kondo, J. (2025), A new approach for nucleic acid structure determination: molecular replacement using massive multi-type models created through helical parameter adjustment. _Nucleic acids research_, in revision.
