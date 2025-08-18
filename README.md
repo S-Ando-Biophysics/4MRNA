@@ -9,13 +9,13 @@ The explanation of what 4MRNA is is provided after the instructions below.
 Last Updated: **2025-08-18**
 (The program has been updated. A revised version of the manual is scheduled to be released on August 19, 2025.)
 
-### User manual
+### User Manual
 Please refer to the user manual.
 
 - [English Version](https://github.com/S-Ando-Biophysics/4MRNA/blob/main/Docs/Manual-EN.pdf) (Latest update: 2025-08-19?)
 - [Japanese Version](https://github.com/S-Ando-Biophysics/4MRNA/blob/main/Docs/Manual-JP.pdf) (Latest update: 2025-08-19?) 
 
-### How to use the website
+### How to Use (Summarized Version of the User Manual)
 1. Enter the required information.
 
     | Required infomation | What to do |
@@ -75,7 +75,7 @@ Please install and set up the following software in advance.
     source /usr/local/ccp4-9/bin/ccp4.setup-sh    # Please add to the last line.
 
 
-### Supported environment
+### Supported Environment
 
 |  | Operating system | Browser |
 | :----- | :----- | :----- |
