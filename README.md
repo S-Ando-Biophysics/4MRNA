@@ -38,14 +38,13 @@ Please refer to the user manual.
 
 4. Click the button labeled "**Download this code**" or "**Download all codes**" to save the generated code.
 
-5. Please run the codes in the order indicated by the number at the beginning of each downloaded file. To run these codes, follow the instructions below.
+5. Please run the codes in the order indicated by the number at the beginning of each downloaded file. The table below shows how to run each type of code.
 
-### How to run generated programming codes
+    | Type | Extension |  How to run |
+    | :----- | :----- | :----- |
+    | **Python** | **.py** | Please open the code in a text editor like VS Code and run it. |
+    | **Shell** | **.txt** | Please paste the code into Ubuntu or Terminal and run it. |
 
-| Type | Extension |  How to run |
-| :----- | :----- | :----- |
-| **Python** | **.py** | Please open the code in a text editor like VS Code and run it. |
-| **Shell** | **.txt** | Please paste the code into Ubuntu or Terminal and run it. |
 
 ### Preparation
 Please install and set up the following software in advance.
