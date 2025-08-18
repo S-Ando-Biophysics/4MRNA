@@ -92,3 +92,33 @@ done
   printf 'Model TopLLG TopTFZ\n'
   awk -F',' 'NR==FNR{llg[$1]=$2; next} {print $1, llg[$1], $2}' OFS=' ' TopLLG.txt TopTFZ.txt
 } > "${file_path}/results.txt"
+mr2_dir="${parent_directory}/MR-Model01-2nd"
+results_file="${mr2_dir}/results.txt"
+best_out="${mr2_dir}/results-best-num.txt"
+if [ -f "$results_file" ]; then
+  best_name="$(
+    awk '
+      BEGIN{found=0}
+      $1 ~ /3DNA..-[0-9]+-[0-9]+-[0-9]+/ && $2 ~ /^-?[0-9.]+$/ && $3 ~ /^-?[0-9.]+$/ {
+        n1=$2+0; n2=$3+0; prod=n1*n2
+        if (match($1, /3DNA..-[0-9]+-[0-9]+-[0-9]+/)) {
+          base=substr($1, RSTART, RLENGTH)
+          if(!found || prod>max){ max=prod; best=base; found=1 }
+        }
+      }
+      END{ if(found) print best }
+    ' "$results_file"
+  )"  if [ -n "$best_name" ]; then
+    echo "$best_name" >> "$best_out"
+  fi
+fi
+model01_2_src="${parent_directory}/Model01-2"
+if [ -s "$best_out" ]; then
+  while IFS= read -r base; do
+    target="${model01_2_src}/${base}.pdb"
+    if [ -f "$target" ]; then
+      mv -f "$target" "${model01_2_src}/Model01best.pdb"
+      break
+    fi
+  done < "$best_out"
+fi
