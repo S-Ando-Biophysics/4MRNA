@@ -14,7 +14,6 @@ cp "${parent_directory}/Model02-1"/*.pdb "${pdb_directory_2}"
 rm -f "${pdb_directory_2}"/??????.pdb
 cp "${parent_directory}/Model01-2"/Model01best.pdb "${pdb_directory_1}"
 cp "${parent_directory}/Model03-1"/??????.pdb "${pdb_directory_3}"
-
 for pdb_file_1 in "${pdb_directory_1}"/*.pdb; do
   for pdb_file_2 in "${pdb_directory_2}"/*.pdb; do
     for pdb_file_3 in "${pdb_directory_3}"/*.pdb; do
@@ -37,8 +36,10 @@ SEARch ENSEmble ${base_name_1} NUM 1
 SEARch ENSEmble ${base_name_2} NUM 2
 SEARch ENSEmble ${base_name_3} NUM 3
 EOF
-  mv PHASER.sol PHASER.1.mtz PHASER.1.pdb "${output_directory}/"
-  cp "${pdb_file_1}" "${finish_directory}/"
+      mv PHASER.sol PHASER.1.mtz PHASER.1.pdb "${output_directory}/"
+      cp "${pdb_file_1}" "${finish_directory}/"
+    done
+  done
 done
 llg_extracted="./extracted_data_LGG.txt"
 llg_output_file="./TopLLG.txt"
@@ -114,13 +115,17 @@ grep -F 'TWIST' "${mr_dir}/results.txt" > "${mr_dir}/results-twist.txt" || :
 process_category () {
   local KEYWORD="$1"
   local INFILE="$2"
-  local PREFIX="$3"  # Tilt / Roll / Twist
+  local PREFIX="$3"
   [ -s "$INFILE" ] || return 0
   awk -v kw="$KEYWORD" '
     {
       s=$1; n1=$2+0; n2=$3+0;
       sub("^.*" kw, "", s);
-      printf "%.10f %.10f %s\n", n1, n2, s
+      sub(/^[[:space:]]+/, "", s);
+      sub(/[-[:space:]].*$/, "", s);
+      if (s ~ /^[0-9]+$/) {
+        printf "%.10f %.10f %s\n", n1, n2, s
+      }
     }' "$INFILE" \
   | sort -nr -k1,1 -k2,2 | head -2 \
   | awk -v pfx="$PREFIX" '{print "bp_step_" pfx $3}' >> "${mr_dir}/results-good-num.txt"
@@ -128,7 +133,11 @@ process_category () {
     {
       s=$1; n1=$2+0; n2=$3+0;
       sub("^.*" kw, "", s);
-      printf "%.10f %.10f %s\n", n2, n1, s
+      sub(/^[[:space:]]+/, "", s);
+      sub(/[-[:space:]].*$/, "", s);
+      if (s ~ /^[0-9]+$/) {
+        printf "%.10f %.10f %s\n", n2, n1, s
+      }
     }' "$INFILE" \
   | sort -nr -k1,1 -k2,2 | head -2 \
   | awk -v pfx="$PREFIX" '{print "bp_step_" pfx $3}' >> "${mr_dir}/results-good-num.txt"
@@ -136,8 +145,12 @@ process_category () {
     {
       s=$1; n1=$2+0; n2=$3+0;
       sub("^.*" kw, "", s);
-      p=n1*n2;
-      printf "%.10f %s\n", p, s
+      sub(/^[[:space:]]+/, "", s);
+      sub(/[-[:space:]].*$/, "", s);
+      if (s ~ /^[0-9]+$/) {
+        p=n1*n2;
+        printf "%.10f %s\n", p, s
+      }
     }' "$INFILE" \
   | sort -nr -k1,1 | head -3 \
   | awk -v pfx="$PREFIX" '{print "bp_step_" pfx $2}' >> "${mr_dir}/results-good-num.txt"
