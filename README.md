@@ -8,7 +8,9 @@ Applying molecular replacement (MR) commonly used for structure determination to
 
 One challenge is that nucleic acids can have different 3D structures even with the same sequence, which means that models existing in the database may not be suitable as a search model. Moreover, it is empirically known that MR of nucleic acids can fail even when the search model and the target structure differ only slightly. To address these issues, the new strategy 4MRNA includes generating a large number of diverse search models and applying them to MR.
 
-There is a web application called Web 3DNA [*] that generates structural models based on parameters that control the 3D structure of nucleic acids. We have discovered a strategy for adjusting these parameters to improve the success rate of MR. Based on this strategy, we decided to use Web 3DNA to create a wide variety of models. The processes of parameter adjustment and model creation have been automated using Python. Subsequently, MR is performed for each of the many models created. Since this operation needs to be repeated many times, we automated this process using Shell scripts on Linux.
+There is a web application called Web 3DNA [*] that generates structural models based on parameters that control the 3D structure of nucleic acids. We have discovered a strategy for adjusting these parameters to improve the success rate of MR. 
+
+Based on this strategy, we decided to use Web 3DNA to create a wide variety of models. The processes of parameter adjustment and model creation have been automated using Python. Subsequently, MR is performed for each of the many models created. Since this operation needs to be repeated many times, we automated this process using Shell scripts on Linux.
 
 [*] Li, S., Olson, W. K., & Lu, X. J. (2019). Web 3DNA 2.0 for the analysis, visualization, and modeling of 3D nucleic acid structures. Nucleic acids research, 47(W1), W26–W34.
 
@@ -41,7 +43,7 @@ Please refer to the user manual.
 
    [*1] For example, in the case of a double-stranded molecule that contains loop regions, you divide it into several sections (stems) by avoiding the loop regions, and then you create models for each section. When dividing it into two stem sections, please select “2” here.
    
-   [*2] The calculation is done using the Matthews coefficient etc.
+   [*2] The calculation is done using the Matthews coefficient etc. Please also refer to [my other repository](https://github.com/S-Ando-Biophysics/Cal-Nm).
 
 3. Click the button labeled "**Generate codes**". This will generate Python codes and Shell scripts.
 
