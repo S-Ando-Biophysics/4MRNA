@@ -36,13 +36,15 @@ Please refer to the user manual.
     | **Default download directory of selected browser** | Please enter the folder where files are automatically saved when using the selected browser above. |
     | **Working directory** | Please enter the folder where you want to run 4MRNA. |
     | **Path and name of reflection file used in 4MRNA** | Please enter the location and name of the reflection file to be used for 4MRNA. For example, if there is a file named `reflections.mtz` in `D:\Sample\Phenix`, enter `D:\Sample\Phenix\reflections.mtz`. |
-    | **No. of models** | Please select how many types of models you want to create. For example, in the case of a double-stranded molecule that contains loop regions, you divide it into several sections (stems) by avoiding the loop regions, and then you create models for each section. When dividing it into two stem sections, please select “2” here. |
+    | **No. of models** | Please select how many types of models you want to create. [*1] |
     | **Type** | Please select the type of nucleic acid from A-form DNA, B-form DNA or A-form RNA. |
     | **Sequence of one strand of duplex** | Please enter the base sequence of the model (duplex) you want to create. Only the sequence of one strand of duplex is required. The complementary strand is processed automatically. |
     | **MW** | The molecular weight is calculated from the input sequence, including the complementary sequence. |
-    | **No. in AU** | Please enter how many of the models are contained in the asymmetric unit of the crystal. [*1]  |
+    | **No. in AU** | Please enter how many of the models are contained in the asymmetric unit of the crystal. [*2]  |
 
-   [*1] The calculation is done using the Matthews coefficient etc.
+   [*1] For example, in the case of a double-stranded molecule that contains loop regions, you divide it into several sections (stems) by avoiding the loop regions, and then you create models for each section. When dividing it into two stem sections, please select “2” here.
+   
+   [*2] The calculation is done using the Matthews coefficient etc.
 
 3. Click the button labeled "**Generate codes**". This will generate Python codes and Shell scripts.
 
@@ -65,20 +67,14 @@ Please install and set up the following software in advance.
 | **Python** | https://www.python.org/downloads/ | **Required** | After installing Python, open the command prompt and run `pip install selenium pandas`. |
 | Visual Studio Code (VS Code) | https://code.visualstudio.com/ | Recommended | In addition, download the extension of Python. |
 | **Ubuntu** | https://apps.microsoft.com/search?query=Ubuntu | **Required on Windows** | It is necessary to turn on "**Windows Subsystem for Linux (WSL)**" and **Virtual Machine Platform** in the Windows settings to be able to use shell scripts. |
-| **Phaser** | https://www.ccp4.ac.uk/download | **Required** | The command "phaser" is included in CCP4. If you have not installed CCP4, please install it. [*2] |
-| **Google Chrome** | https://www.google.com/chrome/ | **Required** | Either Google Chrome, Microsoft Edge, Firefox, or Safari is required. |
-| **Microsoft Edge** | https://www.microsoft.com/en-us/edge | **Required** | Either Google Chrome, Microsoft Edge, Firefox, or Safari is required. |
-| **Firefox** | https://www.firefox.com/en-US/browsers/desktop/ | **Required** | Either Google Chrome, Microsoft Edge, Firefox, or Safari is required. |
-| **Safari** |  | **Required** | Either Google Chrome, Microsoft Edge, Firefox, or Safari is required. For Safari, enable "**Allow Remote Automation**" in the developer settings. |
-| ChromeDriver | https://sites.google.com/chromium.org/driver/ | Required in some cases [*3] | [WebDriver for Google Chrome] After downloading the driver, you can use it either by specifying the file directly or by adding it to your PATH. |
-| Microsoft Edge WebDriver | https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver | Required in some cases [*3] | [WebDriver for Microsoft Edge] After downloading the driver, you can use it either by specifying the file directly or by adding it to your PATH. |
-| geckodriver | https://github.com/mozilla/geckodriver | Required in some cases [*3] | [WebDriver for Firefox] After downloading the driver, you can use it either by specifying the file directly or by adding it to your PATH. |
+| **Phaser** | https://www.ccp4.ac.uk/download | **Required** | The command "phaser" is included in CCP4. If you have not installed CCP4, please install it. [*3] |
+| Web browser |  | Required | Either **Google Chrome**, **Microsoft Edge**, **Firefox**, or **Safari** is required. It is required, but as it is usually pre-installed on computers, you normally do not need to prepare it yourself. For Safari, enable "**Allow Remote Automation**" in the developer settings. |
 | Microsoft Excel | https://www.microsoft.com/en-us/microsoft-365 | Recommended  | This is useful for checking the results of molecular replacement. |
 
-[*2] The following steps are for Windows (Ubuntu). The procedure for macOS is similar.
+[*3] The following steps are for Windows (Ubuntu). The procedure for macOS is similar.
 
     # Please change the directory name and CCP4 version as appropriate.
-    # Assume that "ccp4-<ver>-linux64.tar.gz" has been downloaded to "C:\Users\name\Downloads".
+    # Assume that "ccp4-9.0.010-linux64.tar.gz" has been downloaded to "C:\Users\name\Downloads".
     sudo su
     cd /usr/local
     mv /mnt/c/Users/name/Downloads/ccp4-9.0.010-linux64.tar.gz .
@@ -91,8 +87,6 @@ Please install and set up the following software in advance.
     vi .bashrc
     source /usr/local/ccp4-9/bin/ccp4.setup-sh    # Please add to the last line.
 
-
-[*3] When using Selenium and Webdriver to automate the browser, you used to have to download the driver yourself, but since Selenium 4.6.0 (released on 2022-11-04), it automatically downloads the driver, so there is no need to prepare it in advance.
 
 ## Supported environment
 
