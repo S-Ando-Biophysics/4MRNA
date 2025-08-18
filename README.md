@@ -21,9 +21,9 @@ Please refer to the user manual.
     | Required&nbsp;infomation | What to do |
     | :----- | :----- |
     | **Browser** | Please select your browser from Google Chrome, Microsoft Edge, Firefox, or Safari. |
-    | **Default&nbsp;download&nbsp;directory&nbsp;of&nbsp;selected&nbsp;browser** | Please enter the folder where files are automatically saved when using the selected browser above. |
+    | **Default&nbsp;download&nbsp;directory&nbsp;of selected&nbsp;browser** | Please enter the folder where files are automatically saved when using the selected browser above. |
     | **Working&nbsp;directory** | Please enter the folder where you want to run 4MRNA. |
-    | **Path&nbsp;and&nbsp;name&nbsp;of&nbsp;reflection&nbsp;file&nbsp;used&nbsp;in&nbsp;4MRNA** | Please enter the location and name of the reflection file to be used for 4MRNA. For example, if there is a file named `reflections.mtz` in `D:\Sample\Phenix`, enter `D:\Sample\Phenix\reflections.mtz`. |
+    | **Path&nbsp;and&nbsp;name&nbsp;of&nbsp;reflection&nbsp;file used&nbsp;in&nbsp;4MRNA** | Please enter the location and name of the reflection file to be used for 4MRNA. For example, if there is a file named `reflections.mtz` in `D:\Sample\Phenix`, enter `D:\Sample\Phenix\reflections.mtz`. |
     | **No.&nbsp;of&nbsp;models** | Please select how many types of models you want to create. [*1] |
     | **Type** | Please select the type of nucleic acid from A-form DNA, B-form DNA or A-form RNA. |
     | **Sequence&nbsp;of&nbsp;one&nbsp;strand&nbsp;of&nbsp;duplex** | Please enter the base sequence of the model (duplex) you want to create. Only the sequence of one strand of duplex is required. The complementary strand is processed automatically. |
