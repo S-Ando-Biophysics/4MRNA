@@ -35,8 +35,10 @@ SEARch ENSEmble ${base_name_1} NUM 1
 SEARch ENSEmble ${base_name_2} NUM 2
 SEARch ENSEmble ${base_name_3} NUM 3
 EOF
-  mv PHASER.sol PHASER.1.mtz PHASER.1.pdb "${output_directory}/"
-  cp "${pdb_file_1}" "${finish_directory}/"
+      mv PHASER.sol PHASER.1.mtz PHASER.1.pdb "${output_directory}/"
+      cp "${pdb_file_1}" "${finish_directory}/"
+    done
+  done
 done
 llg_extracted="./extracted_data_LGG.txt"
 llg_output_file="./TopLLG.txt"
