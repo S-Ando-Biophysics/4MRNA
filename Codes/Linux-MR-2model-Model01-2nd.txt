@@ -92,16 +92,16 @@ if [ -f "$results_file" ]; then
   best_name="$(
     awk '
       BEGIN{found=0}
-      $1 ~ /^3DNA..-[0-9]+-[0-9]+-[0-9]+-3DNA..$/ && $2 ~ /^-?[0-9.]+$/ && $3 ~ /^-?[0-9.]+$/ {
-        name=$1; n1=$2+0; n2=$3+0; prod=n1*n2
-        base=name
-        sub(/-3DNA..$/,"",base)
-        if(!found || prod>max){ max=prod; best=base; found=1 }
+      $1 ~ /3DNA..-[0-9]+-[0-9]+-[0-9]+/ && $2 ~ /^-?[0-9.]+$/ && $3 ~ /^-?[0-9.]+$/ {
+        n1=$2+0; n2=$3+0; prod=n1*n2
+        if (match($1, /3DNA..-[0-9]+-[0-9]+-[0-9]+/)) {
+          base=substr($1, RSTART, RLENGTH)
+          if(!found || prod>max){ max=prod; best=base; found=1 }
+        }
       }
       END{ if(found) print best }
     ' "$results_file"
-  )"
-  if [ -n "$best_name" ]; then
+  )"  if [ -n "$best_name" ]; then
     echo "$best_name" >> "$best_out"
   fi
 fi
@@ -115,4 +115,3 @@ if [ -s "$best_out" ]; then
     fi
   done < "$best_out"
 fi
-
