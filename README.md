@@ -24,11 +24,11 @@ Please refer to the user manual.
     | **Default&nbsp;download&nbsp;directory&nbsp;of&nbsp;selected&nbsp;browser** | Please enter the folder where files are automatically saved when using the selected browser above. |
     | **Working&nbsp;directory** | Please enter the folder where you want to run 4MRNA. |
     | **Path&nbsp;and&nbsp;name&nbsp;of&nbsp;reflection&nbsp;file&nbsp;used&nbsp;in&nbsp;4MRNA** | Please enter the location and name of the reflection file to be used for 4MRNA. For example, if there is a file named `reflections.mtz` in `D:\Sample\Phenix`, enter `D:\Sample\Phenix\reflections.mtz`. |
-    | **No.&#8209;of&nbsp;models** | Please select how many types of models you want to create. [*1] |
+    | **No.&nbsp;of&nbsp;models** | Please select how many types of models you want to create. [*1] |
     | **Type** | Please select the type of nucleic acid from A-form DNA, B-form DNA or A-form RNA. |
     | **Sequence&nbsp;of&nbsp;one&nbsp;strand&nbsp;of&nbsp;duplex** | Please enter the base sequence of the model (duplex) you want to create. Only the sequence of one strand of duplex is required. The complementary strand is processed automatically. |
     | **MW** | The molecular weight is calculated from the input sequence, including the complementary sequence. |
-    | **No.&#8209;in&nbsp;AU** | Please enter how many of the models are contained in the asymmetric unit of the crystal. [*2]  |
+    | **No.&nbsp;in&nbsp;AU** | Please enter how many of the models are contained in the asymmetric unit of the crystal. [*2]  |
 
 
    [*1] For example, in the case of a double-stranded molecule that contains loop regions, you divide it into several sections (stems) by avoiding the loop regions, and then you create models for each section. When dividing it into two stem sections, please select “2” here.
