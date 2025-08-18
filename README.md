@@ -12,8 +12,8 @@ Last Updated: **2025-08-18**
 ### User manual
 Please refer to the user manual.
 
-- [English Version](https://github.com/S-Ando-Biophysics/4MRNA/blob/main/Docs/Manual-EN.pdf) (Latest update: 2025-08-18)
-- [Japanese Version](https://github.com/S-Ando-Biophysics/4MRNA/blob/main/Docs/Manual-JP.pdf) (Latest update: 2025-08-18) 
+- [English Version](https://github.com/S-Ando-Biophysics/4MRNA/blob/main/Docs/Manual-EN.pdf) (Latest update: 2025-08-19?)
+- [Japanese Version](https://github.com/S-Ando-Biophysics/4MRNA/blob/main/Docs/Manual-JP.pdf) (Latest update: 2025-08-19?) 
 
 ### How to use the website
 1. Enter the required information.
