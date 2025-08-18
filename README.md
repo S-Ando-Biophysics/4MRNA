@@ -43,7 +43,7 @@ Please refer to the user manual.
 
    [*1] For example, in the case of a double-stranded molecule that contains loop regions, you divide it into several sections (stems) by avoiding the loop regions, and then you create models for each section. When dividing it into two stem sections, please select “2” here.
    
-   [*2] The calculation is done using the Matthews coefficient etc. Please also refer to [my other repository](https://github.com/S-Ando-Biophysics/Cal-Nm).
+   [*2] The calculation is done using the Matthews coefficient etc. Please also refer to my [other repository](https://github.com/S-Ando-Biophysics/Cal-Nm) and [calculator website](https://s-ando-biophysics.github.io/Cal-Nm/).
 
 3. Click the button labeled "**Generate codes**". This will generate Python codes and Shell scripts.
 
