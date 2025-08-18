@@ -3,7 +3,7 @@ You can access this website via the following URL. https://s-ando-biophysics.git
 
 The explanation of what 4MRNA is is provided after the instructions below.
 
-## !! Announcement !!
+## Announcement
 On **August 18, 2025**, the new version has been released. This update transforms the 4MRNA program **from a semi-automated workflow into a fully automated system**, making nucleic acid structure analysis easier and more efficient!
 
 ## Instructions
