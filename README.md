@@ -4,7 +4,7 @@ You can access this website via the following URL. https://s-ando-biophysics.git
 The explanation of what 4MRNA is is provided after the instructions below.
 
 ## !! Announcement !!
-On **August 18, 2025**, the new version has been released. This update transforms the program from a semi-automated workflow into **a fully automated system**, making nucleic acid structure analysis easier and more efficient!
+On **August 18, 2025**, the new version has been released. This update transforms the 4MRNA program from a semi-automated workflow into **a fully automated system**, making nucleic acid structure analysis easier and more efficient!
 
 ## Instructions
 
@@ -84,8 +84,8 @@ Please install and set up the following software in advance.
 | **Generated Shell scripts** | Windows (WSL; Ubuntu), macOS, Linux (Rocky Linux) | - |
 
 ### Release Notes
-- **2025-08-01** The beta version has been released.
-- **2025-08-18** The official version has been released. In the beta version, manual steps were required between code blocks, but in the official version, these steps have been eliminated.
+- **2025-08-01** The beta version (semi-automated version) has been released.
+- **2025-08-18** The official version (fully automated version) has been released. 
 
 ## About 4MRNA
 **4MRNA** means <ins>**M**</ins>assive <ins>**M**</ins>ulti-type <ins>**M**</ins>odel <ins>**M**</ins>olecular <ins>**R**</ins>eplacement for <ins>**N**</ins>ucleic <ins>**A**</ins>cids.
