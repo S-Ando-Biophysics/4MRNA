@@ -95,9 +95,7 @@ Please install and set up the following software in advance.
 
 ## Release Notes
 - **2025-08-01** The beta version has been released.
-- **2025-08-18** The official version has been released.
-
-In the beta version, manual steps were required between code blocks, but in the official version, these steps have been eliminated.
+- **2025-08-18** The official version has been released. In the beta version, manual steps were required between code blocks, but in the official version, these steps have been eliminated.
 
 ## Reference
 - Ando, S., & Kondo, J. (2025), A new approach for nucleic acid structure determination: molecular replacement using massive multi-type models created through helical parameter adjustment. _Nucleic acids research_, in revision.
