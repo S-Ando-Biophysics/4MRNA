@@ -94,3 +94,74 @@ done
   awk -F',' 'NR==FNR{llg[$1]=$2; next} {print $1, llg[$1], $2}' OFS=' ' TopLLG.txt TopTFZ.txt
 } > "${file_path}/results.txt"
 mkdir -p "${parent_directory}/Model01-2"
+mr_dir="${parent_directory}/MR-Model01-1st"
+model_dir_1="${parent_directory}/Model01-1"
+model_dir_2="${parent_directory}/Model01-2"
+shopt -s nullglob
+three_dna_candidates=( "${model_dir_1}"/3DNA-??NA )
+if [ ${#three_dna_candidates[@]} -ge 1 ]; then
+  three_dna_dir="${three_dna_candidates[0]}"
+  if [ -f "${three_dna_dir}/bp_step.txt" ]; then
+    cp -f "${three_dna_dir}/bp_step.txt" "${model_dir_2}/"
+  fi
+fi
+shopt -u nullglob
+grep -F 'TILT'  "${mr_dir}/results.txt" > "${mr_dir}/results-tilt.txt"  || : 
+grep -F 'ROLL'  "${mr_dir}/results.txt" > "${mr_dir}/results-roll.txt"  || : 
+grep -F 'TWIST' "${mr_dir}/results.txt" > "${mr_dir}/results-twist.txt" || : 
+: > "${mr_dir}/results-good-num.txt"
+process_category () {
+  local KEYWORD="$1"
+  local INFILE="$2"
+  local PREFIX="$3"  # Tilt / Roll / Twist
+  [ -s "$INFILE" ] || return 0
+  awk -v kw="$KEYWORD" '
+    {
+      s=$1; n1=$2+0; n2=$3+0;
+      sub("^.*" kw, "", s);
+      printf "%.10f %.10f %s\n", n1, n2, s
+    }' "$INFILE" \
+  | sort -nr -k1,1 -k2,2 | head -2 \
+  | awk -v pfx="$PREFIX" '{print "bp_step_" pfx $3}' >> "${mr_dir}/results-good-num.txt"
+  awk -v kw="$KEYWORD" '
+    {
+      s=$1; n1=$2+0; n2=$3+0;
+      sub("^.*" kw, "", s);
+      printf "%.10f %.10f %s\n", n2, n1, s
+    }' "$INFILE" \
+  | sort -nr -k1,1 -k2,2 | head -2 \
+  | awk -v pfx="$PREFIX" '{print "bp_step_" pfx $3}' >> "${mr_dir}/results-good-num.txt"
+  awk -v kw="$KEYWORD" '
+    {
+      s=$1; n1=$2+0; n2=$3+0;
+      sub("^.*" kw, "", s);
+      p=n1*n2;
+      printf "%.10f %s\n", p, s
+    }' "$INFILE" \
+  | sort -nr -k1,1 | head -3 \
+  | awk -v pfx="$PREFIX" '{print "bp_step_" pfx $2}' >> "${mr_dir}/results-good-num.txt"
+  awk '!seen[$0]++' "${mr_dir}/results-good-num.txt" > "${mr_dir}/.results-good-num.tmp" && mv "${mr_dir}/.results-good-num.tmp" "${mr_dir}/results-good-num.txt"
+}
+process_category "TILT"  "${mr_dir}/results-tilt.txt"  "Tilt"
+process_category "ROLL"  "${mr_dir}/results-roll.txt"  "Roll"
+process_category "TWIST" "${mr_dir}/results-twist.txt" "Twist"
+if [ -s "${mr_dir}/results-good-num.txt" ]; then
+  shopt -s nullglob
+  three_dna_dirs=( "${model_dir_1}"/3DNA-??NA )
+  shopt -u nullglob
+  while IFS= read -r base; do
+    target_name="${base}.txt"
+    copied="0"
+    for d in "${three_dna_dirs[@]}"; do
+      if [ -d "$d" ]; then
+        found_path=$(find "$d" -maxdepth 1 -type f -name "$target_name" -print -quit)
+        if [ -n "$found_path" ]; then
+          cp -f "$found_path" "${model_dir_2}/"
+          copied="1"
+          break
+        fi
+      fi
+    done
+    [ "$copied" = "1" ] || :
+  done < "${mr_dir}/results-good-num.txt"
+fi
