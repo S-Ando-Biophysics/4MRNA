@@ -49,14 +49,14 @@ Please refer to the user manual.
 ### Preparation
 Please install and set up the following software in advance.
 
-| Name | URL | Priority | Remarks |
-| :----- | :----- | :----- | :----- |
-| **Python** | https://www.python.org/downloads/ | **Required** | After installing Python, open the command prompt and run `pip install selenium pandas`. |
-| Visual Studio Code | https://code.visualstudio.com/ | Recommended | In addition, download the extension of Python. |
-| **Ubuntu** | https://apps.microsoft.com/search?query=Ubuntu | **Required on Windows** | It is necessary to turn on "**Windows Subsystem for Linux (WSL)**" and **Virtual Machine Platform** in the Windows settings to be able to use shell scripts. |
-| **Phaser** | https://www.ccp4.ac.uk/download | **Required** | The command "phaser" is included in CCP4. If you have not installed CCP4, please install it. [*3] |
-| Web browser |  | Required | Either **Google Chrome**, **Microsoft Edge**, **Firefox**, or **Safari** is required. It is required, but as it is usually pre-installed on computers, you normally do not need to prepare it yourself. For Safari, enable "**Allow Remote Automation**" in the developer settings. |
-| Microsoft Excel | https://www.microsoft.com/en-us/microsoft-365 | Recommended  | This is useful for checking the results of molecular replacement. |
+| Name | Priority | Remarks |
+| :----- | :----- | :----- |
+| **[Python](https://www.python.org/downloads/)** | **Required** | After installing Python, open the command prompt and run `pip install selenium pandas`. |
+| [Visual Studio Code](https://code.visualstudio.com/Download) | Recommended | In addition, download the extension of Python. |
+| **[Ubuntu](https://apps.microsoft.com/search?query=Ubuntu)** | **Required on Windows** | It is necessary to turn on "**Windows Subsystem for Linux (WSL)**" and **Virtual Machine Platform** in the Windows settings to be able to use shell scripts. |
+| **[Phaser](https://www.ccp4.ac.uk/download)** | **Required** | The command "phaser" is included in CCP4. If you have not installed CCP4, please install it. [*3] |
+| Web browser | Required | Either **Google Chrome**, **Microsoft Edge**, **Firefox**, or **Safari** is required. It is required, but as it is usually pre-installed on computers, you normally do not need to prepare it yourself. For Safari, enable "**Allow Remote Automation**" in the developer settings. |
+| [Microsoft Excel](https://www.microsoft.com/en-us/microsoft-365) | Recommended | This is useful for checking the results of molecular replacement. |
 
 [*3] The following steps are for Windows (Ubuntu). The procedure for macOS is similar.
 
