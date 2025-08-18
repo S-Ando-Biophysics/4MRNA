@@ -110,7 +110,8 @@ if [ -f "$results_file" ]; then
       }
       END{ if(found) print best }
     ' "$results_file"
-  )"  if [ -n "$best_name" ]; then
+  )" 
+if [ -n "$best_name" ]; then
     echo "$best_name" >> "$best_out"
   fi
 fi
@@ -124,3 +125,4 @@ if [ -s "$best_out" ]; then
     fi
   done < "$best_out"
 fi
+
