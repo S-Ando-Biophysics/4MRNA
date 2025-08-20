@@ -15,6 +15,8 @@ Please refer to the user manual.
 - [Japanese Version](https://github.com/S-Ando-Biophysics/4MRNA/blob/main/Docs/4MRNA-Manual-JP.pdf) (Latest update: 2025-08-18) 
 
 ### How to Use (Summarized Version of the User Manual)
+Tutorial video (YouTube) - in preparation
+
 1. Enter the required information.
 
     | Required&nbsp;infomation | What to do |
@@ -88,6 +90,8 @@ Please install and set up the following software in advance.
 - **2025-08-18** The official version (fully automated version) has been released. 
 
 ## About 4MRNA
+[Explanatory video (YouTube)](https://youtu.be/WX_Rh3vtOlg)
+
 **4MRNA** means <ins>**M**</ins>assive <ins>**M**</ins>ulti-type <ins>**M**</ins>odel <ins>**M**</ins>olecular <ins>**R**</ins>eplacement for <ins>**N**</ins>ucleic <ins>**A**</ins>cids.
 
 Applying molecular replacement (MR) commonly used for structure determination to nucleic acids poses unique challenges that are not present for proteins. To solve these challenges, we developed a new innovative strategy called 4MRNA.
