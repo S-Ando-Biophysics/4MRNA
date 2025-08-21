@@ -83,8 +83,8 @@ Please install and set up the following software in advance.
 | **Generated Shell scripts** | Windows (WSL; Ubuntu), macOS, Linux (Rocky Linux) | - |
 
 ### Release Notes
-- **2025-08-01** The beta version has been released.
-- **2025-08-18** The official version has been released.
+- **2025-07-18** The beta version has been released.
+- **2025-08-01** The official version has been released.
 - **2025-08-21** Major update:
   - The website user interface has been updated to improve usability.
   - The stability of Python code has been enhanced.
