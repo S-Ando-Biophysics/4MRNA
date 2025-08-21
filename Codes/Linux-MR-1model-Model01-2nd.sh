@@ -1,14 +1,18 @@
 #!/usr/bin/env bash
 parent_directory="" 
-mtz_files=( "${parent_directory}"/*.mtz )
-if [ ${#mtz_files[@]} -eq 0 ]; then
+shopt -s nullglob
+mtz_candidates=( "${parent_directory}"/*.mtz )
+shopt -u nullglob
+if (( ${#mtz_candidates[@]} == 0 )); then
   echo "Error: No .mtz file found in ${parent_directory}" >&2
   exit 1
-elif [ ${#mtz_files[@]} -gt 1 ]; then
-  echo "Error: Multiple .mtz files found in ${parent_directory}:" >&2
-  printf '  %s\n' "${mtz_files[@]}" >&2
-  exit 1
+elif (( ${#mtz_candidates[@]} == 1 )); then
+  mtz_file="${mtz_candidates[0]}"
+else
+  mtz_file="$(ls -t "${parent_directory}"/*.mtz | head -n1)"
+  echo "Warning: Multiple .mtz files found. Using the most recent: ${mtz_file}" >&2
 fi
+echo "Reflection file to use: ${mtz_file}"
 mtz_file="${mtz_files[0]}"
 mkdir -p "${parent_directory}/MR-Model01-2nd"
 file_path="${parent_directory}/MR-Model01-2nd"
@@ -91,3 +95,4 @@ done
   printf 'Model TopLLG TopTFZ\n'
   awk -F',' 'NR==FNR{llg[$1]=$2; next} {print $1, llg[$1], $2}' OFS=' ' TopLLG.txt TopTFZ.txt
 } > "${file_path}/results.txt"
+
