@@ -231,50 +231,50 @@
 
     const PY1_URL      = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Python-CreatingModels-1st.py";
     const PY2_URL      = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Python-CreatingModels-2nd.py";
-    const L1_01_1_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-1model-Model01-1st.txt";
-    const L1_01_2_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-1model-Model01-2nd.txt";
-    const L2_01_1_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-2model-Model01-1st.txt";
-    const L2_01_2_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-2model-Model01-2nd.txt";
-    const L2_02_1_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-2model-Model02-1st.txt";
-    const L2_02_2_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-2model-Model02-2nd.txt";
-    const L3_01_1_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-3model-Model01-1st.txt";
-    const L3_01_2_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-3model-Model01-2nd.txt";
-    const L3_02_1_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-3model-Model02-1st.txt";
-    const L3_02_2_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-3model-Model02-2nd.txt";
-    const L3_03_1_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-3model-Model03-1st.txt";
-    const L3_03_2_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-3model-Model03-2nd.txt";
+    const L1_01_1_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-1model-Model01-1st.sh";
+    const L1_01_2_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-1model-Model01-2nd.sh";
+    const L2_01_1_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-2model-Model01-1st.sh";
+    const L2_01_2_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-2model-Model01-2nd.sh";
+    const L2_02_1_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-2model-Model02-1st.sh";
+    const L2_02_2_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-2model-Model02-2nd.sh";
+    const L3_01_1_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-3model-Model01-1st.sh";
+    const L3_01_2_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-3model-Model01-2nd.sh";
+    const L3_02_1_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-3model-Model02-1st.sh";
+    const L3_02_2_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-3model-Model02-2nd.sh";
+    const L3_03_1_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-3model-Model03-1st.sh";
+    const L3_03_2_URL  = "https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Linux-MR-3model-Model03-2nd.sh";
 
     function getTemplatesFor1Model() {
       return [
         { url: PY1_URL,     outName: "01.Python-CreatingModels-1st.py" },
-        { url: L1_01_1_URL, outName: "02.Linux-MR-1model-Model01-1st.txt" },
+        { url: L1_01_1_URL, outName: "02.Linux-MR-1model-Model01-1st.sh" },
         { url: PY2_URL,     outName: "03.Python-CreatingModels-2nd.py" },
-        { url: L1_01_2_URL, outName: "04.Linux-MR-1model-Model01-2nd.txt" }
+        { url: L1_01_2_URL, outName: "04.Linux-MR-1model-Model01-2nd.sh" }
       ];
     }
     function getTemplatesFor2Models() {
       return [
         { url: PY1_URL,     outName: "01.Python-CreatingModels-1st.py" },
-        { url: L2_01_1_URL, outName: "02.Linux-MR-2model-Model01-1st.txt" },
+        { url: L2_01_1_URL, outName: "02.Linux-MR-2model-Model01-1st.sh" },
         { url: PY2_URL,     outName: "03.Python-CreatingModels-2nd.py" },
-        { url: L2_01_2_URL, outName: "04.Linux-MR-2model-Model01-2nd.txt" },
-        { url: L2_02_1_URL, outName: "05.Linux-MR-2model-Model02-1st.txt" },
+        { url: L2_01_2_URL, outName: "04.Linux-MR-2model-Model01-2nd.sh" },
+        { url: L2_02_1_URL, outName: "05.Linux-MR-2model-Model02-1st.sh" },
         { url: PY2_URL,     outName: "06.Python-CreatingModels-2nd.py" },
-        { url: L2_02_2_URL, outName: "07.Linux-MR-2model-Model02-2nd.txt" }
+        { url: L2_02_2_URL, outName: "07.Linux-MR-2model-Model02-2nd.sh" }
       ];
     }
     function getTemplatesFor3Models() {
       return [
         { url: PY1_URL,     outName: "01.Python-CreatingModels-1st.py" },
-        { url: L3_01_1_URL, outName: "02.Linux-MR-3model-Model01-1st.txt" },
+        { url: L3_01_1_URL, outName: "02.Linux-MR-3model-Model01-1st.sh" },
         { url: PY2_URL,     outName: "03.Python-CreatingModels-2nd.py" },
-        { url: L3_01_2_URL, outName: "04.Linux-MR-3model-Model01-2nd.txt" },
-        { url: L3_02_1_URL, outName: "05.Linux-MR-3model-Model02-1st.txt" },
+        { url: L3_01_2_URL, outName: "04.Linux-MR-3model-Model01-2nd.sh" },
+        { url: L3_02_1_URL, outName: "05.Linux-MR-3model-Model02-1st.sh" },
         { url: PY2_URL,     outName: "06.Python-CreatingModels-2nd.py" },
-        { url: L3_02_2_URL, outName: "07.Linux-MR-3model-Model02-2nd.txt" },
-        { url: L3_03_1_URL, outName: "08.Linux-MR-3model-Model03-1st.txt" },
+        { url: L3_02_2_URL, outName: "07.Linux-MR-3model-Model02-2nd.sh" },
+        { url: L3_03_1_URL, outName: "08.Linux-MR-3model-Model03-1st.sh" },
         { url: PY2_URL,     outName: "09.Python-CreatingModels-2nd.py" },
-        { url: L3_03_2_URL, outName: "10.Linux-MR-3model-Model03-2nd.txt" }
+        { url: L3_03_2_URL, outName: "10.Linux-MR-3model-Model03-2nd.sh" }
       ];
     }
 
@@ -295,7 +295,7 @@
         }
 
         typeSelect.addEventListener('change', updateSequenceAndMW);
-        seqInput.addEventListener('input', updateSequenceAndMW);
+        seqInput.addEventListener('input',     updateSequenceAndMW);
         updateSequenceAndMW();
       });
     }
@@ -328,7 +328,6 @@
         alert('Please input Working directory.');
         return;
       }
-
       workingDirInput = workingDirInput.replace(/[\\/]+$/, '');
 
       let pythonWorkingDir, linuxParentDir;
@@ -356,13 +355,10 @@
       });
 
       let templateList;
-      if (numModels === "1")      templateList = getTemplatesFor1Model();
+      if      (numModels === "1") templateList = getTemplatesFor1Model();
       else if (numModels === "2") templateList = getTemplatesFor2Models();
       else if (numModels === "3") templateList = getTemplatesFor3Models();
-      else {
-        alert("Please select 1, 2, or 3 for No. of models.");
-        return;
-      }
+      else { alert("Please select 1, 2, or 3 for No. of models."); return; }
 
       fetchTemplates(templateList)
         .then(templates => {
@@ -401,7 +397,7 @@
               }
             }
 
-            if (fname.endsWith('.txt')) {
+            if (fname.endsWith('.sh')) {
               tmpl = tmpl.replace(/^parent_directory\s*=.*$/m, `parent_directory="${linuxParentDir}"`);
 
               for (let i = 0; i < modelData.length; i++) {
@@ -415,13 +411,13 @@
 
             if (fname.includes("Python-CreatingModels-2nd.py")) {
               let modelIndex;
-              if (fname.startsWith("03.")) modelIndex = 0;
+              if      (fname.startsWith("03.")) modelIndex = 0;
               else if (fname.startsWith("06.")) modelIndex = 1;
               else if (fname.startsWith("09.")) modelIndex = 2;
 
               let pyWorkingDir2nd = pythonWorkingDir;
               if (userOS === 'windows') pyWorkingDir2nd += `\\\\Model0${modelData[modelIndex].index}-2`;
-              else pyWorkingDir2nd += `/Model0${modelData[modelIndex].index}-2`;
+              else                      pyWorkingDir2nd += `/Model0${modelData[modelIndex].index}-2`;
 
               tmpl = tmpl.replace(/directory\s*=.*/, `directory = r"${pyWorkingDir2nd}"`);
               tmpl = tmpl.replace(/na_type\s*=.*/, `na_type = "${modelData[modelIndex].type}"`);
