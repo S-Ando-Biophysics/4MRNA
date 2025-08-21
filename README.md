@@ -3,7 +3,7 @@ You can access this website via the following URL. https://s-ando-biophysics.git
 
 The explanation of what 4MRNA is is provided after the instructions below.
 
-## Instructions 【Under modification】
+## Instructions
 
 ### User Manual
 Please refer to the user manual.
@@ -40,7 +40,7 @@ Tutorial video (YouTube) - in preparation
     | Type | Extension |  How to run |
     | :----- | :----- | :----- |
     | **Python** | **.py** | Please open the code in a text editor like Visual Studio Code and run it. |
-    | **Shell** | **.txt** | Please paste the code into Ubuntu or Terminal and run it. |
+    | **Shell** | **.sh** | Please open Ubuntu or Terminal and run `bash <code-name>.sh`. |
 
 
 ### Preparation
