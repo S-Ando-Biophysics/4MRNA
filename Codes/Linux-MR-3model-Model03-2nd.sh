@@ -76,3 +76,35 @@ for folder_path in ./phaser-*/; do
   printf '\n%s,%s\n' "$folder_name" "$max_value" >> "$tfz_output_file"
 done
 { printf 'Model TopLLG TopTFZ\n'; awk -F',' 'NR==FNR{llg[$1]=$2; next} {print $1, llg[$1], $2}' OFS=' ' TopLLG.txt TopTFZ.txt; } > "${file_path}/results.txt"
+results_src="${file_path}/results.txt"
+results_pick="${file_path}/4MRNA-results.txt"
+results_dir="${parent_directory}/4MRNA-Results"
+mkdir -p "${results_dir}"
+: > "${results_pick}"
+if [ -f "${results_src}" ]; then
+  awk '$2 ~ /^-?[0-9.]+$/ && $3 ~ /^-?[0-9.]+$/ {
+    printf "%s %g %g\n",$1,$2+0,$3+0
+  }' "${results_src}" \
+    | sort -k2,2nr -k3,3nr | head -2 >> "${results_pick}"
+  awk '$2 ~ /^-?[0-9.]+$/ && $3 ~ /^-?[0-9.]+$/ {
+    printf "%s %g %g\n",$1,$2+0,$3+0
+  }' "${results_src}" \
+    | sort -k3,3nr -k2,2nr | head -2 >> "${results_pick}"
+  awk '$2 ~ /^-?[0-9.]+$/ && $3 ~ /^-?[0-9.]+$/ {
+    p=($2+0)*($3+0);
+    printf "%g\t%s %g %g\n",p,$1,$2+0,$3+0
+  }' "${results_src}" \
+    | sort -k1,1nr | head -3 | cut -f2- >> "${results_pick}"
+  awk '!seen[$0]++' "${results_pick}" > "${file_path}/.4mrna_tmp.txt" \
+    && mv "${file_path}/.4mrna_tmp.txt" "${results_pick}"
+fi
+if [ -s "${results_pick}" ]; then
+  while read -r name val1 val2; do
+    while IFS= read -r -d '' d; do
+      cp -R "$d" "${results_dir}/"
+    done < <(find "${file_path}" -mindepth 1 -maxdepth 1 -type d -name "*${name}*" -print0)
+  done < "${results_pick}"
+fi
+if [ -f "${results_pick}" ]; then
+  cp -f "${results_pick}" "${results_dir}/"
+fi
