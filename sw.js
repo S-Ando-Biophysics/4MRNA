@@ -1,4 +1,4 @@
-const CACHE_NAME = '4mrna-v1';
+const CACHE_NAME = '4mrna-v2';
 const ASSETS = [
   './',
   './index.html',
