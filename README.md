@@ -85,7 +85,9 @@ Please install and set up the following software in advance.
 ### Release Notes
 - **2025-07-18** The beta version has been released.
 - **2025-08-01** The official version has been released.
-- **2025-08-21** Major update:
+- **2025-08-18** Updata: 
+  - The Linux code has been revised, enabling smoother use of 4MRNA.
+- **2025-08-21** Update:
   - The website user interface has been updated to improve usability.
   - The stability of Python code has been enhanced.
   - The processing speed of the Python code has been improved.
