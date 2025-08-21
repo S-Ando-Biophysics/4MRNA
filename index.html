@@ -32,93 +32,40 @@
       padding: 20px;
       font-family: Arial, sans-serif;
     }
-    h1, h2 {
-      text-align: center;
-    }
-    .container {
-      width: 800px;
-      max-width: 100%;
-    }
+    h1, h2 { text-align: center; }
+    .container { width: 800px; max-width: 100%; }
     table {
       border-collapse: collapse;
       margin: 0 auto 20px auto;
       width: 100%;
       text-align: left;
     }
-    #basic-settings table {
-      table-layout: fixed;
-    }
+    #basic-settings table { table-layout: fixed; }
     #basic-settings table th,
-    #basic-settings table td {
-      width: 50%;
-    }
-    th, td {
-      border: 1px solid #999;
-      padding: 8px;
-    }
-    th {
-      background-color: #f2f2f2;
-    }
-    .section {
-      margin-bottom: 30px;
-    }
-    .button-container {
-      text-align: center;
-      margin-top: 20px;
-    }
+    #basic-settings table td { width: 50%; }
+    th, td { border: 1px solid #999; padding: 8px; }
+    th { background-color: #f2f2f2; }
+    .section { margin-bottom: 30px; }
+    .button-container { text-align: center; margin-top: 20px; }
     .file-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;
     }
-    .file-item span {
-      flex-grow: 1;
-    }
-    .file-item button {
-      margin-left: 10px;
-      padding: 5px 10px;
-      cursor: pointer;
-    }
+    .file-item span { flex-grow: 1; }
+    .file-item button { margin-left: 10px; padding: 5px 10px; cursor: pointer; }
     .download-link {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 10px 15px;
-      background-color: black;
-      color: white;
-      text-decoration: none;
-      border-radius: 4px;
-      border: none;
-      cursor: pointer;
-      font-family: Arial, sans-serif;
-      font-size: 16px;
+      display: inline-block; margin-top: 10px; padding: 10px 15px;
+      background-color: black; color: white; text-decoration: none;
+      border-radius: 4px; border: none; cursor: pointer;
+      font-family: Arial, sans-serif; font-size: 16px;
     }
-    #basic-settings table td input[type="text"] {
-      width: 100%;
-      box-sizing: border-box;
-    }
-    #naTable input.sequenceInput {
-      width: 100%;
-      box-sizing: border-box;
-    }
+    #basic-settings table td input[type="text"],
+    #naTable input.sequenceInput,
     #naTable input.mwOutput,
-    #naTable input.numInAU {
-      width: 100%;
-      box-sizing: border-box;
-      text-align: right;
-    }
-    #naTable th:nth-child(3),
-    #naTable td:nth-child(3) {
-      width: 50%;
-    }
-    #naTable th:nth-child(4),
-    #naTable td:nth-child(4) {
-      width: 12.5%;
-    }
-    #naTable th:nth-child(5),
-    #naTable td:nth-child(5) {
-      width: 12.5%;
-    }
+    #naTable input.numInAU { width: 100%; box-sizing: border-box; }
+    #naTable input.mwOutput, #naTable input.numInAU { text-align: right; }
+    #naTable th:nth-child(3), #naTable td:nth-child(3) { width: 50%; }
+    #naTable th:nth-child(4), #naTable td:nth-child(4),
+    #naTable th:nth-child(5), #naTable td:nth-child(5) { width: 12.5%; }
   </style>
 </head>
 <body>
@@ -135,13 +82,10 @@
 
     <div class="section" id="basic-settings">
       <table>
-        <!-- Removed: Browser selection row -->
-        <!-- Removed: Default download directory row -->
         <tr>
           <th>Working directory</th>
           <td><input type="text" id="workingDir" /></td>
         </tr>
-        <!-- Removed: Reflection file input row -->
         <tr>
           <th>No. of models</th>
           <td>
@@ -219,9 +163,9 @@
   <script>
     function getOS() {
       const platform = navigator.platform.toLowerCase();
-      if (platform.startsWith('win')) { return 'windows'; }
-      if (platform.startsWith('mac')) { return 'macos'; }
-      if (platform.startsWith('linux')) { return 'linux'; }
+      if (platform.startsWith('win')) return 'windows';
+      if (platform.startsWith('mac')) return 'macos';
+      if (platform.startsWith('linux')) return 'linux';
       return 'unknown';
     }
 
@@ -231,8 +175,8 @@
         macos:   { working: 'e.g. /Users/name/Documents/4MRNA' },
         linux:   { working: 'e.g. /home/name/Documents/4MRNA' }
       };
-      const osPlaceholders = placeholders[os] || placeholders.linux;
-      document.getElementById('workingDir').placeholder = osPlaceholders.working;
+      const p = placeholders[os] || placeholders.linux;
+      document.getElementById('workingDir').placeholder = p.working;
     }
 
     function formatSequence(rawSeq, type) {
@@ -246,8 +190,8 @@
 
     function getComplement(seq, type) {
       const isRNA = (type === 'A-RNA');
-      const complementMapDNA = {'A':'T','T':'A','G':'C','C':'G'};
-      const complementMapRNA = {'A':'U','U':'A','G':'C','C':'G'};
+      const complementMapDNA = {A:'T', T:'A', G:'C', C:'G'};
+      const complementMapRNA = {A:'U', U:'A', G:'C', C:'G'};
       const map = isRNA ? complementMapRNA : complementMapDNA;
       let comp = '';
       seq = seq.toUpperCase().replace(/\s+/g, '');
@@ -258,30 +202,24 @@
     function calculateMW(seq, type) {
       const isRNA = (type === 'A-RNA');
       seq = seq.toUpperCase().replace(/[^ATGCU]/g, '');
-      const counts = {'G':0,'A':0,'C':0,'T':0,'U':0};
-      for (let base of seq) if (counts.hasOwnProperty(base)) counts[base]++;
-      const totalBases = counts.G + counts.A + counts.C + (isRNA ? counts.U : counts.T);
-      let molecularWeight = 0;
-      if (isRNA) {
-        molecularWeight = counts.G * 363.22 + counts.A * 347.22 + counts.C * 323.20 + counts.U * 324.18;
-      } else {
-        molecularWeight = counts.G * 347.22 + counts.A * 331.22 + counts.C * 307.20 + counts.T * 322.21;
-      }
-      molecularWeight -= 18 * (totalBases - 1) + 78.97;
+      const counts = {G:0, A:0, C:0, T:0, U:0};
+      for (let b of seq) if (counts.hasOwnProperty(b)) counts[b]++;
+      const total = counts.G + counts.A + counts.C + (isRNA ? counts.U : counts.T);
+      let mw = isRNA
+        ? counts.G*363.22 + counts.A*347.22 + counts.C*323.20 + counts.U*324.18
+        : counts.G*347.22 + counts.A*331.22 + counts.C*307.20 + counts.T*322.21;
+      mw -= 18*(total-1) + 78.97;
 
-      const compSeq = getComplement(seq, type);
-      const compCounts = {'G':0,'A':0,'C':0,'T':0,'U':0};
-      for (let base of compSeq) if (compCounts.hasOwnProperty(base)) compCounts[base]++;
-      const compTotalBases = compCounts.G + compCounts.A + compCounts.C + (isRNA ? compCounts.U : compCounts.T);
-      let compMW = 0;
-      if (isRNA) {
-        compMW = compCounts.G * 363.22 + compCounts.A * 347.22 + compCounts.C * 323.20 + compCounts.U * 324.18;
-      } else {
-        compMW = compCounts.G * 347.22 + compCounts.A * 331.22 + compCounts.C * 307.20 + compCounts.T * 322.21;
-      }
-      compMW -= 18 * (compTotalBases - 1) + 78.97;
+      const comp = getComplement(seq, type);
+      const c2 = {G:0, A:0, C:0, T:0, U:0};
+      for (let b of comp) if (c2.hasOwnProperty(b)) c2[b]++;
+      const total2 = c2.G + c2.A + c2.C + (isRNA ? c2.U : c2.T);
+      let mw2 = isRNA
+        ? c2.G*363.22 + c2.A*347.22 + c2.C*323.20 + c2.U*324.18
+        : c2.G*347.22 + c2.A*331.22 + c2.C*307.20 + c2.T*322.21;
+      mw2 -= 18*(total2-1) + 78.97;
 
-      return Math.round((molecularWeight + compMW) * 100) / 100;
+      return Math.round((mw + mw2) * 100) / 100;
     }
 
     function convertToLinuxPath(winPath) {
@@ -386,24 +324,20 @@
       const userOS = getOS();
       let workingDirInput = document.getElementById('workingDir').value.trim();
 
-      // 簡易バリデーション & 末尾セパレータ除去
       if (!workingDirInput) {
         alert('Please input Working directory.');
         return;
       }
+
       workingDirInput = workingDirInput.replace(/[\\/]+$/, '');
 
-      let linuxReflectionPath;
       let pythonWorkingDir, linuxParentDir;
-
       if (userOS === 'windows') {
-        linuxReflectionPath  = convertToLinuxPath(workingDirInput + "\\reflections.mtz");
-        pythonWorkingDir     = workingDirInput.replace(/\\/g, "\\\\");
-        linuxParentDir       = convertToLinuxPath(workingDirInput);
+        pythonWorkingDir = workingDirInput.replace(/\\/g, "\\\\");
+        linuxParentDir   = convertToLinuxPath(workingDirInput);
       } else {
-        linuxReflectionPath  = workingDirInput + "/reflections.mtz";
-        pythonWorkingDir     = workingDirInput;
-        linuxParentDir       = workingDirInput;
+        pythonWorkingDir = workingDirInput;
+        linuxParentDir   = workingDirInput;
       }
 
       const numModels = document.getElementById('numModels').value;
@@ -438,7 +372,6 @@
             const fname = item.fileName;
 
             if (fname === "01.Python-CreatingModels-1st.py") {
-              // Python スクリプトには reflection を入れない
               tmpl = tmpl.replace(/^parent_directory\s*=.*$/m, `parent_directory = r"${pythonWorkingDir}"`);
               tmpl = tmpl.replace(/^num_models\s*=.*$/m, `num_models = ${numModels}`);
 
@@ -470,8 +403,6 @@
 
             if (fname.endsWith('.txt')) {
               tmpl = tmpl.replace(/^parent_directory\s*=.*$/m, `parent_directory="${linuxParentDir}"`);
-              // HKLIn の置換を空白に寛容に
-              tmpl = tmpl.replace(/HKLIn\s+reflections\.mtz/, `HKLIn ${linuxReflectionPath}`);
 
               for (let i = 0; i < modelData.length; i++) {
                 const regexMW = new RegExp(`COMPosition NUCLeic MW \\d+(\\.\\d+)? NUM ${i + 1}`);
@@ -489,13 +420,9 @@
               else if (fname.startsWith("09.")) modelIndex = 2;
 
               let pyWorkingDir2nd = pythonWorkingDir;
-              if (userOS === 'windows') {
-                pyWorkingDir2nd += `\\\\Model0${modelData[modelIndex].index}-2`;
-              } else {
-                pyWorkingDir2nd += `/Model0${modelData[modelIndex].index}-2`;
-              }
+              if (userOS === 'windows') pyWorkingDir2nd += `\\\\Model0${modelData[modelIndex].index}-2`;
+              else pyWorkingDir2nd += `/Model0${modelData[modelIndex].index}-2`;
 
-              // reflection は入れない
               tmpl = tmpl.replace(/directory\s*=.*/, `directory = r"${pyWorkingDir2nd}"`);
               tmpl = tmpl.replace(/na_type\s*=.*/, `na_type = "${modelData[modelIndex].type}"`);
             }
@@ -541,17 +468,16 @@
 
           const zip = new JSZip();
           generated.forEach(item => zip.file(item.fileName, item.content));
-          zip.generateAsync({ type: 'blob' })
-            .then(blob => {
-              const dlContainer = document.getElementById('downloadButtonContainer');
-              dlContainer.innerHTML = '';
-              const a = document.createElement('a');
-              a.href = URL.createObjectURL(blob);
-              a.download = '4MRNA-Generated-Codes.zip';
-              a.textContent = 'Download all codes';
-              a.className = 'download-link';
-              dlContainer.appendChild(a);
-            });
+          zip.generateAsync({ type: 'blob' }).then(blob => {
+            const dlContainer = document.getElementById('downloadButtonContainer');
+            dlContainer.innerHTML = '';
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = '4MRNA-Generated-Codes.zip';
+            a.textContent = 'Download all codes';
+            a.className = 'download-link';
+            dlContainer.appendChild(a);
+          });
         })
         .catch(err => {
           alert(`Template fetch failed: ${err}`);
