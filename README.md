@@ -14,20 +14,18 @@ Please refer to the user manual.
 ### How to Use (Summarized Version of the User Manual)
 Tutorial video (YouTube) - in preparation
 
-1. Enter the required information.
+1. Create a folder to run 4MRNA and place one reflection file (.mtz) in it.
+
+2. Enter the required information.
 
     | Required&nbsp;infomation | What to do |
     | :----- | :----- |
-    | **Browser** | Please select your browser from Google Chrome, Microsoft Edge, Firefox, or Safari. |
-    | **Default&nbsp;download&nbsp;directory&nbsp;of selected&nbsp;browser** | Please enter the folder where files are automatically saved when using the selected browser above. |
     | **Working&nbsp;directory** | Please enter the folder where you want to run 4MRNA. |
-    | **Path&nbsp;and&nbsp;name&nbsp;of&nbsp;reflection&nbsp;file used&nbsp;in&nbsp;4MRNA** | Please enter the location and name of the reflection file to be used for 4MRNA. For example, if there is a file named `reflections.mtz` in `D:\Sample\Phenix`, enter `D:\Sample\Phenix\reflections.mtz`. |
     | **No.&nbsp;of&nbsp;models** | Please select how many types of models you want to create. [*1] |
     | **Type** | Please select the type of nucleic acid from A-form DNA, B-form DNA or A-form RNA. |
     | **Sequence&nbsp;of&nbsp;one&nbsp;strand&nbsp;of&nbsp;duplex** | Please enter the base sequence of the model (duplex) you want to create. Only the sequence of one strand of duplex is required. The complementary strand is processed automatically. |
     | **MW** | The molecular weight is calculated from the input sequence, including the complementary sequence. |
     | **No.&nbsp;in&nbsp;AU** | Please enter how many of the models are contained in the asymmetric unit of the crystal. [*2]  |
-
 
    [*1] For example, in the case of a double-stranded molecule that contains loop regions, you divide it into several sections (stems) by avoiding the loop regions, and then you create models for each section. When dividing it into two stem sections, please select “2” here.
    
@@ -50,7 +48,7 @@ Please install and set up the following software in advance.
 
 | Name | Priority | Remarks |
 | :----- | :----- | :----- |
-| **[Python](https://www.python.org/downloads/)** | **Required** | After installing Python, open the command prompt and run `pip install selenium pandas`. |
+| **[Python](https://www.python.org/downloads/)** | **Required** | After installing Python, open the command prompt and run `pip install pandas playwright` and `playwright install`. |
 | [Visual&nbsp;Studio&nbsp;Code](https://code.visualstudio.com/Download) | Recommended | In addition, download the extension of Python. |
 | **[Ubuntu](https://apps.microsoft.com/search?query=Ubuntu)** | **Required on Windows** | It is necessary to turn on "**Windows Subsystem for Linux (WSL)**" and **Virtual Machine Platform** in the Windows settings to be able to use shell scripts. |
 | **[Phaser](https://www.ccp4.ac.uk/download)** | **Required** | The command "phaser" is included in CCP4. If you have not installed CCP4, please install it. [*3] |
@@ -83,7 +81,7 @@ Please install and set up the following software in advance.
 | **Generated Shell scripts** | Windows (WSL; Ubuntu), macOS, Linux (Rocky Linux) | - |
 
 ### Release Notes
-- **2025-07-18** The beta version has been released.
+- **2025-07-08** The beta version has been released.
 - **2025-08-01** The official version has been released.
 - **2025-08-18** Updata: 
   - The Linux code has been revised, enabling smoother use of 4MRNA.
