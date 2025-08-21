@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
 parent_directory=""
 
+case "$(head -n1 "$0")" in
+  *$'\r'*) 
+    tmpfile=$(mktemp)
+    tr -d '\r' < "$0" > "$tmpfile"
+    chmod +x "$tmpfile"
+    exec "$tmpfile" "$@"
+    ;;
+esac
+
 shopt -s nullglob
 mtz_candidates=( "${parent_directory}"/*.mtz )
 shopt -u nullglob
@@ -187,3 +196,4 @@ if [ -s "${mr_dir}/results-good-num.txt" ]; then
     [ "$copied" = "1" ] || :
   done < "${mr_dir}/results-good-num.txt"
 fi
+
