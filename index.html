@@ -135,29 +135,13 @@
 
     <div class="section" id="basic-settings">
       <table>
-        <tr>
-          <th>Browser</th>
-          <td>
-            <select id="browserSelect">
-              <option value="Chrome">Google Chrome</option>
-	          <option value="Edge">Microsoft Edge</option>
-              <option value="Firefox" selected>Firefox</option>
-	          <option value="Safari">Safari</option>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <th>Default download directory of selected browser</th>
-          <td><input type="text" id="downloadDir" /></td>
-        </tr>
+        <!-- Removed: Browser selection row -->
+        <!-- Removed: Default download directory row -->
         <tr>
           <th>Working directory</th>
           <td><input type="text" id="workingDir" /></td>
         </tr>
-        <tr>
-          <th>Path and name of reflection file used in 4MRNA</th>
-          <td><input type="text" id="reflectionFile" /></td>
-        </tr>
+        <!-- Removed: Reflection file input row -->
         <tr>
           <th>No. of models</th>
           <td>
@@ -168,7 +152,6 @@
             </select>
           </td>
         </tr>
-
       </table>
     </div>
 
@@ -234,38 +217,22 @@
   </div>
 
   <script>
-
     function getOS() {
-        const platform = navigator.platform.toLowerCase();
-        if (platform.startsWith('win')) { return 'windows'; }
-        if (platform.startsWith('mac')) { return 'macos'; }
-        if (platform.startsWith('linux')) { return 'linux'; }
-        return 'unknown';
+      const platform = navigator.platform.toLowerCase();
+      if (platform.startsWith('win')) { return 'windows'; }
+      if (platform.startsWith('mac')) { return 'macos'; }
+      if (platform.startsWith('linux')) { return 'linux'; }
+      return 'unknown';
     }
 
     function updatePlaceholders(os) {
-        const placeholders = {
-            windows: {
-                download: 'e.g. C:\\Users\\name\\Downloads',
-                working: 'e.g. D:\\Sample\\4MRNA',
-                reflection: 'e.g. D:\\Sample\\Phenix\\reflections.mtz'
-            },
-            macos: {
-                download: 'e.g. /Users/name/Downloads',
-                working: 'e.g. /Users/name/Documents/4MRNA',
-                reflection: 'e.g. /Users/name/Documents/Phenix/reflections.mtz'
-            },
-            linux: {
-                download: 'e.g. /home/name/Downloads',
-                working: 'e.g. /home/name/Documents/4MRNA',
-                reflection: 'e.g. /home/name/Documents/Phenix/reflections.mtz'
-            }
-        };
-        const osPlaceholders = placeholders[os] || placeholders.linux; // Default to Linux style
-
-        document.getElementById('downloadDir').placeholder = osPlaceholders.download;
-        document.getElementById('workingDir').placeholder = osPlaceholders.working;
-        document.getElementById('reflectionFile').placeholder = osPlaceholders.reflection;
+      const placeholders = {
+        windows: { working: 'e.g. D:\\\\Sample\\\\4MRNA' },
+        macos:   { working: 'e.g. /Users/name/Documents/4MRNA' },
+        linux:   { working: 'e.g. /home/name/Documents/4MRNA' }
+      };
+      const osPlaceholders = placeholders[os] || placeholders.linux;
+      document.getElementById('workingDir').placeholder = osPlaceholders.working;
     }
 
     function formatSequence(rawSeq, type) {
@@ -316,7 +283,7 @@
 
       return Math.round((molecularWeight + compMW) * 100) / 100;
     }
-    
+
     function convertToLinuxPath(winPath) {
       const forward = winPath.replace(/\\/g, "/");
       const drive = forward.charAt(0).toLowerCase();
@@ -386,11 +353,7 @@
           const formatted = formatSequence(rawSeq, type);
           seqInput.value = formatted;
           const seqForMW = formatted.replace(/\s+/g, '');
-          if (!seqForMW) {
-            mwOutput.value = '0';
-          } else {
-            mwOutput.value = calculateMW(seqForMW, type);
-          }
+          mwOutput.value = seqForMW ? calculateMW(seqForMW, type) : '0';
         }
 
         typeSelect.addEventListener('change', updateSequenceAndMW);
@@ -421,47 +384,40 @@
 
     document.getElementById('generateBtn').addEventListener('click', function() {
       const userOS = getOS();
-      let reflectionPathInput = document.getElementById('reflectionFile').value.trim();
-      const downloadDirInput = document.getElementById('downloadDir').value.trim();
-      const workingDirInput = document.getElementById('workingDir').value.trim();
+      let workingDirInput = document.getElementById('workingDir').value.trim();
 
-      // Ensure reflection file has .mtz extension
-      if (reflectionPathInput && !reflectionPathInput.toLowerCase().endsWith('.mtz')) {
-        reflectionPathInput += '.mtz';
-        document.getElementById('reflectionFile').value = reflectionPathInput;
+      // 簡易バリデーション & 末尾セパレータ除去
+      if (!workingDirInput) {
+        alert('Please input Working directory.');
+        return;
       }
+      workingDirInput = workingDirInput.replace(/[\\/]+$/, '');
 
-      let pythonReflectionPath, linuxReflectionPath, pythonDownloadDir, pythonWorkingDir, linuxParentDir;
+      let linuxReflectionPath;
+      let pythonWorkingDir, linuxParentDir;
 
       if (userOS === 'windows') {
-
-        pythonReflectionPath = reflectionPathInput.replace(/\\/g, "\\\\");
-        linuxReflectionPath  = convertToLinuxPath(reflectionPathInput);
-        pythonDownloadDir = downloadDirInput.replace(/\\/g, "\\\\");
-        pythonWorkingDir  = workingDirInput.replace(/\\/g, "\\\\");
-        linuxParentDir    = convertToLinuxPath(workingDirInput);
+        linuxReflectionPath  = convertToLinuxPath(workingDirInput + "\\reflections.mtz");
+        pythonWorkingDir     = workingDirInput.replace(/\\/g, "\\\\");
+        linuxParentDir       = convertToLinuxPath(workingDirInput);
       } else {
-
-        pythonReflectionPath = reflectionPathInput;
-        linuxReflectionPath  = reflectionPathInput;
-        pythonDownloadDir = downloadDirInput;
-        pythonWorkingDir  = workingDirInput;
-        linuxParentDir    = workingDirInput;
+        linuxReflectionPath  = workingDirInput + "/reflections.mtz";
+        pythonWorkingDir     = workingDirInput;
+        linuxParentDir       = workingDirInput;
       }
-      
-      const browserType = document.getElementById("browserSelect").value.toLowerCase();
+
       const numModels = document.getElementById('numModels').value;
       const rows = document.querySelectorAll('#naTable tr[data-model-index]');
       const modelData = [];
       rows.forEach(row => {
         if (row.style.display !== 'none') {
-            const idx = row.getAttribute('data-model-index');
-            const type = row.querySelector('.typeSelect').value;
-            const formattedSeq = row.querySelector('.sequenceInput').value.trim();
-            const rawSeq = formattedSeq.replace(/\s+/g, '');
-            const mw = row.querySelector('.mwOutput').value.trim();
-            const numInAU = row.querySelector('.numInAU').value;
-            modelData.push({ index: idx, type, sequence: rawSeq, mw, numInAU });
+          const idx = row.getAttribute('data-model-index');
+          const type = row.querySelector('.typeSelect').value;
+          const formattedSeq = row.querySelector('.sequenceInput').value.trim();
+          const rawSeq = formattedSeq.replace(/\s+/g, '');
+          const mw = row.querySelector('.mwOutput').value.trim();
+          const numInAU = row.querySelector('.numInAU').value;
+          modelData.push({ index: idx, type, sequence: rawSeq, mw, numInAU });
         }
       });
 
@@ -482,8 +438,7 @@
             const fname = item.fileName;
 
             if (fname === "01.Python-CreatingModels-1st.py") {
-              tmpl = tmpl.replace(/^browser_type\s*=.*$/m, `browser_type = "${browserType}"`);
-              tmpl = tmpl.replace(/^download\s*=.*$/m, `download = r"${pythonDownloadDir}"`);
+              // Python スクリプトには reflection を入れない
               tmpl = tmpl.replace(/^parent_directory\s*=.*$/m, `parent_directory = r"${pythonWorkingDir}"`);
               tmpl = tmpl.replace(/^num_models\s*=.*$/m, `num_models = ${numModels}`);
 
@@ -515,7 +470,8 @@
 
             if (fname.endsWith('.txt')) {
               tmpl = tmpl.replace(/^parent_directory\s*=.*$/m, `parent_directory="${linuxParentDir}"`);
-              tmpl = tmpl.replace(/HKLIn reflections\.mtz/, `HKLIn ${linuxReflectionPath}`);
+              // HKLIn の置換を空白に寛容に
+              tmpl = tmpl.replace(/HKLIn\s+reflections\.mtz/, `HKLIn ${linuxReflectionPath}`);
 
               for (let i = 0; i < modelData.length; i++) {
                 const regexMW = new RegExp(`COMPosition NUCLeic MW \\d+(\\.\\d+)? NUM ${i + 1}`);
@@ -534,17 +490,16 @@
 
               let pyWorkingDir2nd = pythonWorkingDir;
               if (userOS === 'windows') {
-                  pyWorkingDir2nd += `\\\\Model0${modelData[modelIndex].index}-2`;
+                pyWorkingDir2nd += `\\\\Model0${modelData[modelIndex].index}-2`;
               } else {
-                  pyWorkingDir2nd += `/Model0${modelData[modelIndex].index}-2`;
+                pyWorkingDir2nd += `/Model0${modelData[modelIndex].index}-2`;
               }
 
-              tmpl = tmpl.replace(/^browser_type\s*=.*$/m, `browser_type = "${browserType}"`);
-              tmpl = tmpl.replace(/download\s*=.*/, `download = r"${pythonDownloadDir}"`);
+              // reflection は入れない
               tmpl = tmpl.replace(/directory\s*=.*/, `directory = r"${pyWorkingDir2nd}"`);
               tmpl = tmpl.replace(/na_type\s*=.*/, `na_type = "${modelData[modelIndex].type}"`);
             }
-            
+
             generated.push({ fileName: fname, content: tmpl });
           });
 
@@ -611,7 +566,7 @@
         row.style.display = (idx <= selectedNum) ? '' : 'none';
       });
     }
-    
+
     window.addEventListener('DOMContentLoaded', function() {
       const userOS = getOS();
       updatePlaceholders(userOS);
