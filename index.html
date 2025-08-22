@@ -14,14 +14,19 @@
   <title>4MRNA</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <script>
-    const isSmartphone = /iPhone|iPod|Android.*Mobile/i.test(navigator.userAgent);
-    if (isSmartphone) {
-      const meta = document.querySelector('meta[name="viewport"]');
-      meta.setAttribute(
-        'content',
-        'width=device-width, initial-scale=0.5, maximum-scale=0.9, user-scalable=yes'
-      );
+    function applyScale() {
+      if (!/iPhone|iPod|Android.*Mobile/i.test(navigator.userAgent)) return;
+      const el = document.body;
+      el.classList.add('smartphone');
+      const isLandscape = window.matchMedia('(orientation: landscape)').matches;
+      const scale = isLandscape ? 0.9 : 0.5;
+      el.style.transform = `scale(${scale})`;
+      el.style.width  = (100 / scale) + '%';
+      el.style.height = (100 / scale) + '%';
     }
+    window.addEventListener('resize', applyScale);
+    window.addEventListener('orientationchange', applyScale);
+    document.addEventListener('DOMContentLoaded', applyScale);
   </script>
   <style>
     :root { --fg:#0b1021; --bg:#f7f7fb; --muted:#6b6f76; --accent:#3a68ff; --content-width: 800px; }
