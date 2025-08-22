@@ -48,10 +48,25 @@ Access [this website](https://s-ando-biophysics.github.io/4MRNA/). How to use is
 4. When 4MRNA finishes, a directory named `4MRNA-Results` will be created, containing up to seven candidate solutions for molecular replacement.
 
 ### (3) Install style
+In this style, you install the `4MRNA` command on your computer in advance. Unlike Standard style, you do not need to download the Shell script every time. Instead, you can simply type the command `4MRNA` in Ubuntu/Terminal to run it.
 
+#### Procedure
+1. Create a new directory on your computer for running `4MRNA.sh`. After creating it, place your reflection file (.mtz) for molecular replacement into that directory.
+2. Open Ubuntu/Terminal, change to the directory created in Step 1, and run the command `4MRNA`.
+3. When 4MRNA finishes, a directory named `4MRNA-Results` will be created, containing up to seven candidate solutions for molecular replacement.
+
+#### How to install
+Run the following commands in order. If the version is displayed by running the final line of code, the installation is complete.
+
+    cd ~
+    git clone https://github.com/S-Ando-Biophysics/4MRNA-Install.git
+    cd 4MRNA-Install
+    chmod +x install.sh
+    ./install.sh
+    echo 'export PATH="$HOME/4MRNA-Install/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
+    4MRNA version
 
 <!--- Tutorial video (YouTube) - in preparation --->
-
 
 ## Preparation
 Please install and set up the following software in advance.
