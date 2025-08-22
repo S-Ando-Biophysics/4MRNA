@@ -1,0 +1,33 @@
+--------------------------------------------------
+The Information of Dependencies for 4MRNA 
+--------------------------------------------------
+
+4MRNA relies on several external resources and libraries.   
+These components are not included in the distribution of 4MRNA.  
+Users are responsible for installing them separately and complying with their respective licenses.
+
+
+1. Web3DNA
+- Official website: http://web.x3dna.org/
+- License: The website is provided as a freely accessible academic service.The paper is published under the Creative Commons Attribution-NonCommercial 4.0 (CC BY-NC 4.0) license.
+- Note: The author of 4MRNA directly confirmed with the author of Web3DNA via email that free use, including automated access, is permitted. 4MRNA uses the service responsibly and avoids placing excessive load on the server. 
+
+2. CCP4 / Phaser
+- Official website (CCP4): https://www.ccp4.ac.uk/
+- Official website (Phaser): https://www.phaser.cimr.cam.ac.uk/index.php/Phaser_Crystallographic_Software
+- License: License information is available on their respective websites. They are available free of charge for academic users after signing the academic license agreement.
+- Note: CCP4/Phaser is not bundled with 4MRNA. Users must install CCP4 separately and comply with the CCP4/Phaser license terms. 
+
+3. pandas (Python library)
+- Official website: https://pandas.pydata.org/
+- License: BSD 3-Clause License
+
+4. PlayWright (Python library)
+- Official website: https://playwright.dev/python/
+- License: Apache 2.0 License
+
+
+--------------------------------------------------
+
+The 4MRNA code itself is distributed under the MIT License.  
+External dependencies remain under their respective licenses.  
