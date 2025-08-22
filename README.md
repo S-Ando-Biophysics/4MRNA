@@ -4,7 +4,8 @@
 
 ### [User manual](https://github.com/S-Ando-Biophysics/4MRNA/blob/main/Docs/4MRNA-Manual.pdf) (Latest update: in preparation)
 ### [Website](https://s-ando-biophysics.github.io/4MRNA/)
-### [Release](https://github.com/S-Ando-Biophysics/4MRNA/releases/latest)
+### [Release (Standard style)](https://github.com/S-Ando-Biophysics/4MRNA/releases/latest)
+
 
 <br>
 
