@@ -17,7 +17,7 @@ There are three ways to execute 4MRNA.
 | **Install** | For users who want to run the 4MRNA workflow frequently, such as experts in X-ray crystallography. |
 | **Customizable** | For structural analysis experts who want to modify the code. <sup>[*1]</sup> |
 
-[*1] For example, you can adjust parameters by yourself to get more diverse models,or add your own prepared models to perform molecular replacement.
+[*1] For example, you can adjust parameters by yourself to get more diverse models,or add models prepared by other methods to perform molecular replacement.
 
 ### (1) Standard style
 In this style, you simply run one Shell script named `4MRNA.sh` on your computer.
