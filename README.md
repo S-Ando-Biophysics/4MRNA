@@ -4,7 +4,7 @@
 
 ### [User manual](https://github.com/S-Ando-Biophysics/4MRNA/blob/main/Docs/4MRNA-Manual.pdf) (Latest update: in preparation)
 ### [Website](https://s-ando-biophysics.github.io/4MRNA/)
-### [Release (Standard style)](https://github.com/S-Ando-Biophysics/4MRNA/releases/latest)
+### [Release](https://github.com/S-Ando-Biophysics/4MRNA/releases/latest)
 
 
 <br>
@@ -26,7 +26,29 @@ In this style, you simply run one Shell script named `4MRNA.sh` on your computer
 
 4. When 4MRNA finishes, a directory named `4MRNA-Results` will be created, containing up to seven candidate solutions for molecular replacement.
 
-### (2) Customizable style
+### (2) Install style
+In this style, you install the `4MRNA` command on your computer in advance. Unlike Standard style, you do not need to download the Shell script every time. Instead, you can simply type the command `4MRNA` in Ubuntu/Terminal to run it.
+
+<!--- Tutorial video (YouTube) - in preparation --->
+
+#### Procedure
+1. Create a new directory on your computer for running `4MRNA.sh`. After creating it, place your reflection file (.mtz) for molecular replacement into that directory.
+2. Open Ubuntu/Terminal, change to the directory created in Step 1, and run the command `4MRNA`.
+3. When 4MRNA finishes, a directory named `4MRNA-Results` will be created, containing up to seven candidate solutions for molecular replacement.
+
+#### How to install
+Run the following commands in order. If the version is displayed by running the final line of code, the installation is complete.
+
+    cd ~
+    git clone https://github.com/S-Ando-Biophysics/4MRNA-Install.git
+    cd 4MRNA-Install
+    chmod +x install.sh
+    ./install.sh
+    echo 'export PATH="$HOME/4MRNA-Install/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
+    4MRNA version
+
+
+### (3) Customizable style
 In this style, you obtain some programming codes from the website. Basically, you just run them in the prescribed order, but if needed, you can edit and customize the code. 
 
 Access [this website](https://s-ando-biophysics.github.io/4MRNA/). How to use is described on the website.
@@ -46,27 +68,6 @@ Access [this website](https://s-ando-biophysics.github.io/4MRNA/). How to use is
    | Shell | .sh | Run them using the `bash` command in Ubuntu/Terminal. |
 
 4. When 4MRNA finishes, a directory named `4MRNA-Results` will be created, containing up to seven candidate solutions for molecular replacement.
-
-### (3) Install style
-In this style, you install the `4MRNA` command on your computer in advance. Unlike Standard style, you do not need to download the Shell script every time. Instead, you can simply type the command `4MRNA` in Ubuntu/Terminal to run it.
-
-#### Procedure
-1. Create a new directory on your computer for running `4MRNA.sh`. After creating it, place your reflection file (.mtz) for molecular replacement into that directory.
-2. Open Ubuntu/Terminal, change to the directory created in Step 1, and run the command `4MRNA`.
-3. When 4MRNA finishes, a directory named `4MRNA-Results` will be created, containing up to seven candidate solutions for molecular replacement.
-
-#### How to install
-Run the following commands in order. If the version is displayed by running the final line of code, the installation is complete.
-
-    cd ~
-    git clone https://github.com/S-Ando-Biophysics/4MRNA-Install.git
-    cd 4MRNA-Install
-    chmod +x install.sh
-    ./install.sh
-    echo 'export PATH="$HOME/4MRNA-Install/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
-    4MRNA version
-
-<!--- Tutorial video (YouTube) - in preparation --->
 
 ## Preparation
 Please install and set up the following software in advance.
@@ -113,6 +114,9 @@ Based on this strategy, we decided to use Web 3DNA to create a wide variety of m
 
 ## Notes 
 ### Miscellaneous notes
+- Standard style of 4MRNA (release): https://github.com/S-Ando-Biophysics/4MRNA/releases/latest
+- Install style of 4MRNA (repository): https://github.com/S-Ando-Biophysics/4MRNA-Install
+
 - The Japanese version of user manual is available [here](https://github.com/S-Ando-Biophysics/4MRNA/blob/main/Docs/4MRNA-Manual.pdf).
 
 - The calculation of "No. of AU" (the number of molecules in the asymmetric unit) is done using the Matthews coefficient etc. Please refer to the [other repository](https://github.com/S-Ando-Biophysics/Cal-Nm) and [calculator website](https://s-ando-biophysics.github.io/Cal-Nm/).
