@@ -112,7 +112,7 @@
 
       <div class="panel">
         <h2>Step 2</h2>
-        <p>Fill in the table below and click "<b>Generate codes</b>". <p>For "<b>Working directory</b>", enter the path of the directory you created in Step&nbsp;1. (This field can be left blank when using Basic Version.)<p>When you select "<b>No. of models</b>", the corresponding number of input rows will appear below. Then enter each model’s information there. <p>"<b>No. of AU</b>" indicates how many copies of the model to be searched in molecular replacement.</p>
+        <p>Fill in the table below and click "<b>Generate codes</b>". <p>For "<b>Working directory</b>", enter the path of the directory you created in Step&nbsp;1. (This field can be left blank when using Basic Version.)<p>When you select "<b>No. of models</b>", the corresponding number of input rows will appear below. Then enter each model’s information there. <p>For "<b>Sequence</b>", only the sequence of one strand of duplex is required. The complementary strand is processed automatically. <p>"<b>No. of AU</b>" indicates how many copies of the model to be searched in molecular replacement.</p>
       </div>
       <div class="section" id="basic-settings">
         <table>
@@ -138,7 +138,7 @@
           <tr>
             <th>Model</th>
             <th>Type</th>
-            <th>Sequence of one strand of duplex (5'→3')</th>
+            <th>Sequence (one strand of duplex, 5'→3')</th>
             <th>MW</th>
             <th>No. in AU</th>
           </tr>
@@ -185,8 +185,8 @@
       </div>
 
       <div class="section button-container">
-        <button id="generateBasicBtn" class="download-link dual-line-btn">Generate codes <br>(Basic Version)</button>
-        <button id="generateCustomBtn" class="download-link dual-line-btn">Generate codes <br>(Customizable Version)</button>
+        <button id="generateBasicBtn" class="download-link dual-line-btn">Generate codes <br>(Standard style)</button>
+        <button id="generateCustomBtn" class="download-link dual-line-btn">Generate codes <br>(Customizable style)</button>
       </div>
 
       <div class="section" id="generatedCodesContainer" style="display: none;">
@@ -202,17 +202,17 @@
     <div class="footer-main">
       <p>Massive Multi-type Model Molecular Replacement for Nucleic Acids (4MRNA)</p>
       <p>
-        <a href="https://github.com/S-Ando-Biophysics/4MRNA?tab=readme-ov-file#instructions" target="_blank">
-          Click here for more detailed instructions.
+        <a href="https://github.com/S-Ando-Biophysics/4MRNA/blob/main/Docs/4MRNA-Manual.pdf" target="_blank">
+          The user manual is available here.
         </a>
       </p>
     <p>
     </div>
     <br>
     <div class="footer-links">
-      <a href="https://github.com/S-Ando-Biophysics/4MRNA-Basic" target="_blank">4MRNA Basic Version</a>
-      <a href="https://github.com/S-Ando-Biophysics/4MRNA-Custom" target="_blank">4MRNA Customizable Version</a>
-      <a href="https://github.com/S-Ando-Biophysics/4MRNA-In" target="_blank">4MRNA Install Version</a>
+      <a href="https://github.com/S-Ando-Biophysics/4MRNA?tab=readme-ov-file#1-standard-style" target="_blank">Standard style of 4MRNA</a>
+      <a href="https://github.com/S-Ando-Biophysics/4MRNA?tab=readme-ov-file#2-customizable-style" target="_blank">Customizable style of 4MRNA</a>
+      <a href="https://github.com/S-Ando-Biophysics/4MRNA?tab=readme-ov-file#3-install-style" target="_blank">Install style of 4MRNA</a>
     </div>
     <br>
     <div class="footer-copyright">
@@ -404,7 +404,7 @@
         p1.innerHTML = '<h2>Step 3</h2><p>Click "<b>Download code and input file</b>" and save them into the directory you created in Step&nbsp;1. Then open <b>Ubuntu/Terminal</b>, change directory to that path, and run "<b><code>bash 4MRNA.sh</code></b>"".</p>';
         p2.innerHTML = '<h2>Step 4</h2><p>When 4MRNA finishes, a directory named "<code>4MRNA-Results</code>" will be created, containing up to seven candidate solutions for molecular replacement. Review them and proceed to final structure refinement.</p>';
       } else {
-        p1.innerHTML = '<h2>Step 3</h2><p>Click "<b>Download all codes</b>". Then run them in the order indicated by the number at the beginning of each downloaded file. <p>For Python codes, open with an text editor such as <b>VS Code</b> and run them. <p>For Shell scripts, run them using the "<code>bash</code>" command in <b>Ubuntu/Terminal</b>.</p>';
+        p1.innerHTML = '<h2>Step 3</h2><p>Click "<b>Download all codes</b>". Then run them in the order indicated by the number at the beginning of each downloaded file. <p>For Python codes, open with a text editor such as <b>VS Code</b> and run them. <p>For Shell scripts, run them using the "<code>bash</code>" command in <b>Ubuntu/Terminal</b>.</p>';
         p2.innerHTML = '<h2>Step 4</h2><p>When 4MRNA finishes, a directory named "<code>4MRNA-Results</code>" will be created, containing up to seven candidate solutions for molecular replacement. Review them and proceed to final structure refinement.</p>';
       }
       box.appendChild(p1); box.appendChild(p2);
