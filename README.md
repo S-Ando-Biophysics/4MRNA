@@ -114,6 +114,7 @@ Based on this strategy, we decided to use Web 3DNA to create a wide variety of m
 ## Notes 
 ### Miscellaneous notes
 - Standard style of 4MRNA (release): https://github.com/S-Ando-Biophysics/4MRNA/releases/latest
+
 - Install style of 4MRNA (repository): https://github.com/S-Ando-Biophysics/4MRNA-Install
 
 - The Japanese version of user manual is available [here](https://github.com/S-Ando-Biophysics/4MRNA/blob/main/Docs/4MRNA-Manual.pdf).
@@ -138,7 +139,7 @@ Based on this strategy, we decided to use Web 3DNA to create a wide variety of m
 - **2025-08-22**  Major Update: 
   - The stability of the Python code has been enhanced.  
   - The processing speed of the Python code has been improved.  
-  - Two execution styles have been introduced: Standard style and Customizable style.  
+  - Three execution styles have been introduced: Standard style, Install style, and Customizable style.  
     - The previous version corresponds to Customizable style.  
-    - Standard style provides a simpler way to run 4MRNA.  
+    - Standard style and Install style provide simpler ways to run 4MRNA.  
   - The website user interface has been updated to improve usability.
