@@ -2,6 +2,7 @@
 **4MRNA** = <ins>**M**</ins>assive <ins>**M**</ins>ulti-type <ins>**M**</ins>odel <ins>**M**</ins>olecular <ins>**R**</ins>eplacement for <ins>**N**</ins>ucleic <ins>**A**</ins>cids.
 
 ### User manual (Latest update: )
+### [Release](https://github.com/S-Ando-Biophysics/4MRNA/releases/latest)
 ### [Website](https://s-ando-biophysics.github.io/4MRNA/)
 
 <br>
@@ -42,6 +43,8 @@ Access [this website](https://s-ando-biophysics.github.io/4MRNA/). How to use is
 ### (3) Install style
 
 
+
+<!---
 ### How to Use (Summarized Version of the User Manual)
 Tutorial video (YouTube) - in preparation
 
@@ -138,3 +141,5 @@ Based on this strategy, we decided to use Web 3DNA to create a wide variety of m
 
 ## Reference
 - in preparation
+
+--->
