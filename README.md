@@ -11,6 +11,14 @@
 ## Instructions
 There are three ways to execute 4MRNA.
 
+| Style | Target users |
+| :----- | :----- |
+| Standard style | For general users. |
+| Install style | For users who want to run the 4MRNA workflow multiple times, such as experts in X-ray crystallography. |
+| Customizable style | For structural analysis experts who want to modify the code. <sup>[*1]</sup> |
+
+[*1] For example, you can adjust parameters by yourself to get more diverse models,or add your own prepared models to perform molecular replacement.
+
 ### (1) Standard style
 In this style, you simply run one Shell script named `4MRNA.sh` on your computer.
 
@@ -76,9 +84,9 @@ Please install and set up the following software in advance.
 | [Python](https://www.python.org/downloads/) | Required | After installation, run `pip install pandas playwright`, `playwright install`, and `playwright install-deps`. |
 | [VS&nbsp;Code](https://code.visualstudio.com/Download) | Recommended | In addition, download the extension of Python. |
 | [Ubuntu](https://apps.microsoft.com/search?query=Ubuntu) | Required on Windows | It is necessary to turn on "Windows Subsystem for Linux (WSL)" and "Virtual Machine Platform" in the Windows settings to be able to use shell scripts. Furthermore, run `sudo apt update` and `sudo apt upgrade` in Ubuntu. |
-| [Phaser](https://www.ccp4.ac.uk/download) | Required | The command `phaser` is included in CCP4. If you have not installed CCP4, please install it. <sup>[*1]</sup> |
+| [Phaser](https://www.ccp4.ac.uk/download) | Required | The command `phaser` is included in CCP4. If you have not installed CCP4, please install it. <sup>[*2]</sup> |
 
-[*1] The following steps are for Windows (Ubuntu). The procedure for macOS is similar.
+[*2] The following steps are for Windows (Ubuntu). The procedure for macOS is similar.
 
     # Please change the directory name and CCP4 version as appropriate.
     # Assume that "ccp4-9.0.010-linux64.tar.gz" has been downloaded to "C:\Users\name\Downloads".
@@ -102,11 +110,11 @@ Applying molecular replacement (MR) commonly used for structure determination to
 
 One challenge is that nucleic acids can have different 3D structures even with the same sequence, which means that models existing in the database may not be suitable as a search model. Moreover, it is empirically known that MR of nucleic acids can fail even when the search model and the target structure differ only slightly. To address these issues, the new strategy 4MRNA includes generating a large number of diverse search models and applying them to MR.
 
-There is a web application called Web 3DNA <sup>[*2]</sup> that generates structural models based on parameters that control the 3D structure of nucleic acids. We have discovered a strategy for adjusting these parameters to improve the success rate of MR. 
+There is a web application called Web 3DNA <sup>[*3]</sup> that generates structural models based on parameters that control the 3D structure of nucleic acids. We have discovered a strategy for adjusting these parameters to improve the success rate of MR. 
 
 Based on this strategy, we decided to use Web 3DNA to create a wide variety of models. The processes of parameter adjustment and model creation have been automated using Python. Subsequently, MR is performed for each of the many models created. Since this operation needs to be repeated many times, we automated this process using Shell scripts on Linux.
 
-[*2] Li, S., Olson, W. K., & Lu, X. J. (2019). Web 3DNA 2.0 for the analysis, visualization, and modeling of 3D nucleic acid structures. _Nucleic acids research_, 47(W1), W26–W34.
+[*3] Li, S., Olson, W. K., & Lu, X. J. (2019). Web 3DNA 2.0 for the analysis, visualization, and modeling of 3D nucleic acid structures. _Nucleic acids research_, 47(W1), W26–W34.
 
 ## Reference
 - in preparation
