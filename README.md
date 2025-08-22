@@ -15,7 +15,7 @@ There are three ways to execute 4MRNA.
 | :----- | :----- |
 | **Standard** | For general users. |
 | **Install** | For users who want to run the 4MRNA workflow frequently, such as experts in X-ray crystallography. |
-| **Customizable** | For structural analysis experts who want to modify the code. <sup>[*1]</sup> |
+| **Customizable** | For experts in X-ray crystallography who want to modify the code. <sup>[*1]</sup> |
 
 [*1] For example, you can adjust parameters by yourself to get more diverse models,or add models prepared by other methods to perform molecular replacement.
 
