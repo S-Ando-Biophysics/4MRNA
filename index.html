@@ -13,56 +13,91 @@
   <link rel="apple-touch-icon" sizes="180x180" href="Icons/icon-180.png" />
   <title>4MRNA</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    const isSmartphone = /iPhone|iPod|Android.*Mobile/i.test(navigator.userAgent);
+    if (isSmartphone) {
+      const meta = document.querySelector('meta[name="viewport"]');
+      meta.setAttribute(
+        'content',
+        'width=device-width, initial-scale=0.75, maximum-scale=0.75, user-scalable=yes'
+      );
+    }
+  </script>
   <style>
     :root { --fg:#0b1021; --bg:#f7f7fb; --muted:#6b6f76; --accent:#3a68ff; --content-width: 800px; }
     html, body { background: var(--bg); color: var(--fg); }
-    body { display: flex; flex-direction: column; align-items: stretch; margin: 0; padding: 0; font-family: Arial, sans-serif; min-height: 100vh; overflow-x: hidden; }
-    .site-header { padding: 18px; border-bottom: 1px solid #e7e7ee; background:#fff; position: sticky; top: 0; z-index: 10; }
+    body {
+      display: flex; flex-direction: column; align-items: stretch;
+      margin: 0; padding: 0; font-family: Arial, sans-serif; min-height: 100vh;
+    }
+    .site-header {
+      padding: 18px; border-bottom: 1px solid #e7e7ee; background:#fff;
+      position: sticky; top: 0; z-index: 10;
+    }
     .site-header h1 { margin: 0; font-size: 28px; text-align: center; }
     main.site-main { width: 100%; display: flex; justify-content: center; padding: 16px 0 0; flex: 1 0 auto; }
-    .container { width: var(--content-width); max-width: 100%; padding: 20px; margin: 0 auto; }
-    .panel { background:#fff; border:1px solid #e7e7ee; border-radius:10px; padding:16px; margin-bottom:16px; }
+    .container {
+      width: var(--content-width);
+      max-width: 100%;
+      padding: 20px;
+      margin: 0 auto;
+    }
+    .panel {
+      background:#fff; border:1px solid #e7e7ee; border-radius:10px;
+      padding:16px; margin-bottom:16px;
+    }
     .panel h2 { margin: 6px 0 16px; font-size:24px; }
     .panel p { margin: 6px 0; line-height:1.6; }
-    table { border-collapse: collapse; margin: 0 auto 20px auto; width: 100%; text-align: left; background: #fff; }
+    table {
+      border-collapse: collapse; margin: 0 auto 20px auto; width: 100%;
+      text-align: left; background: #fff;
+    }
     #basic-settings table { table-layout: fixed; }
     #basic-settings table th, #basic-settings table td { width: 50%; }
     th, td { border: 1px solid #999; padding: 8px; }
     th { background-color: #f2f2f2; }
     .section { margin-bottom: 30px; }
-    #naTable input.sequenceInput, #naTable input.mwOutput, #naTable input.numInAU, #basic-settings table td input[type="text"] { width: 100%; box-sizing: border-box; }
+    #basic-settings table td input[type="text"],
+    #naTable input.sequenceInput,
+    #naTable input.mwOutput,
+    #naTable input.numInAU { width: 100%; box-sizing: border-box; }
     #naTable input.mwOutput, #naTable input.numInAU { text-align: right; }
     #naTable th:nth-child(3), #naTable td:nth-child(3) { width: 50%; }
-    #naTable th:nth-child(4), #naTable td:nth-child(4), #naTable th:nth-child(5), #naTable td:nth-child(5) { width: 12.5%; }
-    .button-container { text-align: center; margin-top: 20px; display:flex; gap:80px; justify-content:center; flex-wrap:wrap; }
-    .download-link { display: inline-block; margin-top: 10px; padding: 10px 15px; background-color: black; color: white; text-decoration: none; border-radius: 8px; border: none; cursor: pointer; font-size: 16px; }
+    #naTable th:nth-child(4), #naTable td:nth-child(4),
+    #naTable th:nth-child(5), #naTable td:nth-child(5) { width: 12.5%; }
+    .button-container {
+      text-align: center; margin-top: 20px;
+      display:flex; gap:80px; justify-content:center; flex-wrap:wrap;
+    }
+    .download-link {
+      display: inline-block; margin-top: 10px; padding: 10px 15px;
+      background-color: black; color: white; text-decoration: none;
+      border-radius: 8px; border: none; cursor: pointer; font-size: 16px;
+    }
     .dual-line-btn { white-space: nowrap; line-height:1.15; }
-    .code-list { background:#fff; border:1px solid #e7e7ee; border-radius:10px; margin-bottom:12px; padding: 8px 12px; }
-    .file-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; }
+    .code-list {
+      background:#fff; border:1px solid #e7e7ee; border-radius:10px;
+      margin-bottom:12px; padding: 8px 12px;
+    }
+    .file-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 0;
+    }
     .file-item + .file-item { border-top: 1px solid #f0f0f5; }
     .file-name { font-weight: 600; word-break: break-all; }
     .file-actions button { margin-left: 8px; padding: 6px 10px; cursor: pointer; }
     .desc { color:#333; font-size:14px; margin-left:10px; }
-    .site-footer { text-align: center; background: #fff; padding: 24px 16px; border-top: 1px solid #e7e7ee; font-size: 14px; color: var(--muted); margin-top: 16px; }
+    .site-footer {
+      text-align: center; background: #fff; padding: 24px 16px;
+      border-top: 1px solid #e7e7ee; font-size: 14px; color: var(--muted); margin-top: 16px;
+    }
     .site-footer .footer-main { margin-bottom: 16px; }
-    .site-footer .footer-links { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-bottom: 16px; }
+    .site-footer .footer-links {
+      display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-bottom: 16px;
+    }
     .site-footer .footer-links a { color: inherit; }
     .site-footer .footer-copyright { font-size: 12px; }
-    body.smartphone { transform-origin: top left; }
-    @media (orientation: portrait) { body.smartphone { transform: scale(0.5); width: 200%; height: 200%; } }
-    @media (orientation: landscape) { body.smartphone { transform: scale(0.9); width: 111.1111%; height: 111.1111%; } }
   </style>
-  <script>
-    (function () {
-      const isSmartphone = /iPhone|iPod|Android.*Mobile/i.test(navigator.userAgent);
-      if (isSmartphone) {
-        document.addEventListener('DOMContentLoaded', () => {
-          document.body.classList.add('smartphone');
-        });
-      }
-    })();
-  </script>
 </head>
 <body>
   <header class="site-header">
