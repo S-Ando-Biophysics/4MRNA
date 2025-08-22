@@ -1,7 +1,7 @@
 # 4MRNA
 **4MRNA** = <ins>**M**</ins>assive <ins>**M**</ins>ulti-type <ins>**M**</ins>odel <ins>**M**</ins>olecular <ins>**R**</ins>eplacement for <ins>**N**</ins>ucleic <ins>**A**</ins>cids.
 
-### User manual (Latest update: )
+### [User manual](https://github.com/S-Ando-Biophysics/4MRNA/blob/main/Docs/4MRNA-Manual.pdf) (Latest update: in preparation)
 ### [Release](https://github.com/S-Ando-Biophysics/4MRNA/releases/latest)
 ### [Website](https://s-ando-biophysics.github.io/4MRNA/)
 
@@ -12,6 +12,9 @@ There are three ways to execute 4MRNA.
 
 ### (1) Standard style
 In this style, you simply run one Shell script named `4MRNA.sh` on your computer.
+
+<!--- Tutorial video (YouTube) - in preparation --->
+
 #### Procedure
 1. Create a new directory on your computer for running `4MRNA.sh`. After creating it, place your reflection file (.mtz) for molecular replacement into that directory.
  
@@ -25,6 +28,8 @@ In this style, you simply run one Shell script named `4MRNA.sh` on your computer
 In this style, you obtain some programming codes from the website. Basically, you just run them in the prescribed order, but if needed, you can edit and customize the code. 
 
 Access [this website](https://s-ando-biophysics.github.io/4MRNA/). How to use is described on the website.
+
+<!--- Tutorial video (YouTube) - in preparation --->
 
 #### Procedure (almost the same as on the website)
 1. Create a new directory on your computer for running 4MRNA. After creating it, place your reflection file (.mtz) for molecular replacement into that directory.
@@ -43,53 +48,20 @@ Access [this website](https://s-ando-biophysics.github.io/4MRNA/). How to use is
 ### (3) Install style
 
 
-
-<!---
-### How to Use (Summarized Version of the User Manual)
-Tutorial video (YouTube) - in preparation
-
-1. Create a folder to run 4MRNA and place one reflection file (.mtz) in it.
-
-2. Enter the required information.
-
-    | Required&nbsp;infomation | What to do |
-    | :----- | :----- |
-    | **Working&nbsp;directory** | Please enter the folder where you want to run 4MRNA. |
-    | **No.&nbsp;of&nbsp;models** | Please select how many types of models you want to create. [*1] |
-    | **Type** | Please select the type of nucleic acid from A-form DNA, B-form DNA or A-form RNA. |
-    | **Sequence&nbsp;of&nbsp;one&nbsp;strand&nbsp;of&nbsp;duplex** | Please enter the base sequence of the model (duplex) you want to create. Only the sequence of one strand of duplex is required. The complementary strand is processed automatically. |
-    | **MW** | The molecular weight is calculated from the input sequence, including the complementary sequence. |
-    | **No.&nbsp;in&nbsp;AU** | Please enter how many of the models are contained in the asymmetric unit of the crystal. [*2]  |
-
-   [*1] For example, in the case of a double-stranded molecule that contains loop regions, you divide it into several sections (stems) by avoiding the loop regions, and then you create models for each section. When dividing it into two stem sections, please select “2” here.
-   
-   [*2] The calculation is done using the Matthews coefficient etc. Please refer to my [other repository](https://github.com/S-Ando-Biophysics/Cal-Nm) and [calculator website](https://s-ando-biophysics.github.io/Cal-Nm/).
-
-3. Click the button labeled "**Generate codes**". This will generate Python codes and Shell scripts.
-
-4. Click the button labeled "**Download this code**" or "**Download all codes**" to save the generated code.
-
-5. Please run the codes in the order indicated by the number at the beginning of each downloaded file. The table below shows how to run each type of code.
-
-    | Type | Extension |  How to run |
-    | :----- | :----- | :----- |
-    | **Python** | **.py** | Please open the code in a text editor like Visual Studio Code and run it. |
-    | **Shell** | **.sh** | Please open Ubuntu or Terminal and run `bash <code-name>.sh`. |
+<!--- Tutorial video (YouTube) - in preparation --->
 
 
-### Preparation
+## Preparation
 Please install and set up the following software in advance.
 
 | Name | Priority | Remarks |
 | :----- | :----- | :----- |
-| **[Python](https://www.python.org/downloads/)** | **Required** | After installing Python, open the command prompt and run `pip install pandas playwright` and `playwright install`. |
-| [Visual&nbsp;Studio&nbsp;Code](https://code.visualstudio.com/Download) | Recommended | In addition, download the extension of Python. |
-| **[Ubuntu](https://apps.microsoft.com/search?query=Ubuntu)** | **Required on Windows** | It is necessary to turn on "**Windows Subsystem for Linux (WSL)**" and **Virtual Machine Platform** in the Windows settings to be able to use shell scripts. |
-| **[Phaser](https://www.ccp4.ac.uk/download)** | **Required** | The command "phaser" is included in CCP4. If you have not installed CCP4, please install it. [*3] |
-| Web&nbsp;browser | Required | Either **Google Chrome**, **Microsoft Edge**, **Firefox**, or **Safari** is required. It is required, but as it is usually pre-installed on computers, you normally do not need to prepare it yourself. For Safari, enable "**Allow Remote Automation**" in the developer settings. |
-| [Microsoft&nbsp;Excel](https://www.microsoft.com/en-us/microsoft-365) | Recommended | This is useful for checking the results of molecular replacement. |
+| [Python](https://www.python.org/downloads/) | Required | After installation, run `pip install pandas playwright`, `playwright install`, and `playwright install-deps`. |
+| [VS&nbsp;Code](https://code.visualstudio.com/Download) | Recommended | In addition, download the extension of Python. |
+| [Ubuntu](https://apps.microsoft.com/search?query=Ubuntu) | Required on Windows | It is necessary to turn on "Windows Subsystem for Linux (WSL)" and "Virtual Machine Platform" in the Windows settings to be able to use shell scripts. Furthermore, run `sudo apt update` and `sudo apt upgrade` in Ubuntu. |
+| [Phaser](https://www.ccp4.ac.uk/download) | Required | The command `phaser` is included in CCP4. If you have not installed CCP4, please install it. <sup>[*1]</sup> |
 
-[*3] The following steps are for Windows (Ubuntu). The procedure for macOS is similar.
+[*1] The following steps are for Windows (Ubuntu). The procedure for macOS is similar.
 
     # Please change the directory name and CCP4 version as appropriate.
     # Assume that "ccp4-9.0.010-linux64.tar.gz" has been downloaded to "C:\Users\name\Downloads".
@@ -106,40 +78,47 @@ Please install and set up the following software in advance.
     source /usr/local/ccp4-9/bin/ccp4.setup-sh    # Please add to the last line.
 
 
-### Supported Environment
-
-|  | Operating system | Browser |
-| :----- | :----- | :----- |
-| **This website** | Windows, macOS, Linux (Rocky Linux) | Google Chrome, Microsoft Edge, Firefox, Safari |
-| **Generated Python codes** | Windows, macOS, Linux (Rocky Linux) | Google Chrome, Microsoft Edge, Firefox, Safari |
-| **Generated Shell scripts** | Windows (WSL; Ubuntu), macOS, Linux (Rocky Linux) | - |
-
-### Release Notes
-- **2025-07-08** The beta version has been released.
-- **2025-08-01** The official version has been released.
-- **2025-08-18** Updata: 
-  - The Linux code has been revised, enabling smoother use of 4MRNA.
-- **2025-08-21** Update:
-  - The website user interface has been updated to improve usability.
-  - The stability of Python code has been enhanced.
-  - The processing speed of the Python code has been improved.
-
 ## About 4MRNA
 [Explanatory video (YouTube)](https://youtu.be/WX_Rh3vtOlg)
-
-**4MRNA** means <ins>**M**</ins>assive <ins>**M**</ins>ulti-type <ins>**M**</ins>odel <ins>**M**</ins>olecular <ins>**R**</ins>eplacement for <ins>**N**</ins>ucleic <ins>**A**</ins>cids.
 
 Applying molecular replacement (MR) commonly used for structure determination to nucleic acids poses unique challenges that are not present for proteins. To solve these challenges, we developed a new innovative strategy called 4MRNA.
 
 One challenge is that nucleic acids can have different 3D structures even with the same sequence, which means that models existing in the database may not be suitable as a search model. Moreover, it is empirically known that MR of nucleic acids can fail even when the search model and the target structure differ only slightly. To address these issues, the new strategy 4MRNA includes generating a large number of diverse search models and applying them to MR.
 
-There is a web application called Web 3DNA [*] that generates structural models based on parameters that control the 3D structure of nucleic acids. We have discovered a strategy for adjusting these parameters to improve the success rate of MR. 
+There is a web application called Web 3DNA <sup>[*2]</sup> that generates structural models based on parameters that control the 3D structure of nucleic acids. We have discovered a strategy for adjusting these parameters to improve the success rate of MR. 
 
 Based on this strategy, we decided to use Web 3DNA to create a wide variety of models. The processes of parameter adjustment and model creation have been automated using Python. Subsequently, MR is performed for each of the many models created. Since this operation needs to be repeated many times, we automated this process using Shell scripts on Linux.
 
-[*] Li, S., Olson, W. K., & Lu, X. J. (2019). Web 3DNA 2.0 for the analysis, visualization, and modeling of 3D nucleic acid structures. _Nucleic acids research_, 47(W1), W26–W34.
+[*2] Li, S., Olson, W. K., & Lu, X. J. (2019). Web 3DNA 2.0 for the analysis, visualization, and modeling of 3D nucleic acid structures. _Nucleic acids research_, 47(W1), W26–W34.
 
 ## Reference
 - in preparation
 
---->
+## Notes 
+### Miscellaneous notes
+- The Japanese version of user manual is available [here](https://github.com/S-Ando-Biophysics/4MRNA/blob/main/Docs/4MRNA-Manual.pdf).
+
+- The calculation of "No. of AU" (the number of molecules in the asymmetric unit) is done using the Matthews coefficient etc. Please refer to the [other repository](https://github.com/S-Ando-Biophysics/Cal-Nm) and [calculator website](https://s-ando-biophysics.github.io/Cal-Nm/).
+
+### Supported environment
+- **Operating system**: Windows <sup>[*3]</sup>, macOS, Linux (Rocky Linux)
+ 
+- **Browser**: Google Chrome, Microsoft Edge, Firefox, Safari
+
+  [*3] Shell scripts were executed in Windows Subsystem for Linux (WSL) with Ubuntu.
+
+### Changelog
+- **2025-07-08**  The beta version has been released.
+
+- **2025-08-01** The official version has been released.
+
+- **2025-08-18** Minor Update:
+  - The Linux code has been revised, enabling smoother use of 4MRNA.
+
+- **2025-08-22**  Major Update: 
+  - The stability of the Python code has been enhanced.  
+  - The processing speed of the Python code has been improved.  
+  - Two execution styles have been introduced: Standard style and Customizable style.  
+    - The previous version corresponds to Customizable style.  
+    - Standard style provides a simpler way to run 4MRNA.  
+  - The website user interface has been updated to improve usability.
