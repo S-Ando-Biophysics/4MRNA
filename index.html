@@ -13,16 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="Icons/icon-180.png" />
   <title>4MRNA</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-  <script>
-    const isSmartphone = /iPhone|iPod|Android.*Mobile/i.test(navigator.userAgent);
-    if (isSmartphone) {
-      const meta = document.querySelector('meta[name="viewport"]');
-      meta.setAttribute(
-        'content',
-        'width=device-width, initial-scale=1, maximum-scale=0.5, user-scalable=yes'
-      );
-    }
-  </script>
+
   <style>
     :root { --fg:#0b1021; --bg:#f7f7fb; --muted:#6b6f76; --accent:#3a68ff; --content-width: 800px; }
     html, body { background: var(--bg); color: var(--fg); }
