@@ -4,8 +4,10 @@ You can access this website via the following URL. https://s-ando-biophysics.git
 The explanation of what 4MRNA is is provided after the instructions below.
 
 ## Basic Version
-[4MRNA.sh](https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/4MRNA.sh){:download="4MRNA.sh"}
 
+## Customizable Version
+
+## Install Vesion
 
 ## Instructions
 
