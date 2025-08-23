@@ -81,7 +81,7 @@ Access [this website](https://s-ando-biophysics.github.io/4MRNA/). How to use is
 Please install and set up the following software in advance.
 
 | Name | Remarks |
-| :----- | :----- | :----- |
+| :----- | :----- |
 | [Python](https://www.python.org/downloads/) | After installation, run `pip install pandas playwright`, `playwright install`, and `playwright install-deps`. |
 | [Ubuntu](https://apps.microsoft.com/search?query=Ubuntu) | Required on Windows. It is necessary to turn on "Windows Subsystem for Linux (WSL)" and "Virtual Machine Platform" in the Windows settings to be able to use shell scripts. Furthermore, run `sudo apt update` and `sudo apt upgrade` in Ubuntu. |
 | [Phaser](https://www.ccp4.ac.uk/download) | The command `phaser` is included in CCP4. If you have not installed CCP4, please install it. <sup>[*2]</sup> |
