@@ -13,8 +13,8 @@ There are three ways to execute 4MRNA.
 
 | Style | Usability | Pre-setup | Customization | Target users |
 | :----- | :----- | :----- | :----- | :----- |
-| **Standard** | Very good | Not required | Not possible | For general users. |
-| **Install** | Very good | Required | Not possible | For frequent users. |
+| **Standard** | Very good | Not required | Not possible | For general users |
+| **Install** | Very good | Required | Not possible | For frequent users |
 | **Customizable** | Fair | Not required | Possible <sup>[*1]</sup> | For experts |
 
 [*1] For example, you can adjust parameters by yourself to get more diverse models,or add models prepared by other methods to perform molecular replacement.
@@ -80,11 +80,11 @@ Access [this website](https://s-ando-biophysics.github.io/4MRNA/). How to use is
 ## Preparation
 Please install and set up the following software in advance.
 
-| Name | Priority | Remarks |
+| Name | Remarks |
 | :----- | :----- | :----- |
-| [Python](https://www.python.org/downloads/) | Required | After installation, run `pip install pandas playwright`, `playwright install`, and `playwright install-deps`. |
-| [Ubuntu](https://apps.microsoft.com/search?query=Ubuntu) | Required on Windows | It is necessary to turn on "Windows Subsystem for Linux (WSL)" and "Virtual Machine Platform" in the Windows settings to be able to use shell scripts. Furthermore, run `sudo apt update` and `sudo apt upgrade` in Ubuntu. |
-| [Phaser](https://www.ccp4.ac.uk/download) | Required | The command `phaser` is included in CCP4. If you have not installed CCP4, please install it. <sup>[*2]</sup> |
+| [Python](https://www.python.org/downloads/) | After installation, run `pip install pandas playwright`, `playwright install`, and `playwright install-deps`. |
+| [Ubuntu](https://apps.microsoft.com/search?query=Ubuntu) | Required on Windows. It is necessary to turn on "Windows Subsystem for Linux (WSL)" and "Virtual Machine Platform" in the Windows settings to be able to use shell scripts. Furthermore, run `sudo apt update` and `sudo apt upgrade` in Ubuntu. |
+| [Phaser](https://www.ccp4.ac.uk/download) | The command `phaser` is included in CCP4. If you have not installed CCP4, please install it. <sup>[*2]</sup> |
 
 [*2] The following steps are for Windows (Ubuntu). The procedure for macOS is similar.
 
@@ -98,8 +98,6 @@ Please install and set up the following software in advance.
     cd ccp4-9
     ./BINARY.setup
     exit
-    cd /home/name
-    vi .bashrc
     echo "source /usr/local/ccp4-9/bin/ccp4.setup-sh" >> ~/.bashrc
     source ~/.bashrc
 
