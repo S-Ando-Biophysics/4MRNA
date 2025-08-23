@@ -1,4 +1,4 @@
-const CACHE_NAME = '4mrna-v3.0';
+const CACHE_NAME = '4mrna-v1.3';
 const ASSETS = [
   './manifest.json',
   './Icons/icon-192.png',
