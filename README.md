@@ -11,11 +11,11 @@
 ## Instructions
 There are three ways to execute 4MRNA.
 
-| Style | Target users |
-| :----- | :----- |
-| **Standard** | For general users. |
-| **Install** | For users who want to run the 4MRNA workflow frequently. |
-| **Customizable** | For experts in X-ray crystallography who want to modify the code. <sup>[*1]</sup> |
+| Style | Usability | Pre-setup | Customization | Target users |
+| :----- | :----- | :----- | :----- | :----- |
+| **Standard** | Very good | Not required | Not possible | For general users. |
+| **Install** | Very good | Required | Not possible | For frequent users. |
+| **Customizable** | Fair | Not required | Possible <sup>[*1]</sup> | For experts |
 
 [*1] For example, you can adjust parameters by yourself to get more diverse models,or add models prepared by other methods to perform molecular replacement.
 
@@ -31,7 +31,7 @@ In this style, you simply run one Shell script named "4MRNA.sh" on your computer
 
 3. Open Ubuntu/Terminal, change to the directory created in Step 1, and run `bash 4MRNA.sh` or `chmod +x 4MRNA.sh && ./4MRNA.sh`.
 
-4. When 4MRNA finishes, a directory named ` "4MRNA-Results" will be created, containing up to seven candidate solutions for molecular replacement.
+4. When 4MRNA finishes, a directory named "4MRNA-Results" will be created, containing up to seven candidate solutions for molecular replacement.
 
 ### (2) Install style
 In this style, you install the `4MRNA` command on your computer in advance. Unlike Standard style, you do not need to download the Shell script every time. Instead, you can simply type the command `4MRNA` in Ubuntu/Terminal to run it.
@@ -83,7 +83,6 @@ Please install and set up the following software in advance.
 | Name | Priority | Remarks |
 | :----- | :----- | :----- |
 | [Python](https://www.python.org/downloads/) | Required | After installation, run `pip install pandas playwright`, `playwright install`, and `playwright install-deps`. |
-| [VS&nbsp;Code](https://code.visualstudio.com/Download) | Recommended | In addition, download the extension of Python. |
 | [Ubuntu](https://apps.microsoft.com/search?query=Ubuntu) | Required on Windows | It is necessary to turn on "Windows Subsystem for Linux (WSL)" and "Virtual Machine Platform" in the Windows settings to be able to use shell scripts. Furthermore, run `sudo apt update` and `sudo apt upgrade` in Ubuntu. |
 | [Phaser](https://www.ccp4.ac.uk/download) | Required | The command `phaser` is included in CCP4. If you have not installed CCP4, please install it. <sup>[*2]</sup> |
 
@@ -101,21 +100,30 @@ Please install and set up the following software in advance.
     exit
     cd /home/name
     vi .bashrc
-    source /usr/local/ccp4-9/bin/ccp4.setup-sh    # Please add to the last line.
+    echo "source /usr/local/ccp4-9/bin/ccp4.setup-sh" >> ~/.bashrc
+    source ~/.bashrc
 
 
 ## About 4MRNA
 [Explanatory video (YouTube)](https://youtu.be/WX_Rh3vtOlg)
 
-Applying molecular replacement (MR) commonly used for structure determination to nucleic acids poses unique challenges that are not present for proteins. To solve these challenges, we developed a new innovative strategy called 4MRNA.
+4MRNA is an abbreviation for “Massive Multi-type Model Molecular Replacement for Nucleic Acids”. This is a novel method designed to enhance molecular replacement (MR) for phasing in X-ray crystallography of nucleic acids.
 
-One challenge is that nucleic acids can have different 3D structures even with the same sequence, which means that models existing in the database may not be suitable as a search model. Moreover, it is empirically known that MR of nucleic acids can fail even when the search model and the target structure differ only slightly. To address these issues, the new strategy 4MRNA includes generating a large number of diverse search models and applying them to MR.
+Applying MR, which is widely used in structure determination (phase determination), to nucleic acids presents unique challenges that are not encountered with proteins. To overcome these issues, we developed an innovative strategy termed 4MRNA.
 
-There is a web application called Web 3DNA <sup>[*3]</sup> that generates structural models based on parameters that control the 3D structure of nucleic acids. We have discovered a strategy for adjusting these parameters to improve the success rate of MR. 
+One major difficulty is that nucleic acids can adopt different 3D structures even with the same sequence. As a result, models existing in the database may not be suitable as search models, and sequence-based structure prediction methods such as AlphaFold are also limited in applicability <sup>[1,2]</sup>. Moreover, it is empirically known that MR of nucleic acids can fail even when the search model and the target structure differ only slightly. <sup>[3]</sup> To address these issues, the new strategy 4MRNA includes creating a large number of diverse search models (= massive multitype models) and applying them to MR.
 
-Based on this strategy, we decided to use Web 3DNA to create a wide variety of models. The processes of parameter adjustment and model creation have been automated using Python. Subsequently, MR is performed for each of the many models created. Since this operation needs to be repeated many times, we automated this process using Shell scripts on Linux.
+We found that by varying three out of the twelve parameters that control the three-dimensional structures of nucleic acids according to different patterns, the resulting set of models included ones that closely matched the correct structure, thereby increasing the success rate of MR.
 
-[*3] Li, S., Olson, W. K., & Lu, X. J. (2019). Web 3DNA 2.0 for the analysis, visualization, and modeling of 3D nucleic acid structures. _Nucleic acids research_, 47(W1), W26–W34.
+Building on this strategy, we employed Web 3DNA <sup>[4]</sup>, which is a web application that generates nucleic acid structural models based on parameters, to create a wide variety of models. The processes of parameter adjustment and model creation have been automated using Python. Subsequently, MR is carried out for each of the many created models. Since this operation must be repeated many times, we automated this process using Shell scripts on Linux.
+
+[1] Bernard, C., Postic, G., Ghannay, S., & Tahi, F. (2025). Has AlphaFold3 achieved success for RNA?. _Acta crystallographica. Section D, Structural biology_, _81_(Pt 2), 49–62.
+
+[2] Kwon D. (2025). RNA function follows form - why is it so hard to predict?. _Nature_, _639_(8056), 1106–1108.
+
+[3] Kondo, J., Urzhumtseva, L., & Urzhumtsev, A. (2008). Patterson-guided ab initio analysis of structures with helical symmetry. _Acta crystallographica. Section D, Biological crystallography_, _64_(Pt 10), 1078–1091.
+
+[4] Li, S., Olson, W. K., & Lu, X. J. (2019). Web 3DNA 2.0 for the analysis, visualization, and modeling of 3D nucleic acid structures. _Nucleic acids research_, 47(W1), W26–W34.
 
 ## Reference
 - in preparation
@@ -125,8 +133,6 @@ Based on this strategy, we decided to use Web 3DNA to create a wide variety of m
 - Standard style of 4MRNA (release): https://github.com/S-Ando-Biophysics/4MRNA/releases/latest
 
 - Install style of 4MRNA (repository): https://github.com/S-Ando-Biophysics/4MRNA-Install
-
-- The Japanese version of user manual is available [here](https://github.com/S-Ando-Biophysics/4MRNA/blob/main/Docs/4MRNA-Manual.pdf).
 
 - The calculation of "No. of AU" (the number of molecules in the asymmetric unit) is done using the Matthews coefficient etc. Please refer to the [other repository](https://github.com/S-Ando-Biophysics/Cal-Nm) and [calculator website](https://s-ando-biophysics.github.io/Cal-Nm/).
 
