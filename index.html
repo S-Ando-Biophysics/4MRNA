@@ -114,7 +114,7 @@
 
       <div class="panel">
         <h2>Step 2</h2>
-        <p>Fill in the table below and click "<b>Generate code</b>". <p>For "<b>Working directory</b>", enter the path of the directory you created in Step&nbsp;1. (This field can be left blank when using Basic Version.)<p>When you select "<b>No. of models</b>", the corresponding number of input rows will appear below. Then enter each model’s information there. <p>For "<b>Sequence</b>", only the sequence of one strand of duplex is required. The complementary strand is processed automatically. <p>"<b>No. of AU</b>" indicates how many copies of the model to be searched in molecular replacement.</p>
+        <p>Fill in the table below and click "<b>Generate code</b>". <p>For "<b>Working directory</b>", enter the path of the directory you created in Step&nbsp;1. (This field can be left blank when using  Standard style.)<p>When you select "<b>No. of models</b>", the corresponding number of input rows will appear below. Then enter each model’s information there. <p>For "<b>Sequence</b>", only the sequence of one strand of duplex is required. The complementary strand is processed automatically. <p>"<b>No. of AU</b>" indicates how many copies of the model to be searched in molecular replacement.</p>
       </div>
       <div class="section" id="basic-settings">
         <table>
@@ -233,9 +233,9 @@
 
     function updatePlaceholders(os) {
       const placeholders = {
-        windows: { working: 'e.g. D:\\\\Sample\\\\4MRNA' },
-        macos:   { working: 'e.g. /Users/name/Documents/4MRNA' },
-        linux:   { working: 'e.g. /home/name/Documents/4MRNA' }
+        windows: { working: 'e.g. D:\\Sample\\4MRNA' },
+        macos:   { working: 'e.g. /Users/name/Sample/4MRNA' },
+        linux:   { working: 'e.g. /home/name/Sample/4MRNA' }
       };
       const p = placeholders[os] || placeholders.linux;
       document.getElementById('workingDir').placeholder = p.working;
