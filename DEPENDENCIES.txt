@@ -9,7 +9,7 @@ Users are responsible for installing them separately and complying with their re
 The 4MRNA itself is distributed under the MIT License. 
 
 
-1. Web3DNA
+1. Web 3DNA
 - Official website: http://web.x3dna.org/
 - License: The website is provided as a freely accessible academic service.The paper is published under the Creative Commons Attribution-NonCommercial 4.0 (CC BY-NC 4.0) license.
 - Note: The author of 4MRNA directly confirmed with the author of Web3DNA via email that free use, including automated access, is permitted. 4MRNA uses the service responsibly and avoids placing excessive load on the server. 
@@ -24,7 +24,7 @@ The 4MRNA itself is distributed under the MIT License.
 - Official website: https://pandas.pydata.org/
 - License: BSD 3-Clause License
 
-4. PlayWright (Python library)
+4. Playwright (Python library)
 - Official website: https://playwright.dev/python/
 - License: Apache 2.0 License
 
