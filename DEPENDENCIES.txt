@@ -20,7 +20,7 @@ The 4MRNA itself is distributed under the MIT License.
 - License: License information is available on their respective websites. They are available free of charge for academic users after signing the academic license agreement.
 - Note: CCP4/Phaser is not bundled with 4MRNA. Users must install CCP4 separately and comply with the CCP4/Phaser license terms. 
 
-3. pandas (Python library)
+3. Pandas (Python library)
 - Official website: https://pandas.pydata.org/
 - License: BSD 3-Clause License
 
