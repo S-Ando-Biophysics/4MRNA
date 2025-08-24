@@ -11,7 +11,7 @@ The 4MRNA itself is distributed under the MIT License.
 
 1. Web 3DNA
 - Official website: http://web.x3dna.org/
-- License: The website is provided as a freely accessible academic service.The paper is published under the Creative Commons Attribution-NonCommercial 4.0 (CC BY-NC 4.0) license.
+- License: The website is provided as a freely accessible academic service. The paper is published under the Creative Commons Attribution-NonCommercial 4.0 (CC BY-NC 4.0) license.
 - Note: The author of 4MRNA directly confirmed with the author of Web3DNA via email that free use, including automated access, is permitted. 4MRNA uses the service responsibly and avoids placing excessive load on the server. 
 
 2. CCP4 / Phaser
