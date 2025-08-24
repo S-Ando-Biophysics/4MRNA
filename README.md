@@ -64,7 +64,7 @@ Access [this website](https://s-ando-biophysics.github.io/4MRNA/). How to use is
 <!--- Tutorial video (YouTube) - in preparation --->
 
 #### Procedure (almost the same as on the website)
-1. Create a new directory on your computer for running 4MRNA. After creating it, place your reflection file (.mtz) for molecular replacement into that directory.
+1. Create a new directory on your computer for executing 4MRNA. After creating it, place your reflection file (.mtz) for molecular replacement into that directory.
  
 2. Fill in the table on the website and click "Generate codes (Customizable style)".
 
