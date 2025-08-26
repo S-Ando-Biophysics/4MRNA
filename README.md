@@ -8,7 +8,7 @@
 
 <br>
 
-## Instructions
+## Instructions (Latest updated: 2025-08-22)
 There are three ways to execute 4MRNA.
 
 | Style | Usability | Pre-setup | Customization | Target users |
@@ -77,7 +77,7 @@ Access [this website](https://s-ando-biophysics.github.io/4MRNA/). How to use is
 
 4. When 4MRNA finishes, a directory named "4MRNA-Results" will be created, containing up to seven candidate solutions for molecular replacement.
 
-## Preparation
+## Preparation  (Latest updated: 2025-08-22)
 Please install and set up the following software in advance.
 
 | Name | Remarks |
