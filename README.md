@@ -2,9 +2,9 @@
 
 **4MRNA** = <ins>**M**</ins>assive <ins>**M**</ins>ulti-type <ins>**M**</ins>odel <ins>**M**</ins>olecular <ins>**R**</ins>eplacement for <ins>**N**</ins>ucleic <ins>**A**</ins>cids &ensp;[[About 4MRNA](https://github.com/S-Ando-Biophysics/4MRNA?tab=readme-ov-file#about-4mrna)]
 
-### [User manual](https://cdn.jsdelivr.net/gh/S-Ando-Biophysics/4MRNA@main/Docs/4MRNA-Manual.pdf) (Latest updated: 2025-08-26)
+### [User manual](https://cdn.jsdelivr.net/gh/S-Ando-Biophysics/4MRNA@main/Docs/4MRNA-Manual.pdf){:target="_blank"} (Latest updated: 2025-08-26)
 ### [Download "4MRNA.sh"](https://github.com/S-Ando-Biophysics/4MRNA/releases/latest/download/4MRNA.sh) (for Standard style of 4MRNA)
-### [Website](https://s-ando-biophysics.github.io/4MRNA/)
+### [Website](https://s-ando-biophysics.github.io/4MRNA/){:target="_blank"}
 
 <br>
 
@@ -27,7 +27,7 @@ In this style, you simply run one Shell script named "4MRNA.sh" on your computer
 #### Procedure
 1. Create a new directory on your computer for executing 4MRNA. After creating it, place your reflection file (.mtz) for molecular replacement into that directory.
  
-2. Download "4MRNA.sh" into the directory created in Step 1, either directly from [this URL](https://github.com/S-Ando-Biophysics/4MRNA/releases/latest/download/4MRNA.sh) or via [this website](https://s-ando-biophysics.github.io/4MRNA/).
+2. Download "4MRNA.sh" into the directory created in Step 1, either directly from [this URL](https://github.com/S-Ando-Biophysics/4MRNA/releases/latest/download/4MRNA.sh) or via [this website](https://s-ando-biophysics.github.io/4MRNA/){:target="_blank"}.
 
 3. Open Ubuntu/Terminal, change to the directory created in Step 1, and run `bash 4MRNA.sh` or `chmod +x 4MRNA.sh && ./4MRNA.sh`.
 
