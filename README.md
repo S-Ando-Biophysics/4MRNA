@@ -11,7 +11,7 @@
 ## Instructions
 There are three ways to execute 4MRNA.
 
-| Style | Usability | Install | Customization | Target users |
+| Style | Usability | Installation of 4MRNA | Customization | Target users |
 | :----- | :----- | :----- | :----- | :----- |
 | **Standard** | Very good | Not required | Not possible | For general users |
 | **Install** | Very good | Required | Not possible | For frequent users |
@@ -19,7 +19,7 @@ There are three ways to execute 4MRNA.
 
 [*1] For example, you can adjust parameters by yourself to get more diverse models,or add models prepared by other methods to perform molecular replacement.
 
-### (1) Standard style
+### <ins>(1) Standard style</ins>
 In this style, you simply run one Shell script named "4MRNA.sh" on your computer.
 
 <!--- Tutorial video (YouTube) - in preparation --->
@@ -33,7 +33,7 @@ In this style, you simply run one Shell script named "4MRNA.sh" on your computer
 
 4. When 4MRNA finishes, a directory named "4MRNA-Results" will be created, containing up to seven candidate solutions for molecular replacement.
 
-### (2) Install style
+### <ins>(2) Install style</ins>
 In this style, you install the `4MRNA` command on your computer in advance. Unlike Standard style, you do not need to download the Shell script every time. Instead, you can simply type the command `4MRNA` in Ubuntu/Terminal to run it.
 
 <!--- Tutorial video (YouTube) - in preparation --->
@@ -44,26 +44,17 @@ In this style, you install the `4MRNA` command on your computer in advance. Unli
 3. When 4MRNA finishes, a directory named "4MRNA-Results" will be created, containing up to seven candidate solutions for molecular replacement.
 
 #### How to install
-Run the following commands in order. If the version is displayed by running the final line of code, the installation is complete.
-
-    cd ~
-    git clone https://github.com/S-Ando-Biophysics/4MRNA-Install.git
-    cd 4MRNA-Install
-    chmod +x install.sh
-    ./install.sh
-    echo 'export PATH="$HOME/4MRNA-Install/bin:$PATH"' >> ~/.bashrc
-    source ~/.bashrc
-    4MRNA version
+Please refer to [the section below](https://github.com/S-Ando-Biophysics/4MRNA?tab=readme-ov-file#additional-preparations-for-2-install-style).
 
 
-### (3) Customizable style
+### <ins>(3) Customizable style</ins>
 In this style, you obtain some programming codes from the website. Basically, you just run them in the prescribed order, but if needed, you can edit and customize the code. 
 
 Access [this website](https://s-ando-biophysics.github.io/4MRNA/). How to use is described on the website.
 
 <!--- Tutorial video (YouTube) - in preparation --->
 
-#### Procedure (almost the same as on the website)
+#### Procedure (almost the same as what is written on the website)
 1. Create a new directory on your computer for executing 4MRNA. After creating it, place your reflection file (.mtz) for molecular replacement into that directory.
  
 2. Fill in the table on the website and click "Generate codes (Customizable style)".
@@ -77,7 +68,7 @@ Access [this website](https://s-ando-biophysics.github.io/4MRNA/). How to use is
 
 4. When 4MRNA finishes, a directory named "4MRNA-Results" will be created, containing up to seven candidate solutions for molecular replacement.
 
-## Preparation  (Latest updated: 2025-08-22)
+## Preparation
 Please install and set up the following software in advance.
 
 ### Common preparations for the three styles
@@ -189,3 +180,4 @@ Building on this strategy, we employed Web 3DNA <sup>[4]</sup>, which is a web a
     - The previous version corresponds to Customizable style.  
     - Standard style and Install style provide simpler ways to run 4MRNA.  
   - The website user interface has been updated to improve usability.
+
