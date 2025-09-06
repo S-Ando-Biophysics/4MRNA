@@ -2,16 +2,16 @@
 
 **4MRNA** = <ins>**M**</ins>assive <ins>**M**</ins>ulti-type <ins>**M**</ins>odel <ins>**M**</ins>olecular <ins>**R**</ins>eplacement for <ins>**N**</ins>ucleic <ins>**A**</ins>cids &ensp;[[About 4MRNA](https://github.com/S-Ando-Biophysics/4MRNA?tab=readme-ov-file#about-4mrna)]
 
-### [User manual](https://cdn.jsdelivr.net/gh/S-Ando-Biophysics/4MRNA@main/Docs/4MRNA-Manual.pdf){:target="_blank"} (Latest updated: 2025-08-26)
+### [User manual](https://cdn.jsdelivr.net/gh/S-Ando-Biophysics/4MRNA@main/Docs/4MRNA-Manual.pdf) (Latest updated: 2025-08-26)
 ### [Download "4MRNA.sh"](https://github.com/S-Ando-Biophysics/4MRNA/releases/latest/download/4MRNA.sh) (for Standard style of 4MRNA)
-### [Website](https://s-ando-biophysics.github.io/4MRNA/){:target="_blank"}
+### [Website](https://s-ando-biophysics.github.io/4MRNA/)
 
 <br>
 
-## Instructions (Latest updated: 2025-08-22)
+## Instructions
 There are three ways to execute 4MRNA.
 
-| Style | Usability | Pre-setup | Customization | Target users |
+| Style | Usability | Install | Customization | Target users |
 | :----- | :----- | :----- | :----- | :----- |
 | **Standard** | Very good | Not required | Not possible | For general users |
 | **Install** | Very good | Required | Not possible | For frequent users |
@@ -27,7 +27,7 @@ In this style, you simply run one Shell script named "4MRNA.sh" on your computer
 #### Procedure
 1. Create a new directory on your computer for executing 4MRNA. After creating it, place your reflection file (.mtz) for molecular replacement into that directory.
  
-2. Download "4MRNA.sh" into the directory created in Step 1, either directly from [this URL](https://github.com/S-Ando-Biophysics/4MRNA/releases/latest/download/4MRNA.sh) or via [this website](https://s-ando-biophysics.github.io/4MRNA/){:target="_blank"}.
+2. Download "4MRNA.sh" into the directory created in Step 1, either directly from [this URL](https://github.com/S-Ando-Biophysics/4MRNA/releases/latest/download/4MRNA.sh) or via [this website](https://s-ando-biophysics.github.io/4MRNA/).
 
 3. Open Ubuntu/Terminal, change to the directory created in Step 1, and run `bash 4MRNA.sh` or `chmod +x 4MRNA.sh && ./4MRNA.sh`.
 
@@ -80,10 +80,11 @@ Access [this website](https://s-ando-biophysics.github.io/4MRNA/). How to use is
 ## Preparation  (Latest updated: 2025-08-22)
 Please install and set up the following software in advance.
 
+### Common preparations for the three styles
+
 | Name | Remarks |
 | :----- | :----- |
-| [Python](https://www.python.org/downloads/) | After installation, run `pip install pandas playwright`, `playwright install`, and `playwright install-deps`. |
-| [Ubuntu](https://apps.microsoft.com/search?query=Ubuntu) | Required on Windows. It is necessary to turn on "Windows Subsystem for Linux (WSL)" and "Virtual Machine Platform" in the Windows settings to be able to use shell scripts. Furthermore, run `sudo apt update` and `sudo apt upgrade` in Ubuntu. |
+| [Ubuntu](https://apps.microsoft.com/search?query=Ubuntu) | Required only for Windows. It is necessary to turn on "Windows Subsystem for Linux (WSL)" and "Virtual Machine Platform" in the Windows settings to be able to use shell scripts. Furthermore, run `sudo apt update` and `sudo apt upgrade` in Ubuntu. |
 | [Phaser](https://www.ccp4.ac.uk/download) | The command `phaser` is included in CCP4. If you have not installed CCP4, please install it. <sup>[*2]</sup> |
 
 [*2] The following steps are for Windows (Ubuntu). The procedure for macOS is similar.
@@ -101,9 +102,41 @@ Please install and set up the following software in advance.
     echo "source /usr/local/ccp4-9/bin/ccp4.setup-sh" >> ~/.bashrc
     source ~/.bashrc
 
+### Additional preparations for <ins>(1) Standard style</ins>
+Launch Ubuntu or Terminal, and run the following commands.
+
+    pip install pandas playwright
+    playwright install
+    playwright install-deps
+
+### Additional preparations for <ins>(2) Install style</ins>
+Launch Ubuntu or Terminal, and run the following commands in order. If the version is displayed by running the final line of code, the installation is complete.
+
+    # Python setup
+    pip install pandas playwright
+    playwright install
+    playwright install-deps 
+
+    # Installation of 4MRNA
+    cd ~
+    git clone https://github.com/S-Ando-Biophysics/4MRNA-Install.git
+    cd 4MRNA-Install
+    chmod +x install.sh
+    ./install.sh
+    echo 'export PATH="$HOME/4MRNA-Install/bin:$PATH"' >> ~/.bashrc
+    source ~/.bashrc
+    4MRNA version
+
+### Additional preparations for <ins>(3) Customizable style</ins>
+Access the [official website](https://www.python.org/downloads/) and install Python. After installation, open Terminal and execute the following command.
+
+    pip install pandas playwright
+    playwright install
+
+It is recommended (though not mandatory) to download a text editor such as [Visual Studio Code](https://code.visualstudio.com/Download), which makes it easier to edit or run Python codes.
 
 ## About 4MRNA
-[Explanatory video (YouTube)](https://youtu.be/WX_Rh3vtOlg)
+<!--- [Explanatory video (YouTube)](https://youtu.be/WX_Rh3vtOlg) --->
 
 4MRNA is an abbreviation for “Massive Multi-type Model Molecular Replacement for Nucleic Acids”. This is a novel method designed to enhance molecular replacement (MR) for phasing in X-ray crystallography of nucleic acids.
 
