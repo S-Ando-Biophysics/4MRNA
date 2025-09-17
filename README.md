@@ -151,17 +151,23 @@ Building on this strategy, we employed Web 3DNA <sup>[4]</sup>, which is a web a
 - in preparation
 
 ## Notes 
-### Miscellaneous notes
-- Install style of 4MRNA (repository): https://github.com/S-Ando-Biophysics/4MRNA-Install
-
-- The calculation of "No. of AU" (the number of molecules in the asymmetric unit) is done using the Matthews coefficient etc. Please refer to the [other repository](https://github.com/S-Ando-Biophysics/Cal-Nm) and [calculator website](https://s-ando-biophysics.github.io/Cal-Nm/).
-
 ### Supported environment
 - **Operating system**: Windows <sup>[*3]</sup>, macOS, Linux (Rocky Linux)
  
 - **Browser**: Google Chrome, Microsoft Edge, Firefox, Safari
 
   [*3] Shell scripts were executed in Windows Subsystem for Linux (WSL) with Ubuntu.
+
+### License information
+- 4MRNA itself is distributed under the [MIT License](./LICENSE).
+<!--- - However, the logo files included in the "[Icons](./Icons)" directory are copyright © 2025 [みかん快速 (Mikan Kaisoku)](https://potofu.me/0range2000). They are <ins>**not**</ins> covered by the MIT License. Do not use, modify, reproduce, or redistribute these logo files beyond private purposes without explicit permission from the copyright holder.--->
+- However, please comply with the licenses of the external resources and libraries. A summary of these dependencies is provided in "[DEPENDENCIES.txt](./DEPENDENCIES.txt)".
+
+
+### Miscellaneous notes
+- Install style of 4MRNA (repository): https://github.com/S-Ando-Biophysics/4MRNA-Install
+
+- The calculation of "No. of AU" (the number of molecules in the asymmetric unit) is done using the Matthews coefficient etc. Please refer to the [other repository](https://github.com/S-Ando-Biophysics/Cal-Nm) and [calculator website](https://s-ando-biophysics.github.io/Cal-Nm/).
 
 ### Changelog
 - **2025-07-08**  The beta version has been released.
