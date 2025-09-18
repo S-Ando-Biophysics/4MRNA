@@ -150,7 +150,10 @@ Building on this strategy, we employed Web 3DNA <sup>[4]</sup>, which is a web a
 ## Reference
 - in preparation
 
-## Notes 
+## Bug Report Form
+If you find a bug, please let me know using [this form](https://forms.gle/LVVAVHh4Jcm8XjDv9).
+
+## Notes
 ### Supported environment
 - **Operating system**: Windows <sup>[*3]</sup>, macOS, Linux (Rocky Linux)
  
@@ -162,7 +165,6 @@ Building on this strategy, we employed Web 3DNA <sup>[4]</sup>, which is a web a
 - 4MRNA itself is distributed under the [MIT License](./LICENSE).
 <!--- - However, the logo files included in the "[Icons](./Icons)" directory are copyright © 2025 [みかん快速 (Mikan Kaisoku)](https://potofu.me/0range2000). They are <ins>**not**</ins> covered by the MIT License. Do not use, modify, reproduce, or redistribute these logo files beyond private purposes without explicit permission from the copyright holder.--->
 - However, please comply with the licenses of the external resources and libraries. A summary of these dependencies is provided in "[DEPENDENCIES.txt](./DEPENDENCIES.txt)".
-
 
 ### Miscellaneous notes
 - Install style of 4MRNA (repository): https://github.com/S-Ando-Biophysics/4MRNA-Install
