@@ -151,7 +151,7 @@ Building on this strategy, we employed Web 3DNA <sup>[4]</sup>, which is a web a
 - in preparation
 
 ## Bug Report Form
-If you find a bug, please let me know using [this form](https://forms.gle/CB3a1g19LnoQjkrr6).
+If you find a bug, please let me know using [this form](https://forms.gle/Hx2tvWkXbstV8JEUA).
 
 ## Notes
 ### Supported environment
