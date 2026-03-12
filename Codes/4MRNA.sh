@@ -376,6 +376,15 @@ for shf in "$bg_dir"/*.sh; do
   echo "Updated $shf"
 done
 
+run_mode="$(ask_choice "Choose execution mode" "default,customize")"
+
+if [[ "$run_mode" == "customize" ]]; then
+  echo "Customization mode selected."
+  echo "Scripts have been prepared in: $bg_dir"
+  echo "No codes were executed. Exiting."
+  exit 0
+fi
+
 echo "=== Start running (in $bg_dir) ==="
 mapfile -t ordered < <(cd "$bg_dir" && ls -1 | grep -E '^[0-9]{2}\.' | sort -V)
 for f in "${ordered[@]}"; do
