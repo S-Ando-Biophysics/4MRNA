@@ -32,18 +32,25 @@ There are two modes to execute 4MRNA.
 6. When 4MRNA finishes, a directory named "4MRNA-Results" will be created, containing up to seven candidate solutions for molecular replacement.
 
 ### How to install
-Please refer to [the section below](https://github.com/S-Ando-Biophysics/4MRNA?tab=readme-ov-file#additional-preparations-for-2-install-style).
 
-#### Preparation
-Please install and set up the following software in advance.
+    cd ~
+    git clone https://github.com/S-Ando-Biophysics/4MRNA-Install.git
+    cd 4MRNA-Install
+    chmod +x install.sh
+    ./install.sh
+    echo 'export PATH="$HOME/4MRNA-Install/bin:$PATH"' >> ~/.bashrc
+    source ~/.bashrc
+
+#### Additional preparation
+In addition, please install and set up the following external software in advance.
 
 | Name | Remarks |
 | :----- | :----- |
 | [Ubuntu](https://apps.microsoft.com/search?query=Ubuntu) | Required only for Windows. It is necessary to turn on "Windows Subsystem for Linux (WSL)" and "Virtual Machine Platform" in the Windows settings to be able to use shell scripts. Furthermore, run `sudo apt update` and `sudo apt upgrade` in Ubuntu. |
-| [3DNA](http://forum.x3dna.org/site-announcements/download-instructions/) | Please download and install 3DNA from the official website. <sup>[*1]</sup> |
-| [Phaser](https://www.ccp4.ac.uk/download) | The command `phaser` is included in CCP4. If you have not installed CCP4, please install it. <sup>[*2]</sup> |
+| [3DNA](http://forum.x3dna.org/site-announcements/download-instructions/) | Please download and install 3DNA from the official website. <sup>[*2]</sup> |
+| [Phaser](https://www.ccp4.ac.uk/download) | The command `phaser` is included in CCP4. If you have not installed CCP4, please install it. <sup>[*3]</sup> |
 
-[*1] The following steps are for Windows (WSL, Ubuntu). The procedure for macOS and Linux is similar.
+[*2] **3DNA**: The following steps are for Windows (WSL, Ubuntu). The procedure for macOS and Linux is similar.
 
     # Please change the directory name and 3DNA version as appropriate.
     # Assume that "x3dna-v2.4-linux-64bit.tar.gz" has been downloaded to "C:\Users\name\Downloads".
@@ -52,15 +59,15 @@ Please install and set up the following software in advance.
     sudo su
     cd /usr/local
     mv /mnt/c/Users/name/Downloads/x3dna-v2.4-linux-64bit.tar.gz .
-　　tar pzxvf x3dna-v2.4-linux-64bit.tar.gz
-　　cd x3dna-v2.4/bin
-　　./x3dna_setup
+    tar pzxvf x3dna-v2.4-linux-64bit.tar.gz
+    cd x3dna-v2.4/bin
+    ./x3dna_setup
     exit
     echo "export X3DNA=/usr/local/x3dna-v2.4" >> ~/.bashrc
     echo "export PATH=$X3DNA/bin:$PATH" >> ~/.bashrc
     source ~/.bashrc
 
-[*2] The following steps are for Windows (WSL, Ubuntu). The procedure for macOS and Linux is similar.
+[*3] **Phaser**: The following steps are for Windows (WSL, Ubuntu). The procedure for macOS and Linux is similar.
 
     # Please change the directory name and CCP4 version as appropriate.
     # Assume that "ccp4-9.0.010-linux64.tar.gz" has been downloaded to "C:\Users\name\Downloads".
@@ -74,17 +81,6 @@ Please install and set up the following software in advance.
     exit
     echo "source /usr/local/ccp4-9/bin/ccp4.setup-sh" >> ~/.bashrc
     source ~/.bashrc
-
-#### Installation of 4MRNA
-
-    cd ~
-    git clone https://github.com/S-Ando-Biophysics/4MRNA-Install.git
-    cd 4MRNA-Install
-    chmod +x install.sh
-    ./install.sh
-    echo 'export PATH="$HOME/4MRNA-Install/bin:$PATH"' >> ~/.bashrc
-    source ~/.bashrc
-    4MRNA version
 
 ## About 4MRNA
 <!--- [Explanatory video (YouTube)](https://youtu.be/WX_Rh3vtOlg) --->
