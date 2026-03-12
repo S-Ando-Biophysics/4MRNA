@@ -63,8 +63,8 @@ The following steps are for Windows (WSL, Ubuntu). The procedure for macOS and L
     cd x3dna-v2.4/bin
     ./x3dna_setup
     exit
-    echo "export X3DNA=/usr/local/x3dna-v2.4" >> ~/.bashrc
-    echo "export PATH=$X3DNA/bin:$PATH" >> ~/.bashrc
+    echo 'export X3DNA=/usr/local/x3dna-v2.4' >> ~/.bashrc
+    echo 'export PATH="$X3DNA/bin:$PATH"' >> ~/.bashrc
     source ~/.bashrc
 
 #### Phaser
