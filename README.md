@@ -8,6 +8,9 @@
 
 <br>
 
+## Infomation
+A major overhaul is scheduled to begin on March 11, 2026, and is expected to take several days to complete. This update will transition the system from v1.2 to v2.0, significantly enhancing both code robustness and execution speed.
+
 ## Instructions
 There are three ways to execute 4MRNA.
 
@@ -172,16 +175,16 @@ If you find a bug, please let me know using [this form](https://forms.gle/Hx2tvW
 - The calculation of "No. of AU" (the number of molecules in the asymmetric unit) is done using the Matthews coefficient etc. Please refer to the [other repository](https://github.com/S-Ando-Biophysics/Cal-Nm) and [calculator website](https://s-ando-biophysics.github.io/Cal-Nm/).
 
 ### Changelog
-- **2025-07-08**  The beta version has been released.
+- **2025-07-08**  The beta version (v0.0) has been released.
 
-- **2025-08-01** The official version has been released.
+- **2025-08-01** The official version (v1.0) has been released.
 
-- **2025-08-18** Minor Update:
-  - The Linux code has been revised, enabling smoother use of 4MRNA.
+- **2025-08-18** Minor Update (v1.1)
+  - The Shelle scripts have been revised, enabling smoother use of 4MRNA.
 
-- **2025-08-22**  Major Update: 
-  - The stability of the Python code has been enhanced.  
-  - The processing speed of the Python code has been improved.  
+- **2025-08-22**  Major Update (v1.2)
+  - The stability of the Python codes have been enhanced.  
+  - The processing speed of the Python codes have been improved.  
   - Three execution styles have been introduced: Standard style, Install style, and Customizable style.  
     - The previous version corresponds to Customizable style.  
     - Standard style and Install style provide simpler ways to run 4MRNA.  
