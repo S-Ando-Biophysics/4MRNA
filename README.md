@@ -50,7 +50,8 @@ In addition, please install and set up the following external software in advanc
 | [3DNA](http://forum.x3dna.org/site-announcements/download-instructions/) | Please download and install 3DNA from the official website. <sup>[*2]</sup> |
 | [Phaser](https://www.ccp4.ac.uk/download) | The command `phaser` is included in CCP4. If you have not installed CCP4, please install it. <sup>[*3]</sup> |
 
-[*2] **3DNA**: The following steps are for Windows (WSL, Ubuntu). The procedure for macOS and Linux is similar.
+[*2] **3DNA**
+The following steps are for Windows (WSL, Ubuntu). The procedure for macOS and Linux is similar.
 
     # Please change the directory name and 3DNA version as appropriate.
     # Assume that "x3dna-v2.4-linux-64bit.tar.gz" has been downloaded to "C:\Users\name\Downloads".
@@ -67,7 +68,8 @@ In addition, please install and set up the following external software in advanc
     echo "export PATH=$X3DNA/bin:$PATH" >> ~/.bashrc
     source ~/.bashrc
 
-[*3] **Phaser**: The following steps are for Windows (WSL, Ubuntu). The procedure for macOS and Linux is similar.
+[*3] **Phaser**
+The following steps are for Windows (WSL, Ubuntu). The procedure for macOS and Linux is similar.
 
     # Please change the directory name and CCP4 version as appropriate.
     # Assume that "ccp4-9.0.010-linux64.tar.gz" has been downloaded to "C:\Users\name\Downloads".
