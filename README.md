@@ -2,7 +2,7 @@
 
 **4MRNA** = <ins>**M**</ins>assive <ins>**M**</ins>ulti-type <ins>**M**</ins>odel <ins>**M**</ins>olecular <ins>**R**</ins>eplacement for <ins>**N**</ins>ucleic <ins>**A**</ins>cids &ensp;[[About 4MRNA](https://github.com/S-Ando-Biophysics/4MRNA?tab=readme-ov-file#about-4mrna)]
 
-### [Website](https://s-ando-biophysics.github.io/4MRNA/)
+### [Website](https://sites.google.com/view/sa-4mrna)
 ### [User manual](https://cdn.jsdelivr.net/gh/S-Ando-Biophysics/4MRNA@main/Docs/4MRNA-Manual.pdf) (Latest updated: 2025-09-11)
 
 <br>
@@ -13,9 +13,9 @@ There are two modes to execute 4MRNA.
 | Style | Usability | Customization | Target users |
 | :----- | :----- | :----- | :----- |
 | **Default** | Very good | Not possible | For general users |
-| **Customize** | Fair | Possible <sup>[*1]</sup> | For experts |
+| **Customize** | Fair | Possible <sup>[*]</sup> | For experts |
 
-[*1] For example, you can adjust parameters by yourself to get more diverse models,or add models prepared by other methods to perform molecular replacement.
+[*] For example, you can adjust parameters by yourself to get more diverse models,or add models prepared by other methods to perform molecular replacement.
 
 ### Procedure (Default mode)
 1. Create a new directory on your computer for executing 4MRNA. After creating it, place your reflection file (.mtz) for molecular replacement into that directory.
@@ -41,16 +41,16 @@ There are two modes to execute 4MRNA.
     echo 'export PATH="$HOME/4MRNA-Install/bin:$PATH"' >> ~/.bashrc
     source ~/.bashrc
 
-#### Additional preparation
+### Additional preparation
 In addition, please install and set up the following external software in advance.
 
 | Name | Remarks |
 | :----- | :----- |
 | [Ubuntu](https://apps.microsoft.com/search?query=Ubuntu) | Required only for Windows. It is necessary to turn on "Windows Subsystem for Linux (WSL)" and "Virtual Machine Platform" in the Windows settings to be able to use shell scripts. Furthermore, run `sudo apt update` and `sudo apt upgrade` in Ubuntu. |
-| [3DNA](http://forum.x3dna.org/site-announcements/download-instructions/) | Please download and install 3DNA from the official website. <sup>[*2]</sup> |
-| [Phaser](https://www.ccp4.ac.uk/download) | The command `phaser` is included in CCP4. If you have not installed CCP4, please install it. <sup>[*3]</sup> |
+| [3DNA](http://forum.x3dna.org/site-announcements/download-instructions/) | Please download and install 3DNA from the official website. |
+| [Phaser](https://www.ccp4.ac.uk/download) | The command `phaser` is included in CCP4. If you have not installed CCP4, please install it. |
 
-[*2] **3DNA**
+#### 3DNA
 The following steps are for Windows (WSL, Ubuntu). The procedure for macOS and Linux is similar.
 
     # Please change the directory name and 3DNA version as appropriate.
@@ -68,7 +68,7 @@ The following steps are for Windows (WSL, Ubuntu). The procedure for macOS and L
     echo "export PATH=$X3DNA/bin:$PATH" >> ~/.bashrc
     source ~/.bashrc
 
-[*3] **Phaser**
+#### Phaser
 The following steps are for Windows (WSL, Ubuntu). The procedure for macOS and Linux is similar.
 
     # Please change the directory name and CCP4 version as appropriate.
