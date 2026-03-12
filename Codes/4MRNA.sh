@@ -376,12 +376,12 @@ for shf in "$bg_dir"/*.sh; do
   echo "Updated $shf"
 done
 
-run_mode="$(ask_choice "Choose execution mode" "default,customize")"
+run_mode="$(ask_choice "Please choose execution mode." "default,customize")"
 
 if [[ "$run_mode" == "customize" ]]; then
-  echo "Customization mode selected."
+  echo "Customize mode was selected."
   echo "Scripts have been prepared in: $bg_dir"
-  echo "No codes were executed. Exiting."
+  echo "You can edit each downloaded code. Please run the edited scripts with the bash command in the numerical order."
   exit 0
 fi
 
