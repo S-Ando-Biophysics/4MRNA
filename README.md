@@ -2,60 +2,38 @@
 
 **4MRNA** = <ins>**M**</ins>assive <ins>**M**</ins>ulti-type <ins>**M**</ins>odel <ins>**M**</ins>olecular <ins>**R**</ins>eplacement for <ins>**N**</ins>ucleic <ins>**A**</ins>cids &ensp;[[About 4MRNA](https://github.com/S-Ando-Biophysics/4MRNA?tab=readme-ov-file#about-4mrna)]
 
-### [User manual](https://cdn.jsdelivr.net/gh/S-Ando-Biophysics/4MRNA@main/Docs/4MRNA-Manual.pdf) (Latest updated: 2025-09-11)
-### [Download "4MRNA.sh"](https://github.com/S-Ando-Biophysics/4MRNA/releases/latest) (for Standard style of 4MRNA)
 ### [Website](https://s-ando-biophysics.github.io/4MRNA/)
+### [User manual](https://cdn.jsdelivr.net/gh/S-Ando-Biophysics/4MRNA@main/Docs/4MRNA-Manual.pdf) (Latest updated: 2025-09-11)
 
 <br>
 
-## Infomation
-A major overhaul is scheduled to begin on March 11, 2026, and is expected to take several days to complete. This update will transition the system from v1.2 to v2.0, significantly enhancing both code robustness and execution speed.
-
 ## Instructions
-There are three ways to execute 4MRNA.
+There are two modes to execute 4MRNA.
 
-| Style | Usability | Installation of 4MRNA | Customization | Target users |
+| Style | Usability | Customization | Target users |
 | :----- | :----- | :----- | :----- | :----- |
-| **Standard** | Very good | Not required | Not possible | For general users |
-| **Install** | Very good | Required | Not possible | For frequent users |
-| **Customizable** | Fair | Not required | Possible <sup>[*1]</sup> | For experts |
+| **Default** | Very good | Not possible | For general users |
+| **Customize** | Fair | Possible <sup>[*1]</sup> | For experts |
 
 [*1] For example, you can adjust parameters by yourself to get more diverse models,or add models prepared by other methods to perform molecular replacement.
 
-### <ins>(1) Standard style</ins>
-In this style, you simply run one Shell script named "4MRNA.sh" on your computer.
-
-<!--- Tutorial video (YouTube) - in preparation --->
-
-#### Procedure
-1. Create a new directory on your computer for executing 4MRNA. After creating it, place your reflection file (.mtz) for molecular replacement into that directory.
- 
-2. Download "4MRNA.sh" into the directory created in Step 1, either directly from [this link (click to download)](https://github.com/S-Ando-Biophysics/4MRNA/releases/latest/download/4MRNA.sh) or via [this website](https://s-ando-biophysics.github.io/4MRNA/).
-
-3. Open Ubuntu/Terminal, change to the directory created in Step 1, and run `bash 4MRNA.sh` or `chmod +x 4MRNA.sh && ./4MRNA.sh`.
-
-4. When 4MRNA finishes, a directory named "4MRNA-Results" will be created, containing up to seven candidate solutions for molecular replacement.
-
-### <ins>(2) Install style</ins>
-In this style, you install the `4MRNA` command on your computer in advance. Unlike Standard style, you do not need to download the Shell script every time. Instead, you can simply type the command `4MRNA` in Ubuntu/Terminal to run it.
-
-<!--- Tutorial video (YouTube) - in preparation --->
-
-#### Procedure
+### Procedure (Default mode)
 1. Create a new directory on your computer for executing 4MRNA. After creating it, place your reflection file (.mtz) for molecular replacement into that directory.
 2. Open Ubuntu/Terminal, change to the directory created in Step 1, and run the command `4MRNA`.
-3. When 4MRNA finishes, a directory named "4MRNA-Results" will be created, containing up to seven candidate solutions for molecular replacement.
+3. When prompted to choose the execution mode, select "default".
+4. When 4MRNA finishes, a directory named "4MRNA-Results" will be created, containing up to seven candidate solutions for molecular replacement.
 
-#### How to install
+### Procedure (Customize mode)
+1. Create a new directory on your computer for executing 4MRNA. After creating it, place your reflection file (.mtz) for molecular replacement into that directory.
+2. Open Ubuntu/Terminal, change to the directory created in Step 1, and run the command `4MRNA`.
+3. When prompted to choose the execution mode, select "customize".
+4. When 4MRNA finishes, a directory named "4MRNA-Results" will be created, containing up to seven candidate solutions for molecular replacement.
+
+### How to install
 Please refer to [the section below](https://github.com/S-Ando-Biophysics/4MRNA?tab=readme-ov-file#additional-preparations-for-2-install-style).
 
 
-### <ins>(3) Customizable style</ins>
-In this style, you obtain some programming codes from the website. Basically, you just run them in the prescribed order, but if needed, you can edit and customize the code. 
 
-Access [this website](https://s-ando-biophysics.github.io/4MRNA/). How to use is described on the website.
-
-<!--- Tutorial video (YouTube) - in preparation --->
 
 #### Procedure (almost the same as what is written on the website)
 1. Create a new directory on your computer for executing 4MRNA. After creating it, place your reflection file (.mtz) for molecular replacement into that directory.
