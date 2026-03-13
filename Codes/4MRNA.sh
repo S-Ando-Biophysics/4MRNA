@@ -4,11 +4,20 @@ set -euo pipefail
 if ! [ -t 0 ] && [ -r /dev/tty ]; then
   exec </dev/tty
 fi
+
 abort() { echo "Error: $*" >&2; exit 1; }
 
 here="$(pwd)"
 inp="${here}/4MRNA-INP.txt"
-bg_dir="${here}/4MRNA-Background-Codes"
+
+final_bg_dir="${here}/4MRNA-Background-Codes"
+work_root="$(mktemp -d)"
+bg_dir="${work_root}/4MRNA-Background-Codes"
+
+cleanup() {
+  rm -rf "$work_root"
+}
+trap cleanup EXIT
 
 L_MB_1_URL="https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Shell-CreatingModels-1st.sh"
 L_MB_2_URL="https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Shell-CreatingModels-2nd.sh"
@@ -25,11 +34,15 @@ L3_02_2_URL="https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Code
 L3_03_1_URL="https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Shell-MR-3model-Model03-1st.sh"
 L3_03_2_URL="https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Shell-MR-3model-Model03-2nd.sh"
 
-curl_get() { curl -fsSL "$1" -o "$2" || abort "Failed to download: $1"; }
+curl_get() {
+  local url="$1"
+  local out="$2"
+  curl -fsSL "$url" -o "$out" || abort "Failed to download: $url"
+}
 
 ask_choice() {
   local q="$1" choices="$2" ans
-  IFS=',' read -r -a arr <<<"$choices"
+  IFS=',' read -r -a arr <<< "$choices"
   while :; do
     read -r -p "$q [$choices]: " ans
     for c in "${arr[@]}"; do
@@ -63,12 +76,21 @@ ask_int() {
   done
 }
 
+sync_bg_dir_to_final() {
+  mkdir -p "$final_bg_dir"
+
+  cp -af "$bg_dir"/. "$final_bg_dir"/
+
+  find "$final_bg_dir" -maxdepth 1 -type f \( -name "*.sh" -o -name "*.bak" \) -exec chmod +x {} + 2>/dev/null || true
+}
+
 if [[ ! -f "$inp" ]]; then
   echo "Input file '4MRNA-INP.txt' not found."
   echo "Choose one of the following:"
   echo "  1) I will prepare it myself. (A template will be provided.)"
   echo "  2) I will answer questions here to generate it now."
   read -r -p "Select [1/2]: " choice
+
   if [[ "$choice" == "1" ]]; then
     cat > "$inp" <<'TEMPLATE'
 -TYPE1 A-DNA
@@ -89,6 +111,7 @@ TEMPLATE
   elif [[ "$choice" == "2" ]]; then
     n_models="$(ask_choice "The number of models for molecular replacement" "1,2,3")"
     declare -A TYP SEQ NUM
+
     for ((i=1; i<=n_models; i++)); do
       while :; do
         echo ""
@@ -109,6 +132,7 @@ TEMPLATE
         fi
       done
     done
+
     {
       for ((i=1; i<=n_models; i++)); do
         echo "-TYPE$i ${TYP[$i]}"
@@ -117,6 +141,7 @@ TEMPLATE
         [[ $i -lt n_models ]] && echo ""
       done
     } > "$inp"
+
     echo ""
     echo "4MRNA-INP.txt created"
     cat "$inp"
@@ -128,7 +153,7 @@ TEMPLATE
 fi
 
 norm_inp="$(mktemp)"
-trap 'rm -f "$norm_inp"' EXIT
+trap 'rm -f "$norm_inp"; cleanup' EXIT
 perl -pe 's/\r\n?/\n/g; s/^\xEF\xBB\xBF//' "$inp" > "$norm_inp"
 
 declare -A TYPE SEQ NUM
@@ -149,6 +174,7 @@ for i in 1 2 3; do
     model_indices+=("$i")
   fi
 done
+
 n_models="${#model_indices[@]}"
 [[ $n_models -ge 1 && $n_models -le 3 ]] || abort "Unsupported number of models (only 1–3 are supported)"
 
@@ -237,7 +263,7 @@ PY
 
 declare -A TYPE2 SEQ2 NUM2 MW
 for row in "${MW_ARR[@]}"; do
-  IFS=$'\t' read -r idx t s n mw <<<"$row"
+  IFS=$'\t' read -r idx t s n mw <<< "$row"
   TYPE2[$idx]="$t"
   SEQ2[$idx]="$s"
   NUM2[$idx]="$n"
@@ -365,33 +391,54 @@ update_shell_2nd() {
 
 for shf in "$bg_dir"/*.sh; do
   [[ -f "$shf" ]] || continue
-  sed -E -i.bak 's|^parent_directory\s*=.*$|parent_directory="'"${linux_parent//\//\\/}"'"|g' "$shf"
+
+  sed -E -i.bak \
+    's|^parent_directory\s*=.*$|parent_directory="'"${linux_parent//\//\\/}"'"|g' \
+    "$shf"
+
   for i in "${model_indices[@]}"; do
     mw="${MW[$i]}"
     num="${NUM2[$i]}"
-    perl -0777 -pe 's/COMPosition NUCLeic MW\s+\d+(?:\.\d+)?\s+NUM\s+'"$i"'/COMPosition NUCLeic MW '"$mw"' NUM '"$num"'/g' -i "$shf"
-    perl -0777 -pe 's/(SEARch ENSEmble \${base_name_'"$i"'} NUM )\d+/${1}'"$num"'/g' -i "$shf"
+
+    perl -0777 -pe \
+      's/COMPosition NUCLeic MW\s+\d+(?:\.\d+)?\s+NUM\s+'"$i"'/COMPosition NUCLeic MW '"$mw"' NUM '"$num"'/g' \
+      -i "$shf"
+
+    perl -0777 -pe \
+      's/(SEARch ENSEmble \${base_name_'"$i"'} NUM )\d+/${1}'"$num"'/g' \
+      -i "$shf"
   done
+
   chmod +x "$shf"
   echo "Updated $shf"
 done
+
+sync_bg_dir_to_final
 
 run_mode="$(ask_choice "Please choose execution mode." "default,customize")"
 
 if [[ "$run_mode" == "customize" ]]; then
   echo "Customize mode was selected."
-  echo "Scripts have been prepared in: $bg_dir"
+  echo "Scripts have been prepared in: $final_bg_dir"
   echo "You can edit each downloaded code. Please run the edited scripts with the bash command in the numerical order."
   exit 0
 fi
 
-echo "=== Start running (in $bg_dir) ==="
-mapfile -t ordered < <(cd "$bg_dir" && ls -1 | grep -E '^[0-9]{2}\.' | sort -V)
+echo "=== Start running (in $final_bg_dir) ==="
+mapfile -t ordered < <(cd "$final_bg_dir" && ls -1 | grep -E '^[0-9]{2}\.' | sort -V)
 for f in "${ordered[@]}"; do
   case "$f" in
-    *.py) echo "[RUN] python $f"; (cd "$bg_dir"; python "$f") ;;
-    *.sh) echo "[RUN] bash   $f"; (cd "$bg_dir"; bash "$f") ;;
-    *) : ;;
+    *.py)
+      echo "[RUN] python $f"
+      (cd "$final_bg_dir"; python "$f")
+      ;;
+    *.sh)
+      echo "[RUN] bash   $f"
+      (cd "$final_bg_dir"; bash "$f")
+      ;;
+    *)
+      :
+      ;;
   esac
 done
 echo "=== All finished ==="
