@@ -105,7 +105,7 @@ The following steps are for Windows (WSL, Ubuntu). The procedure for macOS and L
 [4] Lu, X. J., & Olson, W. K. (2008). 3DNA: a versatile, integrated software system for the analysis, rebuilding and visualization of three-dimensional nucleic-acid structures. _Nature protocols_, _3_(7), 1213–1227.
 
 
-## Reference
+## Citation
 - in preparation
 
 ## Bug Report Form
