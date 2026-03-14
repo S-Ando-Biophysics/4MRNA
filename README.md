@@ -79,7 +79,10 @@ Please download the command-line installer from the official website. Then pleas
     sudo su
     cd /usr/local/bin
     mv /mnt/c/Users/name/Downloads/Phenix-2.0-5936-Linux-x86_64.sh .
-    bash Phenix-2.0-5936-Linux-x86_64.sh
+    bash Phenix-2.0-5936-Linux-x86_64.sh -b -p /usr/local/bin/phenix-2.0-5936
+    exit
+    echo "source /usr/local/bin/phenix-2.0-5936/phenix_env.sh" >> ~/.bashrc
+    source ~/.bashrc
 
 #### Phaser
 Phaser is included in the CCP4 suite, so please download the CCP4 installer from the official website. After that, run the following commands in order. The following steps are for Windows (WSL, Ubuntu). The procedure for macOS and Linux is similar.
