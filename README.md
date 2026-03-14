@@ -79,9 +79,9 @@ Please download the command-line installer from the official website. Then pleas
     sudo su
     cd /usr/local/bin
     mv /mnt/c/Users/name/Downloads/Phenix-2.0-5936-Linux-x86_64.sh .
-    bash Phenix-2.0-5936-Linux-x86_64.sh -b -p /usr/local/bin/phenix-2.0-5936
+    bash Phenix-2.0-5936-Linux-x86_64.sh -b -p /usr/local/phenix-2.0-5936
     exit
-    echo "source /usr/local/bin/phenix-2.0-5936/phenix_env.sh" >> ~/.bashrc
+    echo "source /usr/local/phenix-2.0-5936/phenix_env.sh" >> ~/.bashrc
     source ~/.bashrc
 
 #### Phaser
