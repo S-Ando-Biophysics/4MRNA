@@ -2,7 +2,7 @@
 
 **4MRNA** = <ins>**M**</ins>assive <ins>**M**</ins>ulti-type <ins>**M**</ins>odel <ins>**M**</ins>olecular <ins>**R**</ins>eplacement for <ins>**N**</ins>ucleic <ins>**A**</ins>cids &ensp;[[About 4MRNA](https://github.com/S-Ando-Biophysics/4MRNA?tab=readme-ov-file#about-4mrna)]
 
-### [User manual](https://cdn.jsdelivr.net/gh/S-Ando-Biophysics/4MRNA@main/Docs/4MRNA-Manual.pdf) (Latest updated: 2025-09-11)
+### [User manual](https://cdn.jsdelivr.net/gh/S-Ando-Biophysics/4MRNA@main/Docs/4MRNA-Manual-v1.2.pdf) (Latest updated: 2025-09-11)
 ### [Download "4MRNA.sh"](https://github.com/S-Ando-Biophysics/4MRNA/releases/latest) (for Standard style of 4MRNA)
 ### [Website](https://s-ando-biophysics.github.io/4MRNA/)
 
