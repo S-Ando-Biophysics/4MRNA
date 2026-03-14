@@ -8,7 +8,7 @@ parent_directory="$(pwd)"
 # ====================================================================================================
 
 directory="${parent_directory}/Model01-2"
-na_type="A-DNA"    # Please enter the type of NA. Please choose from A-DNA, B-DNA, or A-RNA.
+na_type=""    # Please enter the type of NA. Please choose from A-DNA, B-DNA, or A-RNA.
 
 # ====================================================================================================
 
