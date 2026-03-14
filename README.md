@@ -2,14 +2,14 @@
 
 **4MRNA** = <ins>**M**</ins>assive <ins>**M**</ins>ulti-type <ins>**M**</ins>odel <ins>**M**</ins>olecular <ins>**R**</ins>eplacement for <ins>**N**</ins>ucleic <ins>**A**</ins>cids &ensp;[[About 4MRNA](https://github.com/S-Ando-Biophysics/4MRNA?tab=readme-ov-file#about-4mrna)]
 
-### [User manual](https://cdn.jsdelivr.net/gh/S-Ando-Biophysics/4MRNA@main/Docs/4MRNA-Manual.pdf) (Latest updated: 2026-03-14)
+### [User manual](https://cdn.jsdelivr.net/gh/S-Ando-Biophysics/4MRNA@main/Docs/4MRNA-Manual.pdf) (Latest updated: in preparation)
 
 <br>
 
 ## Instructions
 There are two modes to execute 4MRNA.
 
-| Style | Usability | Customization | Target users |
+| Mode | Usability | Customization | Target users |
 | :----- | :----- | :----- | :----- |
 | **Default** | Very good | Not possible | For general users |
 | **Customize** | Fair | Possible <sup>[*]</sup> | For experts |
@@ -43,14 +43,18 @@ There are two modes to execute 4MRNA.
 ### Additional preparation
 In addition, please install and set up the following external software in advance.
 
-| Name | Remarks |
+| Name | Website |
 | :----- | :----- |
-| [Ubuntu](https://apps.microsoft.com/search?query=Ubuntu) | Required only for Windows. It is necessary to turn on "Windows Subsystem for Linux (WSL)" and "Virtual Machine Platform" in the Windows settings to be able to use shell scripts. Furthermore, run `sudo apt update` and `sudo apt upgrade` in Ubuntu. |
-| [3DNA](http://forum.x3dna.org/site-announcements/download-instructions/) | Please download and install 3DNA from the official website. |
-| [Phaser](https://www.ccp4.ac.uk/download) | The command `phaser` is included in CCP4. If you have not installed CCP4, please install it. |
+| Ubuntu | https://apps.microsoft.com/search?query=Ubuntu |
+| 3DNA | http://forum.x3dna.org/site-announcements/download-instructions/ |
+| Phenix | https://phenix-online.org/download |
+| Phaser | https://www.ccp4.ac.uk/download |
+
+#### Ubuntu
+This is required only for Windows. It is necessary to turn on "Windows Subsystem for Linux (WSL)" and "Virtual Machine Platform" in the Windows settings to be able to use shell scripts. Furthermore, run `sudo apt update` and `sudo apt upgrade` on Ubuntu.
 
 #### 3DNA
-The following steps are for Windows (WSL, Ubuntu). The procedure for macOS and Linux is similar.
+After registering on the official website (forum) and receiving approval, you will be able to download the installer. For details, please refer to the instructions on the official website. Once you have downloaded the installer, run the following commands in order. The following steps are for Windows (WSL, Ubuntu). The procedure for macOS and Linux is similar.
 
     # Please change the directory name and 3DNA version as appropriate.
     # Assume that "x3dna-v2.4-linux-64bit.tar.gz" has been downloaded to "C:\Users\name\Downloads".
@@ -67,8 +71,18 @@ The following steps are for Windows (WSL, Ubuntu). The procedure for macOS and L
     echo 'export PATH="$X3DNA/bin:$PATH"' >> ~/.bashrc
     source ~/.bashrc
 
+#### Phenix
+Please download the command-line installer from the official website. Then please run the following commands in order. The following steps are for Windows (WSL, Ubuntu). The procedure for macOS and Linux is similar.
+
+    # Please change the directory name and Phenix version as appropriate.
+    # Assume that "Phenix-2.0-5936-Linux-x86_64.sh" has been downloaded to "C:\Users\name\Downloads".
+    sudo su
+    cd /usr/local/bin
+    mv /mnt/c/Users/name/Downloads/Phenix-2.0-5936-Linux-x86_64.sh .
+    bash Phenix-2.0-5936-Linux-x86_64.sh
+
 #### Phaser
-The following steps are for Windows (WSL, Ubuntu). The procedure for macOS and Linux is similar.
+Phaser is included in the CCP4 suite, so please download the CCP4 installer from the official website. After that, run the following commands in order. The following steps are for Windows (WSL, Ubuntu). The procedure for macOS and Linux is similar.
 
     # Please change the directory name and CCP4 version as appropriate.
     # Assume that "ccp4-9.0.010-linux64.tar.gz" has been downloaded to "C:\Users\name\Downloads".
@@ -84,7 +98,6 @@ The following steps are for Windows (WSL, Ubuntu). The procedure for macOS and L
     source ~/.bashrc
 
 ## About 4MRNA
-<!--- [Explanatory video (YouTube)](https://youtu.be/WX_Rh3vtOlg) --->
 
 - 4MRNA is an abbreviation for “Massive Multi-type Model Molecular Replacement for Nucleic Acids”. This is a novel method designed to enhance molecular replacement (MR) for phasing in X-ray crystallography of nucleic acids.
 
