@@ -77,7 +77,7 @@ Please download the command-line installer from the official website. Then pleas
     # Please change the directory name and Phenix version as appropriate.
     # Assume that "Phenix-2.0-5936-Linux-x86_64.sh" has been downloaded to "C:\Users\name\Downloads".
     sudo su
-    cd /usr/local/bin
+    cd /usr/local
     mv /mnt/c/Users/name/Downloads/Phenix-2.0-5936-Linux-x86_64.sh .
     bash Phenix-2.0-5936-Linux-x86_64.sh -b -p /usr/local/phenix-2.0-5936
     exit
