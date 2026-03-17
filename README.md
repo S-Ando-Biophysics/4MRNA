@@ -141,7 +141,6 @@ If you find a bug, please let me know using [this form](https://forms.gle/Hx2tvW
 
 ### License information
 - 4MRNA itself is distributed under the [MIT License](./LICENSE).
-<!--- - However, the logo files included in the "[Icons](./Icons)" directory are copyright © 2025 [みかん快速 (Mikan Kaisoku)](https://potofu.me/0range2000). They are <ins>**not**</ins> covered by the MIT License. Do not use, modify, reproduce, or redistribute these logo files beyond private purposes without explicit permission from the copyright holder.--->
 - However, please comply with the licenses of the external resources. A summary of these dependencies is provided in "[DEPENDENCIES.txt](./DEPENDENCIES.txt)".
 
 ### Miscellaneous notes
