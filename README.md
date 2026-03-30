@@ -157,12 +157,12 @@ If you find a bug, please let me know using [this form](https://forms.gle/Hx2tvW
   - The Shelle scripts have been revised, enabling smoother use of 4MRNA.
 
 - **2025-08-22** Minor Update (v1.2)
-  - The stability of the Python codes have been enhanced.  
-  - The processing speed of the Python codes have been improved.  
-  - Three execution styles have been introduced: Standard style, Install style, and Customizable style.  
-    - The previous version corresponds to Customizable style.  
-    - Standard style and Install style provide simpler ways to run 4MRNA.  
-  - The website user interface has been updated to improve usability.
+  - The stability and the processing speed of the Python codes have been improved.  
+  - A good balance between simplicity and customizability was achieved by introducing separate execution methods for general users and specialists.
 
 - **2026-03-12** Major Update (v2.0)
+  - The internal workflow has been updated. The command-line interface version of 3DNA has replaced Web 3DNA. Consequently, the previous Python code has been removed in favor of a full Shell script implementation. These changes involve modifications to software dependencies and execution methods. This major update delivers greater robustness and significantly faster execution speeds.
 
+<!---
+- **2026-03-31** Minor Update (v2.1)
+  - The introduction of checkpoints allows for easy resumption of execution even if the process is interrupted.
