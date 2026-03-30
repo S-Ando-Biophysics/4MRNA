@@ -18,9 +18,18 @@ cd "${file_path}"
 pdb_directory_1="${file_path}/Model01"
 pdb_directory_2="${file_path}/Model02i"
 finish_directory="${pdb_directory_1}/finish"
+checkpoint_dir="${file_path}/Checkpoints"
 mkdir -p "${pdb_directory_1}"
 mkdir -p "${pdb_directory_2}"
 mkdir -p "${finish_directory}"
+mkdir -p "${checkpoint_dir}"
+
+checkpoint_file_for_base_pair() {
+  local base_name_1="$1"
+  local base_name_2="$2"
+  printf '%s/%s-%s.done' "$checkpoint_dir" "$base_name_1" "$base_name_2"
+}
+
 cp "${parent_directory}/Model01-2"/*.pdb "${pdb_directory_1}"
 cp "${parent_directory}/Model02-1"/??????.pdb "${pdb_directory_2}"
 for pdb_file_1 in "${pdb_directory_1}"/*.pdb; do
@@ -28,6 +37,13 @@ for pdb_file_1 in "${pdb_directory_1}"/*.pdb; do
     base_name_1=$(basename "${pdb_file_1}" .pdb)
     base_name_2=$(basename "${pdb_file_2}" .pdb)
     output_directory="phaser-${base_name_1}-${base_name_2}"
+    checkpoint_file="$(checkpoint_file_for_base_pair "$base_name_1" "$base_name_2")"
+
+    if [ -f "$checkpoint_file" ]; then
+      echo "[CHECKPOINT] ${base_name_1}-${base_name_2} already attempted. Skipping."
+      continue
+    fi
+
     mkdir -p "${output_directory}"
     phaser <<EOF
 TITLe ${base_name_1}-${base_name_2}
@@ -42,6 +58,7 @@ SEARch ENSEmble ${base_name_2} NUM 2
 EOF
     mv PHASER.sol PHASER.1.mtz PHASER.1.pdb "${output_directory}/"
     cp "${pdb_file_1}" "${finish_directory}/"
+    : > "$checkpoint_file"
   done
 done
 llg_extracted="./extracted_data_LGG.txt"
