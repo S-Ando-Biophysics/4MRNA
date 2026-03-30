@@ -39,6 +39,29 @@ cleanup_rebuild_files() {
   rm -f Atomic*.pdb ref_frames.dat
 }
 
+checkpoint_dir_for_model() {
+  local directory="$1"
+  printf '%s/Checkpoints' "$directory"
+}
+
+checkpoint_file_after_par_generation() {
+  local directory="$1"
+  printf '%s/all_par_files_generated.done' "$(checkpoint_dir_for_model "$directory")"
+}
+
+mark_par_generation_done() {
+  local directory="$1"
+  local cpdir
+  cpdir="$(checkpoint_dir_for_model "$directory")"
+  mkdir -p "$cpdir"
+  : > "$(checkpoint_file_after_par_generation "$directory")"
+}
+
+is_par_generation_done() {
+  local directory="$1"
+  [[ -f "$(checkpoint_file_after_par_generation "$directory")" ]]
+}
+
 same_sign_symmetric_generate() {
 
   local length="$1"
@@ -233,6 +256,11 @@ rebuild_all_pars() {
 
       pdb="${file_prefix}${suffix}.pdb"
 
+      if [[ -f "$pdb" ]]; then
+        echo "$pdb already exists. Skipping rebuild for $f"
+        continue
+      fi
+
       x3dna_utils cp_std "$std_type"
 
       rebuild -atomic "$f" "$pdb"
@@ -286,6 +314,11 @@ minimize_all_pdbs() {
 
       [[ "$pdb" == *_minimized.pdb ]] && continue
 
+      if [[ -f "Before-Phenix/$pdb" ]]; then
+        echo "$pdb already minimized before. Skipping."
+        continue
+      fi
+
       base="${pdb%.pdb}"
       minimized_pdb="${base}_minimized.pdb"
 
@@ -335,20 +368,26 @@ main() {
 
     get_type_settings "$na_type" "$sequence"
 
-    if ! build_fiber_and_analyze "$directory"; then
-      continue
+    if is_par_generation_done "$directory"; then
+      echo "[CHECKPOINT] Model $id : bp_step.par and all .par files already prepared. Skipping preparation."
+    else
+      if ! build_fiber_and_analyze "$directory"; then
+        continue
+      fi
+
+      bpstep_file="${directory}/bp_step.par"
+
+      n1=$(process_parameter "$bpstep_file" "$directory" "Tilt" "$tilt_col" "${tilt_values[@]}")
+      echo "$n1 Tilt files generated"
+
+      n2=$(process_parameter "$bpstep_file" "$directory" "Roll" "$roll_col" "${roll_values[@]}")
+      echo "$n2 Roll files generated"
+
+      n3=$(process_parameter "$bpstep_file" "$directory" "Twist" "$twist_col" "${twist_values[@]}")
+      echo "$n3 Twist files generated"
+
+      mark_par_generation_done "$directory"
     fi
-
-    bpstep_file="${directory}/bp_step.par"
-
-    n1=$(process_parameter "$bpstep_file" "$directory" "Tilt" "$tilt_col" "${tilt_values[@]}")
-    echo "$n1 Tilt files generated"
-
-    n2=$(process_parameter "$bpstep_file" "$directory" "Roll" "$roll_col" "${roll_values[@]}")
-    echo "$n2 Roll files generated"
-
-    n3=$(process_parameter "$bpstep_file" "$directory" "Twist" "$twist_col" "${twist_values[@]}")
-    echo "$n3 Twist files generated"
 
     rebuild_all_pars "$directory"
 
