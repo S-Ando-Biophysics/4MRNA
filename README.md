@@ -156,6 +156,5 @@ If you find a bug, please let me know using [this form](https://forms.gle/Hx2tvW
 - **2026-03-12** Major Update (v2.0)
   - The internal workflow has been updated. The command-line interface version of 3DNA has replaced Web 3DNA. Consequently, the previous Python code has been removed in favor of a full Shell script implementation. These changes involve modifications to software dependencies and execution methods. This major update delivers greater robustness and significantly faster execution speeds.
 
-<!---
-- **2026-03-31** Minor Update (v2.1)
+- **2026-03-30** Minor Update (v2.1)
   - The introduction of checkpoints allows for easy resumption of execution even if the process is interrupted.
