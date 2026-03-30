@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-parent_directory=""
+parent_directory="$(pwd)"
 shopt -s nullglob
 mtz_candidates=( "${parent_directory}"/*.mtz )
 shopt -u nullglob
@@ -19,10 +19,20 @@ pdb_directory_1="${file_path}/Model01i"
 pdb_directory_2="${file_path}/Model02"
 pdb_directory_3="${file_path}/Model03i"
 finish_directory="${pdb_directory_2}/finish"
+checkpoint_dir="${file_path}/Checkpoints"
 mkdir -p "${pdb_directory_1}"
 mkdir -p "${pdb_directory_2}"
 mkdir -p "${pdb_directory_3}"
 mkdir -p "${finish_directory}"
+mkdir -p "${checkpoint_dir}"
+
+checkpoint_file_for_base_triplet() {
+  local base_name_1="$1"
+  local base_name_2="$2"
+  local base_name_3="$3"
+  printf '%s/%s-%s-%s.done' "$checkpoint_dir" "$base_name_1" "$base_name_2" "$base_name_3"
+}
+
 cp "${parent_directory}/Model02-1"/*.pdb "${pdb_directory_2}"
 rm -f "${pdb_directory_2}"/??????.pdb
 cp "${parent_directory}/Model01-2"/Model01best.pdb "${pdb_directory_1}"
@@ -34,6 +44,13 @@ for pdb_file_1 in "${pdb_directory_1}"/*.pdb; do
       base_name_2=$(basename "${pdb_file_2}" .pdb)
       base_name_3=$(basename "${pdb_file_3}" .pdb)
       output_directory="phaser-${base_name_1}-${base_name_2}-${base_name_3}"
+      checkpoint_file="$(checkpoint_file_for_base_triplet "$base_name_1" "$base_name_2" "$base_name_3")"
+
+      if [ -f "$checkpoint_file" ]; then
+        echo "[CHECKPOINT] ${base_name_1}-${base_name_2}-${base_name_3} already attempted. Skipping."
+        continue
+      fi
+
       mkdir -p "${output_directory}"
       phaser <<EOF
 TITLe ${base_name_1}-${base_name_2}-${base_name_3}
@@ -51,6 +68,7 @@ SEARch ENSEmble ${base_name_3} NUM 3
 EOF
       mv PHASER.sol PHASER.1.mtz PHASER.1.pdb "${output_directory}/"
       cp "${pdb_file_1}" "${finish_directory}/"
+      : > "$checkpoint_file"
     done
   done
 done
