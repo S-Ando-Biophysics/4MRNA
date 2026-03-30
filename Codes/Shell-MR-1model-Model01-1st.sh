@@ -17,12 +17,27 @@ file_path="${parent_directory}/MR-Model01-1st"
 cd "${file_path}"
 pdb_directory_1="${file_path}/Model01"
 finish_directory="${pdb_directory_1}/finish"
-mkdir -p "${pdb_directory_1}" "${finish_directory}"
+checkpoint_dir="${file_path}/Checkpoints"
+mkdir -p "${pdb_directory_1}" "${finish_directory}" "${checkpoint_dir}"
+
+checkpoint_file_for_base() {
+  local base_name="$1"
+  printf '%s/%s.done' "$checkpoint_dir" "$base_name"
+}
+
 cp "${parent_directory}/Model01-1"/*.pdb "${pdb_directory_1}"
 rm -f "${pdb_directory_1}"/??????.pdb
+
 for pdb_file_1 in "${pdb_directory_1}"/*.pdb; do
   base_name_1=$(basename "${pdb_file_1}" .pdb)
   output_directory="phaser-${base_name_1}"
+  checkpoint_file="$(checkpoint_file_for_base "$base_name_1")"
+
+  if [ -f "$checkpoint_file" ]; then
+    echo "[CHECKPOINT] ${base_name_1} already attempted. Skipping."
+    continue
+  fi
+
   mkdir -p "${output_directory}"
   phaser <<EOF
 TITLe ${base_name_1}
@@ -34,7 +49,9 @@ SEARch ENSEmble ${base_name_1} NUM 1
 EOF
   mv PHASER.sol PHASER.1.mtz PHASER.1.pdb "${output_directory}/"
   cp "${pdb_file_1}" "${finish_directory}/"
+  : > "$checkpoint_file"
 done
+
 llg_extracted="./extracted_data_LGG.txt"
 llg_output_file="./TopLLG.txt"
 : > "$llg_extracted"; : > "$llg_output_file"
@@ -60,6 +77,7 @@ for folder_path in ./phaser-*/; do
   max_value=$(echo "$result" | awk -F',' '{max=$1; for(i=2;i<=NF;i++) if($i>max) max=$i; print max}')
   printf '\n%s,%s\n' "$folder_name" "$max_value" >> "$llg_output_file"
 done
+
 tfz_extracted="./extracted_data_TFZ.txt"
 tfz_output_file="./TopTFZ.txt"
 : > "$tfz_extracted"; : > "$tfz_output_file"
@@ -85,14 +103,17 @@ for folder_path in ./phaser-*/; do
   max_value=$(echo "$result" | awk -F',' '{max=$1; for(i=2;i<=NF;i++) if($i>max) max=$i; print max}')
   printf '\n%s,%s\n' "$folder_name" "$max_value" >> "$tfz_output_file"
 done
+
 {
   printf 'Model TopLLG TopTFZ\n'
   awk -F',' 'NR==FNR{llg[$1]=$2; next} {print $1, llg[$1], $2}' OFS=' ' TopLLG.txt TopTFZ.txt
 } > "${file_path}/results.txt"
+
 mkdir -p "${parent_directory}/Model01-2"
 mr_dir="${parent_directory}/MR-Model01-1st"
 model_dir_1="${parent_directory}/Model01-1"
 model_dir_2="${parent_directory}/Model01-2"
+
 shopt -s nullglob
 three_dna_candidates=( "${model_dir_1}"/3DNA-??NA )
 if [ ${#three_dna_candidates[@]} -ge 1 ]; then
@@ -102,10 +123,13 @@ if [ ${#three_dna_candidates[@]} -ge 1 ]; then
   fi
 fi
 shopt -u nullglob
+
 grep -F 'TILT'  "${mr_dir}/results.txt" > "${mr_dir}/results-tilt.txt"  || :
 grep -F 'ROLL'  "${mr_dir}/results.txt" > "${mr_dir}/results-roll.txt"  || :
 grep -F 'TWIST' "${mr_dir}/results.txt" > "${mr_dir}/results-twist.txt" || :
+
 : > "${mr_dir}/results-good-num.txt"
+
 process_category () {
   local KEYWORD="$1"
   local INFILE="$2"
@@ -138,9 +162,11 @@ process_category () {
   | awk -v pfx="$PREFIX" '{print "bp_step_" pfx $2}' >> "${mr_dir}/results-good-num.txt"
   awk '!seen[$0]++' "${mr_dir}/results-good-num.txt" > "${mr_dir}/.results-good-num.tmp" && mv "${mr_dir}/.results-good-num.tmp" "${mr_dir}/results-good-num.txt"
 }
+
 process_category "TILT"  "${mr_dir}/results-tilt.txt"  "Tilt"
 process_category "ROLL"  "${mr_dir}/results-roll.txt"  "Roll"
 process_category "TWIST" "${mr_dir}/results-twist.txt" "Twist"
+
 if [ -s "${mr_dir}/results-good-num.txt" ]; then
   shopt -s nullglob
   three_dna_dirs=( "${model_dir_1}"/3DNA-??NA )
