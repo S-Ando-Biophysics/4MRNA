@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-parent_directory=""
+parent_directory="$(pwd)"
 shopt -s nullglob
 mtz_candidates=( "${parent_directory}"/*.mtz )
 shopt -u nullglob
