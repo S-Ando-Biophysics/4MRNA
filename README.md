@@ -78,6 +78,7 @@ After registering on the official website (forum) and receiving approval, you wi
 
     # Please change the directory name and 3DNA version as appropriate.
     # Assume that "x3dna-v2.4-linux-64bit.tar.gz" has been downloaded to "C:\Users\name\Downloads".
+    
     sudo apt update
     sudo apt install ruby
     sudo su
@@ -96,6 +97,7 @@ Please download the command-line installer from the official website. Then pleas
 
     # Please change the directory name and Phenix version as appropriate.
     # Assume that "Phenix-2.0-5936-Linux-x86_64.sh" has been downloaded to "C:\Users\name\Downloads".
+    
     sudo su
     cd /usr/local
     mv /mnt/c/Users/name/Downloads/Phenix-2.0-5936-Linux-x86_64.sh .
@@ -109,6 +111,7 @@ Phaser is included in the CCP4 suite, so please download the CCP4 installer from
 
     # Please change the directory name and CCP4 version as appropriate.
     # Assume that "ccp4-9.0.010-linux64.tar.gz" has been downloaded to "C:\Users\name\Downloads".
+    
     sudo su
     cd /usr/local
     mv /mnt/c/Users/name/Downloads/ccp4-9.0.010-linux64.tar.gz .
