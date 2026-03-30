@@ -1,12 +1,27 @@
 # 4MRNA
 
-**4MRNA** = <ins>**M**</ins>assive <ins>**M**</ins>ulti-type <ins>**M**</ins>odel <ins>**M**</ins>olecular <ins>**R**</ins>eplacement for <ins>**N**</ins>ucleic <ins>**A**</ins>cids &ensp;[[About 4MRNA](https://github.com/S-Ando-Biophysics/4MRNA?tab=readme-ov-file#about-4mrna)]
+**4MRNA** = <ins>**M**</ins>assive <ins>**M**</ins>ulti-type <ins>**M**</ins>odel <ins>**M**</ins>olecular <ins>**R**</ins>eplacement for <ins>**N**</ins>ucleic <ins>**A**</ins>cids
 
 ### [User manual](https://cdn.jsdelivr.net/gh/S-Ando-Biophysics/4MRNA@main/Docs/4MRNA-Manual.pdf) (Latest updated: March 14, 2026)
 
 <br>
 
-## Instructions
+[**About 4MRNA**](#about-4mrna) | [**How to use**](#how-to-use) | [**How to install**](#how-to-install) | [**Citation**](#citation) | [**Bug report form**](#bug-report-form) | [**Notes**](#notes)
+
+## About 4MRNA
+
+4MRNA is an abbreviation for “Massive Multi-type Model Molecular Replacement for Nucleic Acids”. This is a novel method designed to enhance molecular replacement (MR) for phasing in X-ray crystallography of nucleic acids.
+
+Applying MR, which is widely used in structure determination (phase determination), to nucleic acids presents unique challenges that are not encountered with proteins. To overcome these issues, we developed an innovative strategy termed 4MRNA.
+
+One major difficulty is that nucleic acids can adopt different 3D structures even with the same sequence. As a result, models existing in the database may not be suitable as search models, and sequence-based structure prediction methods such as AlphaFold are also limited in applicability. Moreover, it is empirically known that MR of nucleic acids can fail even when the search model and the target structure differ only slightly. To address these issues, the new strategy 4MRNA includes creating a large number of diverse search models (= massive multi-type models) and applying them to MR.
+
+We found that by varying three out of the twelve parameters that control the three-dimensional structures of nucleic acids according to different patterns, the resulting set of models included ones that closely matched the correct structure, thereby increasing the success rate of MR.
+
+Building on this strategy, we employed 3DNA, which is a software that generates nucleic acid structural models based on parameters, to create a wide variety of models. The processes of parameter adjustment and model creation have been automated using Shell scripts. Subsequently, MR is carried out for each of the many created models. Since this operation must be repeated many times, we also automated this process using Shell scripts.
+
+
+## How to use
 There are two modes to execute 4MRNA.
 
 | Mode | Usability | Customization | Target users |
@@ -30,7 +45,7 @@ There are two modes to execute 4MRNA.
 5. Please run the edited scripts with the `bash` command on Ubuntu/Terminal in the order indicated by the number at the beginning of each file.
 6. When 4MRNA finishes, a directory named "4MRNA-Results" will be created, containing up to seven candidate solutions for molecular replacement.
 
-### How to install
+## How to install
 
     cd ~
     git clone https://github.com/S-Ando-Biophysics/4MRNA-Install.git
@@ -100,26 +115,6 @@ Phaser is included in the CCP4 suite, so please download the CCP4 installer from
     echo "source /usr/local/ccp4-9/bin/ccp4.setup-sh" >> ~/.bashrc
     source ~/.bashrc
 
-## About 4MRNA
-
-- 4MRNA is an abbreviation for “Massive Multi-type Model Molecular Replacement for Nucleic Acids”. This is a novel method designed to enhance molecular replacement (MR) for phasing in X-ray crystallography of nucleic acids.
-
-- Applying MR, which is widely used in structure determination (phase determination), to nucleic acids presents unique challenges that are not encountered with proteins. To overcome these issues, we developed an innovative strategy termed 4MRNA.
-
-- One major difficulty is that nucleic acids can adopt different 3D structures even with the same sequence. As a result, models existing in the database may not be suitable as search models, and sequence-based structure prediction methods such as AlphaFold are also limited in applicability <sup>[1,2]</sup>. Moreover, it is empirically known that MR of nucleic acids can fail even when the search model and the target structure differ only slightly. <sup>[3]</sup> To address these issues, the new strategy 4MRNA includes creating a large number of diverse search models (= massive multi-type models) and applying them to MR.
-
-- We found that by varying three out of the twelve parameters that control the three-dimensional structures of nucleic acids according to different patterns, the resulting set of models included ones that closely matched the correct structure, thereby increasing the success rate of MR.
-
-- Building on this strategy, we employed 3DNA <sup>[4]</sup>, which is a software that generates nucleic acid structural models based on parameters, to create a wide variety of models. The processes of parameter adjustment and model creation have been automated using Shell scripts. Subsequently, MR is carried out for each of the many created models. Since this operation must be repeated many times, we also automated this process using Shell scripts.
-
-[1] Bernard, C., Postic, G., Ghannay, S., & Tahi, F. (2025). Has AlphaFold3 achieved success for RNA?. _Acta crystallographica. Section D, Structural biology_, _81_(Pt 2), 49–62.
-
-[2] Kwon D. (2025). RNA function follows form - why is it so hard to predict?. _Nature_, _639_(8056), 1106–1108.
-
-[3] Kondo, J., Urzhumtseva, L., & Urzhumtsev, A. (2008). Patterson-guided ab initio analysis of structures with helical symmetry. _Acta crystallographica. Section D, Biological crystallography_, _64_(Pt 10), 1078–1091.
-
-[4] Lu, X. J., & Olson, W. K. (2008). 3DNA: a versatile, integrated software system for the analysis, rebuilding and visualization of three-dimensional nucleic-acid structures. _Nature protocols_, _3_(7), 1213–1227.
-
 
 ## Citation
 If you use 4MRNA in your research, please cite the following reference. 
@@ -132,7 +127,7 @@ In addition, please also cite the external software packages used by 4MRNA.
 - **Phenix**: Liebschner, D., Afonine, P. V., Baker, M. L., Bunkóczi, G., Chen, V. B., Croll, T. I., Hintze, B., Hung, L. W., Jain, S., McCoy, A. J., Moriarty, N. W., Oeffner, R. D., Poon, B. K., Prisant, M. G., Read, R. J., Richardson, J. S., Richardson, D. C., Sammito, M. D., Sobolev, O. V., Stockwell, D. H., … Adams, P. D. (2019). Macromolecular structure determination using X-rays, neutrons and electrons: recent developments in Phenix. _Acta crystallographica. Section D, Structural biology_, _75_(Pt 10), 861–877. https://doi.org/10.1107/S2059798319011471
 - **Phaser**: McCoy, A. J., Grosse-Kunstleve, R. W., Adams, P. D., Winn, M. D., Storoni, L. C., & Read, R. J. (2007). Phaser crystallographic software. _Journal of applied crystallography_, _40_(Pt 4), 658–674. https://doi.org/10.1107/S0021889807021206 
 
-## Bug Report Form
+## Bug report form
 If you find a bug, please let me know using [this form](https://forms.gle/Hx2tvWkXbstV8JEUA).
 
 ## Notes
@@ -144,8 +139,6 @@ If you find a bug, please let me know using [this form](https://forms.gle/Hx2tvW
 - However, please comply with the licenses of the external resources. A summary of these dependencies is provided in "[DEPENDENCIES.txt](./DEPENDENCIES.txt)".
 
 ### Miscellaneous notes
-- Install style of 4MRNA (repository): https://github.com/S-Ando-Biophysics/4MRNA-Install
-
 - The calculation of "No. of AU" (the number of molecules in the asymmetric unit) is done using the Matthews coefficient etc. Please refer to the [other repository](https://github.com/S-Ando-Biophysics/Cal-Nm) and [calculator website](https://s-ando-biophysics.github.io/Cal-Nm/).
 
 ### Changelog
