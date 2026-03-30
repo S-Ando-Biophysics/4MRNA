@@ -62,13 +62,16 @@ In addition, please install and set up the following external software in advanc
 
 | Name | Website |
 | :----- | :----- |
-| Ubuntu | https://apps.microsoft.com/search?query=Ubuntu |
+| Ubuntu | https://documentation.ubuntu.com/wsl/latest/howto/install-ubuntu-wsl2/ |
 | 3DNA | http://forum.x3dna.org/site-announcements/download-instructions/ |
 | Phenix | https://phenix-online.org/download |
 | Phaser | https://www.ccp4.ac.uk/download |
 
 #### Ubuntu
-This is required only for Windows. It is necessary to turn on "Windows Subsystem for Linux (WSL)" and "Virtual Machine Platform" in the Windows settings to be able to use shell scripts. Furthermore, run `sudo apt update` and `sudo apt upgrade` on Ubuntu.
+This is required only for Windows. 
+1. It is necessary to turn on "Windows Subsystem for Linux (WSL)" and "Virtual Machine Platform" in the Windows settings to be able to use shell scripts.
+2. Execute `wsl --install -d Ubuntu-24.04` in Windows PowerShell. (Note: This is the command for installing Ubuntu 24.04 LTS.)
+3. Run `sudo apt update` and `sudo apt upgrade` in Ubuntu.
 
 #### 3DNA
 After registering on the official website (forum) and receiving approval, you will be able to download the installer. For details, please refer to the instructions on the official website. Once you have downloaded the installer, run the following commands in order. The following steps are for Windows (WSL, Ubuntu). The procedure for macOS and Linux is similar.
