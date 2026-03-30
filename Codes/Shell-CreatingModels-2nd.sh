@@ -41,17 +41,17 @@ cd "$directory"
 original_folder="${directory}/original"
 mkdir -p "$original_folder"
 
+checkpoint_dir="${directory}/Checkpoints"
+checkpoint_file="${checkpoint_dir}/original_par_files_moved.done"
+mkdir -p "$checkpoint_dir"
+
 bp_step_file="bp_step.par"
+bp_step_file_original="${original_folder}/bp_step.par"
 
 tilt_col=11
 roll_col=12
 twist_col=13
 header_lines=4
-
-if [[ ! -f "$bp_step_file" ]]; then
-  echo "${bp_step_file} not found in ${directory}" >&2
-  exit 1
-fi
 
 extract_number() {
   local filename="$1"
@@ -137,6 +137,11 @@ minimize_all_pdbs() {
     for pdb in *.pdb; do
       [[ "$pdb" == *_minimized.pdb ]] && continue
 
+      if [[ -f "Before-Phenix/$pdb" ]]; then
+        echo "${pdb} already minimized before. Skipping."
+        continue
+      fi
+
       base="${pdb%.pdb}"
       minimized_pdb="${base}_minimized.pdb"
 
@@ -159,50 +164,70 @@ minimize_all_pdbs() {
 
 shopt -s nullglob
 
-tilt_files=( *Tilt*.par )
-roll_files=( *Roll*.par )
-twist_files=( *Twist*.par )
+if [[ -f "$checkpoint_file" ]]; then
+  echo "[CHECKPOINT] Original par files already moved. Skipping preparation steps."
+else
+  tilt_files=( *Tilt*.par )
+  roll_files=( *Roll*.par )
+  twist_files=( *Twist*.par )
 
-if (( ${#tilt_files[@]} == 0 )); then
-  echo "No Tilt files found." >&2
-  exit 1
-fi
-if (( ${#roll_files[@]} == 0 )); then
-  echo "No Roll files found." >&2
-  exit 1
-fi
-if (( ${#twist_files[@]} == 0 )); then
-  echo "No Twist files found." >&2
-  exit 1
-fi
+  if (( ${#tilt_files[@]} == 0 )); then
+    echo "No Tilt files found." >&2
+    exit 1
+  fi
+  if (( ${#roll_files[@]} == 0 )); then
+    echo "No Roll files found." >&2
+    exit 1
+  fi
+  if (( ${#twist_files[@]} == 0 )); then
+    echo "No Twist files found." >&2
+    exit 1
+  fi
 
-for t in "${tilt_files[@]}"; do
-  for r in "${roll_files[@]}"; do
-    for w in "${twist_files[@]}"; do
+  if [[ -f "$bp_step_file" ]]; then
+    bp_step_source="$bp_step_file"
+  elif [[ -f "$bp_step_file_original" ]]; then
+    bp_step_source="$bp_step_file_original"
+  else
+    echo "Neither ${bp_step_file} nor ${bp_step_file_original} found in ${directory}" >&2
+    exit 1
+  fi
 
-      tnum=$(extract_number "$t")
-      rnum=$(extract_number "$r")
-      wnum=$(extract_number "$w")
+  for t in "${tilt_files[@]}"; do
+    for r in "${roll_files[@]}"; do
+      for w in "${twist_files[@]}"; do
 
-      out_par="${tnum}-${rnum}-${wnum}.par"
+        tnum=$(extract_number "$t")
+        rnum=$(extract_number "$r")
+        wnum=$(extract_number "$w")
 
-      combine_par_files "$bp_step_file" "$t" "$r" "$w" "$out_par"
+        out_par="${tnum}-${rnum}-${wnum}.par"
 
-      echo "${out_par} generated"
+        combine_par_files "$bp_step_source" "$t" "$r" "$w" "$out_par"
+
+        echo "${out_par} generated"
+      done
     done
   done
-done
 
-for f in bp_step*; do
-  [[ -e "$f" ]] || continue
-  mv "$f" "$original_folder/"
-done
+  for f in bp_step*; do
+    [[ -e "$f" ]] || continue
+    mv "$f" "$original_folder/"
+  done
+
+  : > "$checkpoint_file"
+fi
 
 for f in *.par; do
   [[ -e "$f" ]] || continue
 
   base="${f%.par}"
   out_pdb="${file_prefix}-${base}.pdb"
+
+  if [[ -f "$out_pdb" ]]; then
+    echo "${out_pdb} already exists. Skipping rebuild for ${f}"
+    continue
+  fi
 
   x3dna_utils cp_std "$std_type"
   rebuild -atomic "$f" "$out_pdb"
