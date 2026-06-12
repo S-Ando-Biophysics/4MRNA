@@ -51,11 +51,16 @@ There are two modes to execute 4MRNA.
 
     cd ~
     git clone https://github.com/S-Ando-Biophysics/4MRNA-Install.git
-    cd 4MRNA-Install
-    chmod +x install.sh
-    ./install.sh
+    bash 4MRNA-Install/install.sh
     echo 'export PATH="$HOME/4MRNA-Install/bin:$PATH"' >> ~/.bashrc
     source ~/.bashrc
+
+### How to update the version
+
+    cd ~
+    rm -rf 4MRNA-Install
+    git clone https://github.com/S-Ando-Biophysics/4MRNA-Install.git
+    bash 4MRNA-Install/install.sh
 
 ### Additional preparation
 In addition, please install and set up the following external software in advance.
