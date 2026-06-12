@@ -167,5 +167,8 @@ If you find a bug, please let me know using [this form](https://forms.gle/Hx2tvW
 - **2026-03-31** Minor Update (v2.1)
   - The introduction of checkpoints allows for easy resumption of execution even if the process is interrupted.
  
-- **2026-06-12** Minor Update (v2.2)
+- **2026-06-11** Minor Update (v2.2)
   - It has become easier to handle nucleic acids that consist of an odd number of strands.
+ 
+- **2026-06-12** Minor Update (v2.3)
+  - The bug has been fixed.
