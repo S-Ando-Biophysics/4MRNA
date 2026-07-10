@@ -131,7 +131,7 @@ Phaser is included in the CCP4 suite, so please download the CCP4 installer from
 ## Citation
 If you use 4MRNA in your research, please cite the following reference. 
 
-- The manuscript describing 4MRNA is currently in preparation. Until it becomes available, please cite the this GitHub repository: https://github.com/S-Ando-Biophysics/4MRNA.
+- The manuscript describing 4MRNA was recently accepted for publication and will be published soon. Until it becomes available, please cite the this GitHub repository: https://github.com/S-Ando-Biophysics/4MRNA.
 
 In addition, please also cite the external software packages used by 4MRNA.
 
