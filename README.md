@@ -55,6 +55,13 @@ There are two modes to execute 4MRNA.
     echo 'export PATH="$HOME/4MRNA-Install/bin:$PATH"' >> ~/.bashrc
     source ~/.bashrc
 
+### Version update
+
+    cd ~
+    rm -rf 4MRNA-Install
+    git clone https://github.com/S-Ando-Biophysics/4MRNA-Install.git
+    bash 4MRNA-Install/install.sh
+
 ### Additional preparation
 In addition, please install and set up the following external software in advance.
 
@@ -121,12 +128,6 @@ Phaser is included in the CCP4 suite, so please download the CCP4 installer from
     echo "source /usr/local/ccp4-9/bin/ccp4.setup-sh" >> ~/.bashrc
     source ~/.bashrc
 
-### Version update
-
-    cd ~
-    rm -rf 4MRNA-Install
-    git clone https://github.com/S-Ando-Biophysics/4MRNA-Install.git
-    bash 4MRNA-Install/install.sh
 
 ## Citation
 If you use 4MRNA in your research, please cite the following reference. 
@@ -176,3 +177,5 @@ If you find a bug, please let me know using [this form](https://forms.gle/Hx2tvW
  
 - **2026-06-12** Minor Update (v2.3)
   - The bug has been fixed.
+ 
+- **2026-07-17** The paper has been published.
