@@ -142,9 +142,9 @@ If you use 4MRNA in your research, please cite the following reference.
 
 In addition, please also cite the external software packages used by 4MRNA.
 
-- **3DNA**: Lu, X. J., Olson, W. K. (2008). 3DNA: a versatile, integrated software system for the analysis, rebuilding and visualization of three-dimensional nucleic-acid structures. _Nature protocols_, _3_(7), 1213–1227. https://doi.org/10.1038/nprot.2008.104
-- **Phenix**: Liebschner, D., Afonine, P. V., Baker, M. L., Bunkóczi _et al_. (2019). Macromolecular structure determination using X-rays, neutrons and electrons: recent developments in Phenix. _Acta crystallographica. Section D, Structural biology_, _75_(Pt 10), 861–877. https://doi.org/10.1107/S2059798319011471
-- **Phaser**: McCoy, A. J., Grosse-Kunstleve, R. W., Adams _et al_. (2007). Phaser crystallographic software. _Journal of applied crystallography_, _40_(Pt 4), 658–674. https://doi.org/10.1107/S0021889807021206 
+- **3DNA**: Lu, X. J., Olson, W. K. (2008). 3DNA: a versatile, integrated software system for the analysis, rebuilding and visualization of three-dimensional nucleic-acid structures. _Nature Protocols_, _3_(7), 1213–1227. https://doi.org/10.1038/nprot.2008.104
+- **Phenix**: Liebschner, D., Afonine, P. V., Baker, M. L. _et al_. (2019). Macromolecular structure determination using X-rays, neutrons and electrons: recent developments in Phenix. _Acta Crystallographica Section D: Structural Biology_, _75_(Pt 10), 861–877. https://doi.org/10.1107/S2059798319011471
+- **Phaser**: McCoy, A. J., Grosse-Kunstleve, R. W., Adams, P. D. _et al_. (2007). Phaser crystallographic software. _Journal of Applied Crystallography_, _40_(Pt 4), 658–674. https://doi.org/10.1107/S0021889807021206 
 
 ## Bug report form
 If you find a bug, please let me know using [this form](https://forms.gle/Hx2tvWkXbstV8JEUA).
