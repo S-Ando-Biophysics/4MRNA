@@ -61,7 +61,7 @@ There are two modes to execute 4MRNA.
     echo 'export PATH="$HOME/4MRNA-Install/bin:$PATH"' >> ~/.bashrc
     source ~/.bashrc
 
-### Version update (Now: v2.3)
+### Version update (Current version: v2.3)
 
     cd ~
     rm -rf 4MRNA-Install
