@@ -131,7 +131,7 @@ Phaser is included in the CCP4 suite, so please download the CCP4 installer from
 ## Citation
 If you use 4MRNA in your research, please cite the following reference. 
 
-- The manuscript describing 4MRNA was recently accepted for publication and will be published soon. Until it becomes available, please cite the this GitHub repository: https://github.com/S-Ando-Biophysics/4MRNA.
+- Ando, S., & Kondo, J. (2026). 4MRNA: a new approach for nucleic acid molecular replacement using models with diverse parameter patterns. _RNA_, _Published online in advance_. https://doi.org/10.1261/rna.081112.126
 
 In addition, please also cite the external software packages used by 4MRNA.
 
