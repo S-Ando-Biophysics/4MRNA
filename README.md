@@ -7,7 +7,7 @@
 Instructions on how to use the software are provided in the user manual, featuring step-by-step guidance with screenshots. Additionally, the supplemental materials for the paper contain procedures, tips, and tutorials for using the software.
 
 ### [Paper](https://doi.org/10.1261/rna.081112.126) (Link to the journal page; Published online in advance)
-### [Supplemental materials](https://cdn.jsdelivr.net/gh/S-Ando-Biophysics/4MRNA@main/Docs/Supplemental-materials.pdf) 
+### [Supplemental materials](https://cdn.jsdelivr.net/gh/S-Ando-Biophysics/4MRNA@main/Docs/4MRNA-Paper-SM_Supplemental-methods.pdf) 
 ### [User manual](https://cdn.jsdelivr.net/gh/S-Ando-Biophysics/4MRNA@main/Docs/4MRNA-Manual.pdf) (Latest updated: March 14, 2026)
 
 <br>
