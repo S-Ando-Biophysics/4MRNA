@@ -11,11 +11,11 @@ Instructions on how to use the software are provided in the user manual, featuri
 ### [User manual](https://cdn.jsdelivr.net/gh/S-Ando-Biophysics/4MRNA@main/Docs/4MRNA-Manual.pdf) (Latest updated: March 14, 2026)
 
 <br>
-
 <br>
 
 [**About 4MRNA**](#about-4mrna) | [**How to use**](#how-to-use) | [**How to install**](#how-to-install) | [**Citation**](#citation) | [**Bug report form**](#bug-report-form) | [**Notes**](#notes)
 
+    
 ## About 4MRNA
 
 4MRNA is an abbreviation for “Massive Multi-type Model Molecular Replacement for Nucleic Acids”. This is a novel method designed to enhance molecular replacement (MR) for phasing in X-ray crystallography of nucleic acids.
@@ -28,6 +28,11 @@ We found that by varying three out of the twelve parameters that control the thr
 
 Building on this strategy, we employed 3DNA, which is a software that generates nucleic acid structural models based on parameters, to create a wide variety of models. The processes of parameter adjustment and model creation have been automated using Shell scripts. Subsequently, MR is carried out for each of the many created models. Since this operation must be repeated many times, we also automated this process using Shell scripts.
 
+<br>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Docs/Graphical-Abstract.png" width="90%">
+</p>
+<br>
 
 ## How to use
 There are two modes to execute 4MRNA.
