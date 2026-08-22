@@ -30,7 +30,7 @@ Building on this strategy, we employed 3DNA, which is a software that generates 
 
 <br>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Docs/Graphical-Abstract.png" width="90%">
+  <img src="https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Docs/Graphical-Abstract.png" width="80%">
 </p>
 <br>
 
