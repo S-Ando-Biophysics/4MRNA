@@ -160,7 +160,10 @@ If you find a bug, please let me know using [this form](https://forms.gle/Hx2tvW
 - However, please comply with the licenses of the external resources. A summary of these dependencies is provided in "[DEPENDENCIES.txt](./DEPENDENCIES.txt)".
 
 ### Supported environment
-- **Operating system**: Windows (Windows Subsystem for Linux; WSL), macOS, Linux
+4MRNA can run in any environment that supports shell scripts and the external software packages 3DNA and Phaser. It has been tested on the following operating systems.
+- Windows (Windows Subsystem for Linux; WSL)
+- macOS
+- Linux (Rocky Linux)
 
 ### Miscellaneous notes
 - The calculation of "No. of AU" (the number of molecules in the asymmetric unit) is done using the Matthews coefficient etc. Please refer to the [other repository](https://github.com/S-Ando-Biophysics/Cal-Nm) and [calculator website](https://s-ando-biophysics.github.io/Cal-Nm/).
@@ -189,4 +192,4 @@ If you find a bug, please let me know using [this form](https://forms.gle/Hx2tvW
 - **2026-06-12** Minor Update (v2.3)
   - The bug has been fixed.
  
-- **2026-07-17** The paper has been published.
+- **2026-07-17** The paper has been published (online in advance).
