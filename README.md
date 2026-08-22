@@ -15,7 +15,6 @@ Instructions on how to use the software are provided in the user manual, featuri
 
 [**About 4MRNA**](#about-4mrna) | [**How to use**](#how-to-use) | [**How to install**](#how-to-install) | [**Citation**](#citation) | [**Bug report form**](#bug-report-form) | [**Notes**](#notes)
 
-    
 ## About 4MRNA
 
 4MRNA is an abbreviation for “Massive Multi-type Model Molecular Replacement for Nucleic Acids”. This is a novel method designed to enhance molecular replacement (MR) for phasing in X-ray crystallography of nucleic acids.
@@ -56,6 +55,8 @@ There are two modes to execute 4MRNA.
 4. You can edit each downloaded code.
 5. Please run the edited scripts with the `bash` command on Ubuntu/Terminal in the order indicated by the number at the beginning of each file.
 6. When 4MRNA finishes, a directory named "4MRNA-Results" will be created, containing up to seven candidate solutions for molecular replacement.
+
+<br>
 
 ## How to install
 
@@ -138,6 +139,7 @@ Phaser is included in the CCP4 suite, so please download the CCP4 installer from
     echo "source /usr/local/ccp4-9/bin/ccp4.setup-sh" >> ~/.bashrc
     source ~/.bashrc
 
+<br>
 
 ## Citation
 If you use 4MRNA in your research, please cite the following reference. 
@@ -150,8 +152,12 @@ In addition, please also cite the external software packages used by 4MRNA.
 - **Phenix**: Liebschner, D., Afonine, P. V., Baker, M. L. _et al_. (2019). Macromolecular structure determination using X-rays, neutrons and electrons: recent developments in Phenix. _Acta Crystallographica Section D: Structural Biology_, _75_(Pt 10), 861–877. https://doi.org/10.1107/S2059798319011471
 - **Phaser**: McCoy, A. J., Grosse-Kunstleve, R. W., Adams, P. D. _et al_. (2007). Phaser crystallographic software. _Journal of Applied Crystallography_, _40_(Pt 4), 658–674. https://doi.org/10.1107/S0021889807021206 
 
+<br>
+
 ## Bug report form
 If you find a bug, please let me know using [this form](https://forms.gle/Hx2tvWkXbstV8JEUA).
+
+<br>
 
 ## Notes
 ### License information
