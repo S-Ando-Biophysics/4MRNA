@@ -169,27 +169,45 @@ If you find a bug, please let me know using [this form](https://forms.gle/Hx2tvW
 - The calculation of "No. of AU" (the number of molecules in the asymmetric unit) is done using the Matthews coefficient etc. Please refer to the [other repository](https://github.com/S-Ando-Biophysics/Cal-Nm) and [calculator website](https://s-ando-biophysics.github.io/Cal-Nm/).
 
 ### Changelog
+
 - **2025-07-08**  The beta version (v0.0) has been released.
 
 - **2025-08-01** The official version (v1.0) has been released.
 
 - **2025-08-18** Minor Update (v1.1)
-  - The Shelle scripts have been revised, enabling smoother use of 4MRNA.
+
+  - The Shell scripts have been revised, enabling smoother use of 4MRNA.
 
 - **2025-08-22** Minor Update (v1.2)
+
   - The stability and the processing speed of the Python codes have been improved.  
   - A good balance between simplicity and customizability was achieved by introducing separate execution methods for general users and specialists.
 
 - **2026-03-12** Major Update (v2.0)
+
   - The internal workflow has been updated. The command-line interface version of 3DNA has replaced Web 3DNA. Consequently, the previous Python code has been removed in favor of a full Shell script implementation. These changes involve modifications to software dependencies and execution methods. This major update delivers greater robustness and significantly faster execution speeds.
 
 - **2026-03-31** Minor Update (v2.1)
+
   - The introduction of checkpoints allows for easy resumption of execution even if the process is interrupted.
  
 - **2026-06-11** Minor Update (v2.2)
+
   - It has become easier to handle nucleic acids that consist of an odd number of strands.
  
 - **2026-06-12** Minor Update (v2.3)
-  - The bug has been fixed.
- 
-- **2026-07-17** The paper has been published (online in advance).
+
+  - The installation bug has been fixed.
+
+- **2026-08-27** Bug Fix
+
+  - A bug that occurred during model generation has been fixed.
+  - No reinstallation or update is required, and no changes to the execution procedure are necessary.
+
+### Comments
+
+- **2026-08-27**
+
+  - We sincerely thank the person who reported the model-generation issue through the feedback form. Your report was very helpful in improving 4MRNA. If you encounter any further issues or bugs, please let me know.
+
+
