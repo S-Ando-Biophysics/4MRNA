@@ -13,7 +13,8 @@ num_models=1
 
 # Information of models
 # " ID | Directory | Sequence | Type of NA "
-# Please enter the sequence. Only the sequence of one strand of duplex is required. The complementary strand is processed automatically.
+# Please enter the sequence. Only the sequence of one strand of duplex is required.
+# The complementary strand is processed automatically.
 # Please enter the type of NA. Please choose from A-DNA, B-DNA, or A-RNA.
 models=(
   "1|${parent_directory}/Model01-1||"
@@ -66,37 +67,113 @@ same_sign_symmetric_generate() {
 
   local length="$1"
   local outfile="$2"
-  shift 2
+  local param_name="$3"
+  shift 3
   local values=("$@")
 
   : > "$outfile"
 
+  # Number of independent positions under the symmetry constraint.
+  #
+  # If the RNA/DNA sequence length is n:
+  #
+  #   n odd  : 3^((n-1)/2)
+  #   n even : 3^(n/2)
+  #
+  # Since "length" here is the number of base-pair steps (n-1),
+  # the number of independent positions is ceil(length/2).
+  local independent_positions=$(( (length + 1) / 2 ))
+  local value_count=${#values[@]}
+
+  local total_combinations=1
+  local calc_i
+
+  for ((calc_i=0; calc_i<independent_positions; calc_i++)); do
+    total_combinations=$((total_combinations * value_count))
+  done
+
+  local generated=0
+  local next_report=5
+
+  echo "${param_name}: generating ${total_combinations} parameter combinations..." >&2
+
   _rec_sym() {
+
     local pos="$1"
     shift
+
     local prefix=("$@")
     local half=$(( length / 2 ))
     local odd=$(( length % 2 ))
 
+    local i
+    local v
+    local mid
+    local percent
+
     if (( pos == half )); then
+
       if (( odd == 1 )); then
-        local mid
+
         for mid in "${values[@]}"; do
+
           local combo=("${prefix[@]}" "$mid")
-          for ((i=${#prefix[@]}-1;i>=0;i--)); do
+
+          for ((i=${#prefix[@]}-1; i>=0; i--)); do
             combo+=("${prefix[i]}")
           done
+
           local IFS=,
           echo "${combo[*]}" >> "$outfile"
+
+          generated=$((generated + 1))
+
+          if (( total_combinations > 0 )); then
+
+            percent=$((generated * 100 / total_combinations))
+
+            if (( percent >= next_report || generated == total_combinations )); then
+
+              echo "${param_name}: ${generated}/${total_combinations} parameter combinations generated (${percent}%)" >&2
+
+              while (( next_report <= percent )); do
+                next_report=$((next_report + 5))
+              done
+
+            fi
+          fi
         done
+
       else
+
         local combo=("${prefix[@]}")
-        for ((i=${#prefix[@]}-1;i>=0;i--)); do
+
+        for ((i=${#prefix[@]}-1; i>=0; i--)); do
           combo+=("${prefix[i]}")
         done
+
         local IFS=,
         echo "${combo[*]}" >> "$outfile"
+
+        generated=$((generated + 1))
+
+        if (( total_combinations > 0 )); then
+
+          percent=$((generated * 100 / total_combinations))
+
+          if (( percent >= next_report || generated == total_combinations )); then
+
+            echo "${param_name}: ${generated}/${total_combinations} parameter combinations generated (${percent}%)" >&2
+
+            while (( next_report <= percent )); do
+              next_report=$((next_report + 5))
+            done
+
+          fi
+        fi
+
       fi
+
       return
     fi
 
@@ -106,6 +183,8 @@ same_sign_symmetric_generate() {
   }
 
   _rec_sym 0
+
+  echo "${param_name}: parameter combination generation completed." >&2
 }
 
 modify_bpstep_par() {
@@ -145,18 +224,68 @@ process_parameter() {
   n_data_lines=$(tail -n +"$((header_lines + 1))" "$bpstep_file" | wc -l)
 
   local combo_file="${output_dir}/.${param_name}_combos.tmp"
-  same_sign_symmetric_generate "$n_data_lines" "$combo_file" "${values[@]}"
+
+  # Generate parameter combinations.
+  # Progress is reported to stderr inside same_sign_symmetric_generate().
+  same_sign_symmetric_generate \
+    "$n_data_lines" \
+    "$combo_file" \
+    "$param_name" \
+    "${values[@]}"
+
+  # Count the actual number of generated combinations.
+  local total
+  total=$(wc -l < "$combo_file")
+  total=$(echo "$total" | tr -d '[:space:]')
+
+  echo "${param_name}: generating ${total} parameter files..." >&2
 
   local idx=0
+  local percent=0
+  local next_report=5
+  local out
+
   while IFS= read -r combo; do
+
     [[ -z "$combo" ]] && continue
-    idx=$((idx+1))
+
+    idx=$((idx + 1))
+
     out="${output_dir}/bp_step_${param_name}${idx}.par"
-    modify_bpstep_par "$bpstep_file" "$out" "$target_col" "$combo"
+
+    modify_bpstep_par \
+      "$bpstep_file" \
+      "$out" \
+      "$target_col" \
+      "$combo"
+
+    if (( total > 0 )); then
+
+      percent=$((idx * 100 / total))
+
+      if (( percent >= next_report || idx == total )); then
+
+        echo "${param_name}: ${idx}/${total} parameter files generated (${percent}%)" >&2
+
+        while (( next_report <= percent )); do
+          next_report=$((next_report + 5))
+        done
+
+      fi
+    fi
+
   done < "$combo_file"
 
   rm -f "$combo_file"
 
+  echo "${param_name}: parameter file generation completed." >&2
+
+  # IMPORTANT:
+  # Only the number of generated parameter files is sent to stdout,
+  # because this function is called using command substitution:
+  #
+  #   n1=$(process_parameter ...)
+  #
   echo "$idx"
 }
 
@@ -228,6 +357,8 @@ build_fiber_and_analyze() {
 
     echo "fiber_model.pdb generated"
 
+    echo "Running find_pair and analyze..."
+
     find_pair fiber_model.pdb | analyze
 
     cleanup_analyze_files
@@ -236,6 +367,8 @@ build_fiber_and_analyze() {
       echo "bp_step.par not generated"
       return 1
     fi
+
+    echo "3DNA analysis completed. bp_step.par generated."
   )
 }
 
@@ -324,15 +457,21 @@ minimize_all_pdbs() {
 
       phenix.geometry_minimization "$pdb" "$min_params_file"
 
-      rm -f "${base}"*.geo "${base}"*.cif "${base}_minimized"*.geo "${base}_minimized"*.cif
+      rm -f "${base}"*.geo "${base}"*.cif \
+            "${base}_minimized"*.geo "${base}_minimized"*.cif
 
       mv "$pdb" "Before-Phenix/$pdb"
 
       if [[ -f "$minimized_pdb" ]]; then
+
         mv "$minimized_pdb" "$pdb"
+
         echo "$pdb minimized"
+
       else
+
         echo "Minimization failed for $pdb"
+
       fi
 
     done
@@ -355,7 +494,7 @@ main() {
       break
     fi
 
-    processed=$((processed+1))
+    processed=$((processed + 1))
 
     ensure_dir "$directory"
 
@@ -369,31 +508,55 @@ main() {
     get_type_settings "$na_type" "$sequence"
 
     if is_par_generation_done "$directory"; then
+
       echo "[CHECKPOINT] Model $id : bp_step.par and all .par files already prepared. Skipping preparation."
+
     else
+
       if ! build_fiber_and_analyze "$directory"; then
         continue
       fi
 
       bpstep_file="${directory}/bp_step.par"
 
-      n1=$(process_parameter "$bpstep_file" "$directory" "Tilt" "$tilt_col" "${tilt_values[@]}")
-      echo "$n1 Tilt files generated"
+      n1=$(process_parameter \
+        "$bpstep_file" \
+        "$directory" \
+        "Tilt" \
+        "$tilt_col" \
+        "${tilt_values[@]}")
 
-      n2=$(process_parameter "$bpstep_file" "$directory" "Roll" "$roll_col" "${roll_values[@]}")
-      echo "$n2 Roll files generated"
+      echo "$n1 Tilt parameter files generated"
 
-      n3=$(process_parameter "$bpstep_file" "$directory" "Twist" "$twist_col" "${twist_values[@]}")
-      echo "$n3 Twist files generated"
+      n2=$(process_parameter \
+        "$bpstep_file" \
+        "$directory" \
+        "Roll" \
+        "$roll_col" \
+        "${roll_values[@]}")
+
+      echo "$n2 Roll parameter files generated"
+
+      n3=$(process_parameter \
+        "$bpstep_file" \
+        "$directory" \
+        "Twist" \
+        "$twist_col" \
+        "${twist_values[@]}")
+
+      echo "$n3 Twist parameter files generated"
 
       mark_par_generation_done "$directory"
+
     fi
 
     rebuild_all_pars "$directory"
 
     organize_files "$directory"
 
-    minimize_all_pdbs "$directory" "${parent_directory}/min.params"
+    minimize_all_pdbs \
+      "$directory" \
+      "${parent_directory}/min.params"
 
     echo "Model $id finished"
 
