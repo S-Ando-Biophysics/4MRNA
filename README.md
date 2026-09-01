@@ -163,8 +163,8 @@ If you find a bug, please let me know using [this form](https://forms.gle/Hx2tvW
 - macOS
 - Linux (Rocky Linux)
 
-### Miscellaneous notes
-- The calculation of "No. of AU" (the number of molecules in the asymmetric unit) is done using the Matthews coefficient etc. Please refer to the [other repository](https://github.com/S-Ando-Biophysics/Cal-Nm) and [calculator website](https://s-ando-biophysics.github.io/Cal-Nm/).
+### Tips
+- The number of molecules in the asymmetric unit is typically estimated using the Matthews coefficient etc. Please refer to the [other repository](https://github.com/S-Ando-Biophysics/Cal-Nm) and [calculator website](https://s-ando-biophysics.github.io/Cal-Nm/).
 
 <br>
 
