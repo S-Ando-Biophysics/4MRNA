@@ -171,16 +171,12 @@ else
   roll_files=( *Roll*.par )
   twist_files=( *Twist*.par )
 
-  if (( ${#tilt_files[@]} == 0 )); then
-    echo "No Tilt files found." >&2
-    exit 1
-  fi
-  if (( ${#roll_files[@]} == 0 )); then
-    echo "No Roll files found." >&2
-    exit 1
-  fi
-  if (( ${#twist_files[@]} == 0 )); then
-    echo "No Twist files found." >&2
+  if (( ${#tilt_files[@]} == 0 && ${#roll_files[@]} == 0 && ${#twist_files[@]} == 0 )); then
+    {
+      echo "No solution"
+      echo "No Tilt, Roll, or Twist parameter files were generated from the first molecular-replacement step."
+    } > "${parent_directory}/Error.txt"
+    echo "No solution" >&2
     exit 1
   fi
 
@@ -192,6 +188,12 @@ else
     echo "Neither ${bp_step_file} nor ${bp_step_file_original} found in ${directory}" >&2
     exit 1
   fi
+
+  # If one or two parameter categories are missing, keep the corresponding
+  # values from the original bp_step.par and continue with the available categories.
+  (( ${#tilt_files[@]} > 0 )) || tilt_files=( /dev/null )
+  (( ${#roll_files[@]} > 0 )) || roll_files=( /dev/null )
+  (( ${#twist_files[@]} > 0 )) || twist_files=( /dev/null )
 
   for t in "${tilt_files[@]}"; do
     for r in "${roll_files[@]}"; do
