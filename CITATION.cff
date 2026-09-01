@@ -1,0 +1,29 @@
+message: "If you use 4MRNA in your research, please cite the article below."
+
+title: "4MRNA"
+type: software
+
+authors:
+  - family-names: "Ando"
+    given-names: "Shin"
+    orcid: "https://orcid.org/0009-0007-3991-7851"
+
+repository-code: "https://github.com/S-Ando-Biophysics/4MRNA"
+
+preferred-citation:
+  type: article
+  authors:
+    - family-names: "Ando"
+      given-names: "Shin"
+      orcid: "https://orcid.org/0009-0007-3991-7851"
+    - family-names: "Kondo"
+      given-names: "Jiro"
+      orcid: "https://orcid.org/0000-0002-5682-3685"
+  title: "4MRNA: a new approach for nucleic acid molecular replacement using models with diverse parameter patterns"
+  journal: "RNA"
+  year: 2026
+  volume: 32
+  issue: 10
+  start: 1544
+  end: 1559
+  doi: "10.1261/rna.081112.126"
