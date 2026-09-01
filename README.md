@@ -14,9 +14,23 @@ Instructions on how to use the software are provided in the user manual, featuri
 
 <br><br>
 
-[**About 4MRNA**](#about-4mrna) | [**How to use**](#how-to-use) | [**How to install**](#how-to-install) | [**Citation**](#citation) | [**Bug report form**](#bug-report-form) | [**Notes**](#notes) | [**Changelog**](#changelog)
+[**Announcements**](#announcements) | [**About 4MRNA**](#about-4mrna) | [**How to use**](#how-to-use) | [**How to install**](#how-to-install) | [**Citation**](#citation) | [**Bug report form**](#bug-report-form) | [**Notes**](#notes) | [**Changelog**](#changelog)
 
->4MRNA was updated on September 1, 2026. The latest version is **v2.4.0**. For details, please see the Changelog.
+<br>
+
+## Announcements
+- 4MRNA was updated on September 1, 2026. The latest version is **v2.4.0**.
+
+- For details, please see the Changelog.
+
+- If you are using a version earlier than v2.4.0 (e.g., v2.3), please reinstall 4MRNA using the following commands:
+  
+    ```
+    cd ~
+    rm -rf 4MRNA-Install
+    git clone https://github.com/S-Ando-Biophysics/4MRNA-Install.git
+    bash 4MRNA-Install/install.sh
+    ```
 
 <br>
 
@@ -142,7 +156,9 @@ If you use 4MRNA in your research, please cite the following reference.
 In addition, please also cite the external software packages used by 4MRNA.
 
 - **3DNA**: Lu, X. J., Olson, W. K. (2008). 3DNA: a versatile, integrated software system for the analysis, rebuilding and visualization of three-dimensional nucleic-acid structures. _Nature Protocols_, _3_(7), 1213–1227. https://doi.org/10.1038/nprot.2008.104
+
 - **Phenix**: Liebschner, D., Afonine, P. V., Baker, M. L. _et al_. (2019). Macromolecular structure determination using X-rays, neutrons and electrons: recent developments in Phenix. _Acta Crystallographica Section D: Structural Biology_, _75_(Pt 10), 861–877. https://doi.org/10.1107/S2059798319011471
+
 - **Phaser**: McCoy, A. J., Grosse-Kunstleve, R. W., Adams, P. D. _et al_. (2007). Phaser crystallographic software. _Journal of Applied Crystallography_, _40_(Pt 4), 658–674. https://doi.org/10.1107/S0021889807021206 
 
 <br>
@@ -155,10 +171,12 @@ If you find a bug, please let me know using [this form](https://forms.gle/Hx2tvW
 ## Notes
 ### License information
 - 4MRNA itself is distributed under the [MIT License](./LICENSE).
+
 - However, please comply with the licenses of the external resources. A summary of these dependencies is provided in "[DEPENDENCIES.txt](./DEPENDENCIES.txt)".
 
 ### Supported environment
 4MRNA can run in any environment that supports shell scripts and the external software packages 3DNA and Phaser. It has been tested on the following operating systems.
+
 - Windows (Windows Subsystem for Linux; WSL)
 - macOS
 - Linux (Rocky Linux)
@@ -180,7 +198,8 @@ If you find a bug, please let me know using [this form](https://forms.gle/Hx2tvW
 
 - **2025-08-22** Minor Update (v1.2)
 
-  - The stability and the processing speed of the Python codes have been improved.  
+  - The stability and the processing speed of the Python codes have been improved.
+
   - A good balance between simplicity and customizability was achieved by introducing separate execution methods for general users and specialists.
 
 - **2026-03-12** Major Update (v2.0)
@@ -202,13 +221,17 @@ If you find a bug, please let me know using [this form](https://forms.gle/Hx2tvW
 - **2026-08-27** Bug Fix
 
   - A bug that occurred during model generation has been fixed.
+
   - No reinstallation or update is required, and no changes to the execution procedure are necessary.
 
 - **2026-09-01** Minor Update (v2.4.0)
 
   - The robustness of the 4MRNA code has been improved.
+  
   - Starting with this version, once 4MRNA is installed, the 4MRNA command automatically runs the latest release. Therefore, no manual update by the user is required for future version updates.
+  
   - The version numbering scheme has been changed to "MAJOR.MINOR.PATCH" (e.g., v2.4.0).
+
   - If you are using a version earlier than v2.4.0 (e.g., v2.3), please reinstall 4MRNA using the following commands:
   
     ```
