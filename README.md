@@ -1,6 +1,6 @@
 # 4MRNA
 
-[**Overview**](#overview) | [**Announcements**](#announcements) | [**About 4MRNA**](#about-4mrna) | [**How to use**](#how-to-use) | [**How to install**](#how-to-install) | [**Citation**](#citation) | [**Bug report form**](#bug-report-form) | [**Notes**](#notes) | [**Changelog**](#changelog)
+[**Overview**](#overview) | [**News**](#news) | [**About 4MRNA**](#about-4mrna) | [**Usage**](#usage) | [**Installation**](#installation) | [**Citation**](#citation) | [**Bug report form**](#bug-report-form) | [**Notes**](#notes) | [**Changelog**](#changelog)
 
 <br>
 
@@ -8,9 +8,11 @@
 
 **4MRNA** = <ins>**M**</ins>assive <ins>**M**</ins>ulti-type <ins>**M**</ins>odel <ins>**M**</ins>olecular <ins>**R**</ins>eplacement for <ins>**N**</ins>ucleic <ins>**A**</ins>cids
 
-4MRNA is a novel method that enhances molecular replacement specifically tailored for nucleic acid structure determination. 
+4MRNA is a novel method that enhances molecular replacement specifically tailored for nucleic acid structure determination. For more details, please see [**About 4MRNA**](#about-4mrna). If you use 4MRNA in your research, please cite the corresponding paper as described in the [**Citation**](#citation) section.
 
-Instructions on how to use the software are also provided in the user manual, featuring step-by-step guidance with screenshots. Additionally, the supplemental materials for the paper contain procedures, tips, and tutorials for using the software.
+Instructions for installing and using the software are provided in [**Installation**](#installation) and [**Usage**](#usage). The **User manual** provides step-by-step guidance with screenshots, while the **Supplemental materials** for the paper include detailed procedures, tips, and tutorials for using the software.
+
+
 
 >
 > #### - [Paper](https://doi.org/10.1261/rna.081112.126)  (Link to the journal page)
@@ -20,7 +22,7 @@ Instructions on how to use the software are also provided in the user manual, fe
 
 <br>
 
-## Announcements
+## News
 - 4MRNA was updated on September 1, 2026. The latest version is **v2.4.0**.
 
 - For details, please see the Changelog.
@@ -54,7 +56,7 @@ Building on this strategy, we employed 3DNA, which is a software that generates 
 
 <br>
 
-## How to use
+## Usage
 There are two modes to execute 4MRNA.
 
 | Mode | Usability | Customization | Target users |
@@ -80,7 +82,7 @@ There are two modes to execute 4MRNA.
 
 <br>
 
-## How to install
+## Installation
 
     cd ~
     git clone https://github.com/S-Ando-Biophysics/4MRNA-Install.git
