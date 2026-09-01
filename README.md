@@ -1,20 +1,22 @@
 # 4MRNA
 
+[**Overview**](#overview) | [**Announcements**](#announcements) | [**About 4MRNA**](#about-4mrna) | [**How to use**](#how-to-use) | [**How to install**](#how-to-install) | [**Citation**](#citation) | [**Bug report form**](#bug-report-form) | [**Notes**](#notes) | [**Changelog**](#changelog)
+
+<br>
+
+## Overview
+
 **4MRNA** = <ins>**M**</ins>assive <ins>**M**</ins>ulti-type <ins>**M**</ins>odel <ins>**M**</ins>olecular <ins>**R**</ins>eplacement for <ins>**N**</ins>ucleic <ins>**A**</ins>cids
 
 4MRNA is a novel method that enhances molecular replacement specifically tailored for nucleic acid structure determination. 
 
-Instructions on how to use the software are provided in the user manual, featuring step-by-step guidance with screenshots. Additionally, the supplemental materials for the paper contain procedures, tips, and tutorials for using the software.
+Instructions on how to use the software are also provided in the user manual, featuring step-by-step guidance with screenshots. Additionally, the supplemental materials for the paper contain procedures, tips, and tutorials for using the software.
 
 >
 > #### - [Paper](https://doi.org/10.1261/rna.081112.126)  (Link to the journal page)
 > #### - [Supplemental materials](https://cdn.jsdelivr.net/gh/S-Ando-Biophysics/4MRNA@main/Docs/4MRNA-Paper-SM_Supplemental-methods.pdf) 
 > #### - [User manual](https://cdn.jsdelivr.net/gh/S-Ando-Biophysics/4MRNA@main/Docs/4MRNA-Manual.pdf)  (Latest updated: March 14, 2026)
 >  
-
-<br><br>
-
-[**Announcements**](#announcements) | [**About 4MRNA**](#about-4mrna) | [**How to use**](#how-to-use) | [**How to install**](#how-to-install) | [**Citation**](#citation) | [**Bug report form**](#bug-report-form) | [**Notes**](#notes) | [**Changelog**](#changelog)
 
 <br>
 
