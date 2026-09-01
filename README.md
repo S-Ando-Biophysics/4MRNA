@@ -1,27 +1,26 @@
 # 4MRNA
 
->[!NOTE] 
->An update will take place on September 1st.
-
-<br>
-
 **4MRNA** = <ins>**M**</ins>assive <ins>**M**</ins>ulti-type <ins>**M**</ins>odel <ins>**M**</ins>olecular <ins>**R**</ins>eplacement for <ins>**N**</ins>ucleic <ins>**A**</ins>cids
 
 4MRNA is a novel method that enhances molecular replacement specifically tailored for nucleic acid structure determination. 
 
 Instructions on how to use the software are provided in the user manual, featuring step-by-step guidance with screenshots. Additionally, the supplemental materials for the paper contain procedures, tips, and tutorials for using the software.
 
-### [Paper](https://doi.org/10.1261/rna.081112.126) (Link to the journal page; Published online in advance)
-### [Supplemental materials](https://cdn.jsdelivr.net/gh/S-Ando-Biophysics/4MRNA@main/Docs/4MRNA-Paper-SM_Supplemental-methods.pdf) 
-### [User manual](https://cdn.jsdelivr.net/gh/S-Ando-Biophysics/4MRNA@main/Docs/4MRNA-Manual.pdf) (Latest updated: March 14, 2026)
+>
+> #### - [Paper](https://doi.org/10.1261/rna.081112.126)  (Link to the journal page)
+> #### - [Supplemental materials](https://cdn.jsdelivr.net/gh/S-Ando-Biophysics/4MRNA@main/Docs/4MRNA-Paper-SM_Supplemental-methods.pdf) 
+> #### - [User manual](https://cdn.jsdelivr.net/gh/S-Ando-Biophysics/4MRNA@main/Docs/4MRNA-Manual.pdf)  (Latest updated: March 14, 2026)
+>  
+
+<br><br>
+
+[**About 4MRNA**](#about-4mrna) | [**How to use**](#how-to-use) | [**How to install**](#how-to-install) | [**Citation**](#citation) | [**Bug report form**](#bug-report-form) | [**Notes**](#notes) | [**Changelog**](#changelog)
+
+>4MRNA was updated on September 1, 2026. The latest version is **v2.4.0**. For details, please see the Changelog.
 
 <br>
-<br>
-
-[**About 4MRNA**](#about-4mrna) | [**How to use**](#how-to-use) | [**How to install**](#how-to-install) | [**Citation**](#citation) | [**Bug report form**](#bug-report-form) | [**Notes**](#notes)
 
 ## About 4MRNA
-
 
 4MRNA is an abbreviation for “Massive Multi-type Model Molecular Replacement for Nucleic Acids”. This is a novel method designed to enhance molecular replacement (MR) for phasing in X-ray crystallography of nucleic acids.
 
@@ -73,12 +72,6 @@ There are two modes to execute 4MRNA.
     echo 'export PATH="$HOME/4MRNA-Install/bin:$PATH"' >> ~/.bashrc
     source ~/.bashrc
 
-### Version update (Current version: v2.3)
-
-    cd ~
-    rm -rf 4MRNA-Install
-    git clone https://github.com/S-Ando-Biophysics/4MRNA-Install.git
-    bash 4MRNA-Install/install.sh
 
 ### Additional preparation
 In addition, please install and set up the following external software in advance.
@@ -173,7 +166,9 @@ If you find a bug, please let me know using [this form](https://forms.gle/Hx2tvW
 ### Miscellaneous notes
 - The calculation of "No. of AU" (the number of molecules in the asymmetric unit) is done using the Matthews coefficient etc. Please refer to the [other repository](https://github.com/S-Ando-Biophysics/Cal-Nm) and [calculator website](https://s-ando-biophysics.github.io/Cal-Nm/).
 
-### Changelog
+<br>
+
+## Changelog
 
 - **2025-07-08**  The beta version (v0.0) has been released.
 
@@ -209,10 +204,24 @@ If you find a bug, please let me know using [this form](https://forms.gle/Hx2tvW
   - A bug that occurred during model generation has been fixed.
   - No reinstallation or update is required, and no changes to the execution procedure are necessary.
 
+- **2026-09-01** Minor Update (v2.4.0)
+
+  - The robustness of the 4MRNA code has been improved.
+  - Starting with this version, once 4MRNA is installed, the 4MRNA command automatically runs the latest release. Therefore, no manual update by the user is required for future version updates.
+  - The version numbering scheme has been changed to "MAJOR.MINOR.PATCH" (e.g., v2.4.0).
+  - If you are using a version earlier than v2.4.0 (e.g., v2.3), please reinstall 4MRNA using the following commands:
+  
+    ```
+    cd ~
+    rm -rf 4MRNA-Install
+    git clone https://github.com/S-Ando-Biophysics/4MRNA-Install.git
+    bash 4MRNA-Install/install.sh
+    ```
+
 ### Comments
 
 - **2026-08-27**
 
-  - We sincerely thank the person who reported the model-generation issue through the feedback form. Your report was very helpful in improving 4MRNA. If you encounter any further issues or bugs, please let me know.
+  - I sincerely thank the person who reported the model-generation issue through the feedback form. Your report was very helpful in improving 4MRNA. If you encounter any further issues or bugs, please let me know.
 
 
