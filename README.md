@@ -83,6 +83,7 @@ There are two modes to execute 4MRNA.
 <br>
 
 ## Installation
+Please run the following commands in order. 
 
     cd ~
     git clone https://github.com/S-Ando-Biophysics/4MRNA-Install.git
@@ -179,7 +180,7 @@ If you find a bug, please let me know using [this form](https://forms.gle/Hx2tvW
 - However, please comply with the licenses of the external resources. A summary of these dependencies is provided in "[DEPENDENCIES.txt](./DEPENDENCIES.txt)".
 
 ### Supported environment
-4MRNA can run in any environment that supports shell scripts and the external software packages 3DNA and Phaser. It has been tested on the following operating systems.
+4MRNA can run in any environment that supports shell scripts and the external software packages 3DNA, Phenix, and Phaser. It has been tested on the following operating systems.
 
 - Windows (Windows Subsystem for Linux; WSL)
 - macOS
