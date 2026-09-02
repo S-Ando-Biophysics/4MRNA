@@ -27,7 +27,7 @@ Instructions for installing and using the software are provided in [**Installati
 
 - For details, please see the Changelog.
 
-- If you are using a version earlier than v2.4.0 (e.g., v2.3), please reinstall 4MRNA using the following commands:
+- If you are using a version earlier than v2.4.0 (e.g., v2.3), please reinstall 4MRNA using the following commands. If you are using v2.4.0, reinstallation is not required.
   
     ```
     cd ~
