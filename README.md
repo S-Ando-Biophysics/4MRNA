@@ -17,21 +17,17 @@ Instructions for installing and using the software are provided in [**Installati
 >
 > #### - [Paper](https://doi.org/10.1261/rna.081112.126)  (Link to the journal page)
 > #### - [Supplemental materials](https://cdn.jsdelivr.net/gh/S-Ando-Biophysics/4MRNA@main/Docs/4MRNA-Paper-SM_Supplemental-methods.pdf) 
-> #### - [User manual](https://cdn.jsdelivr.net/gh/S-Ando-Biophysics/4MRNA@main/Docs/4MRNA-Manual.pdf)  (Latest updated: March 14, 2026)
->  
+> #### - [User manual](https://cdn.jsdelivr.net/gh/S-Ando-Biophysics/4MRNA@main/Docs/4MRNA-Manual.pdf)  (Latest updated: March 14, 2026 / The user manual will be updated soon.)
 
 <br>
 
 ## News
 
-- It is currently being revised.
-
-<!---
-- 4MRNA was updated on September 2, 2026. The latest version is **v2.4.1**.
+- 4MRNA was updated on September 9, 2026. The latest version is **v2.5.0**.
 
 - For details, please see the Changelog.
 
-- If you are using a version earlier than v2.4.0 (e.g., v2.3), please reinstall 4MRNA using the following commands. If you are using v2.4.0, reinstallation is not required.
+- If you are using a version earlier than v2.4.0 (e.g., v2.3), please reinstall 4MRNA using the following commands. If you are using v2.4.0 or later, reinstallation is not required.
   
     ```
     cd ~
@@ -39,7 +35,6 @@ Instructions for installing and using the software are provided in [**Installati
     git clone https://github.com/S-Ando-Biophysics/4MRNA-Install.git
     bash 4MRNA-Install/install.sh
     ```
---->
 
 <br>
 
@@ -252,6 +247,12 @@ If you find a bug, please let me know using [this form](https://forms.gle/Hx2tvW
     ```
 
 - **2026-09-02** Bug Fix (v2.4.1)
+
+- **2026-09-09** Minor Update (v2.5.0)
+
+  - Previously, the generated models always contained phosphate groups at their 5′ termini. Users can now choose whether to retain or remove these groups, depending on how the nucleic acid was synthesized. This enables molecular replacement to be performed with a more accurate model and facilitates subsequent refinement.
+
+  - In addition to specifying the nucleic acid type, sequence, and number of copies to search for during molecular replacement, users must now choose whether to keep or remove the 5′-terminal phosphate groups.
 
 
 ### Comments
