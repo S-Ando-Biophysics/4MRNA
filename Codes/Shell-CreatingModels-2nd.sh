@@ -1,0 +1,305 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+parent_directory="$(pwd)"
+
+# ====================================================================================================
+# User settings
+# ====================================================================================================
+
+directory="${parent_directory}/Model01-2"
+na_type=""    # Please enter the type of NA. Please choose from A-DNA, B-DNA, or A-RNA.
+phosphate_action=""    # Please choose Keep or Remove for the 5'-terminal phosphate group.
+
+# ====================================================================================================
+
+case "$na_type" in
+  "A-DNA")
+    std_type="ADNA"
+    file_prefix="3DNAAD"
+    ;;
+  "B-DNA")
+    std_type="BDNA"
+    file_prefix="3DNABD"
+    ;;
+  "A-RNA")
+    std_type="RNA"
+    file_prefix="3DNAAR"
+    ;;
+  *)
+    echo "Invalid na_type. Use 'A-DNA', 'B-DNA', or 'A-RNA'." >&2
+    exit 1
+    ;;
+esac
+
+case "$phosphate_action" in
+  "Keep"|"Remove") ;;
+  *)
+    echo "Invalid phosphate_action. Use 'Keep' or 'Remove'." >&2
+    exit 1
+    ;;
+esac
+
+if [[ -z "$directory" || ! -d "$directory" ]]; then
+  echo "Please set directory to a valid path." >&2
+  exit 1
+fi
+
+cd "$directory"
+
+original_folder="${directory}/original"
+mkdir -p "$original_folder"
+
+checkpoint_dir="${directory}/Checkpoints"
+checkpoint_file="${checkpoint_dir}/original_par_files_moved.done"
+mkdir -p "$checkpoint_dir"
+
+bp_step_file="bp_step.par"
+bp_step_file_original="${original_folder}/bp_step.par"
+
+tilt_col=11
+roll_col=12
+twist_col=13
+header_lines=4
+
+extract_number() {
+  local filename="$1"
+  local num
+  num=$(printf '%s\n' "$filename" | grep -oE '[0-9]+' | head -n 1 || true)
+  if [[ -n "$num" ]]; then
+    printf '%s\n' "$num"
+  else
+    printf '0\n'
+  fi
+}
+
+cleanup_rebuild_files() {
+  rm -f Atomic*.pdb ref_frames.dat
+}
+
+combine_par_files() {
+  local base_file="$1"
+  local tilt_file="$2"
+  local roll_file="$3"
+  local twist_file="$4"
+  local out_file="$5"
+
+  awk \
+    -v hdr="$header_lines" \
+    -v tilt_col="$tilt_col" \
+    -v roll_col="$roll_col" \
+    -v twist_col="$twist_col" \
+    -v tiltfile="$tilt_file" \
+    -v rollfile="$roll_file" \
+    -v twistfile="$twist_file" \
+    -v basefile="$base_file" \
+    '
+    FILENAME == tiltfile {
+      if (FNR > hdr) {
+        t[FNR - hdr] = $tilt_col
+      }
+      next
+    }
+
+    FILENAME == rollfile {
+      if (FNR > hdr) {
+        r[FNR - hdr] = $roll_col
+      }
+      next
+    }
+
+    FILENAME == twistfile {
+      if (FNR > hdr) {
+        w[FNR - hdr] = $twist_col
+      }
+      next
+    }
+
+    FILENAME == basefile {
+      if (FNR <= hdr) {
+        print
+      } else {
+        idx = FNR - hdr
+        if (idx in t) { $tilt_col = t[idx] }
+        if (idx in r) { $roll_col = r[idx] }
+        if (idx in w) { $twist_col = w[idx] }
+        print
+      }
+      next
+    }
+    ' \
+    "$tilt_file" "$roll_file" "$twist_file" "$base_file" \
+    > "$out_file"
+}
+
+minimize_all_pdbs() {
+  local target_directory="$1"
+  local min_params_file="$2"
+
+  (
+    cd "$target_directory"
+
+    mkdir -p "Before-Phenix"
+
+    shopt -s nullglob
+
+    for pdb in *.pdb; do
+      [[ "$pdb" == *_minimized.pdb ]] && continue
+
+      if [[ -f "Before-Phenix/$pdb" ]]; then
+        echo "${pdb} already minimized before. Skipping."
+        continue
+      fi
+
+      base="${pdb%.pdb}"
+      minimized_pdb="${base}_minimized.pdb"
+
+      phenix.geometry_minimization "$pdb" "$min_params_file"
+
+      rm -f "${base}"*.geo "${base}"*.cif "${base}_minimized"*.geo "${base}_minimized"*.cif
+
+      if [[ -f "$minimized_pdb" ]]; then
+        mv "$pdb" "Before-Phenix/$pdb"
+        mv "$minimized_pdb" "$pdb"
+        echo "${pdb} minimized"
+      else
+        echo "Minimization failed for ${pdb}" >&2
+      fi
+    done
+
+    shopt -u nullglob
+  )
+}
+
+remove_5prime_phosphate_atoms() {
+  local target_directory="$1"
+
+  (
+    cd "$target_directory"
+
+    shopt -s nullglob
+
+    for pdb in *.pdb; do
+      tmp="${pdb}.remove_5phos.tmp"
+
+      awk '
+      function trim(value) {
+        gsub(/^[[:space:]]+|[[:space:]]+$/, "", value)
+        return value
+      }
+      {
+        record = substr($0, 1, 6)
+
+        if (record == "ATOM  " || record == "HETATM") {
+          chain = substr($0, 22, 1)
+          residue = substr($0, 23, 5)
+
+          if (!(chain in first_residue)) {
+            first_residue[chain] = residue
+          }
+
+          atom = trim(substr($0, 13, 4))
+
+          if (residue == first_residue[chain] && \
+              (atom == "P" || atom == "OP1" || atom == "OP2")) {
+            next
+          }
+        }
+
+        print
+      }
+      ' "$pdb" > "$tmp"
+
+      mv "$tmp" "$pdb"
+      echo "Removed 5'-terminal P, OP1, and OP2 atoms from each chain in $pdb"
+    done
+
+    shopt -u nullglob
+  )
+}
+
+shopt -s nullglob
+
+if [[ -f "$checkpoint_file" ]]; then
+  echo "[CHECKPOINT] Original par files already moved. Skipping preparation steps."
+else
+  tilt_files=( *Tilt*.par )
+  roll_files=( *Roll*.par )
+  twist_files=( *Twist*.par )
+
+  if (( ${#tilt_files[@]} == 0 && ${#roll_files[@]} == 0 && ${#twist_files[@]} == 0 )); then
+    {
+      echo "No solution"
+      echo "No Tilt, Roll, or Twist parameter files were generated from the first molecular-replacement step."
+    } > "${parent_directory}/Error.txt"
+    echo "No solution" >&2
+    exit 1
+  fi
+
+  if [[ -f "$bp_step_file" ]]; then
+    bp_step_source="$bp_step_file"
+  elif [[ -f "$bp_step_file_original" ]]; then
+    bp_step_source="$bp_step_file_original"
+  else
+    echo "Neither ${bp_step_file} nor ${bp_step_file_original} found in ${directory}" >&2
+    exit 1
+  fi
+
+  # If one or two parameter categories are missing, keep the corresponding
+  # values from the original bp_step.par and continue with the available categories.
+  (( ${#tilt_files[@]} > 0 )) || tilt_files=( /dev/null )
+  (( ${#roll_files[@]} > 0 )) || roll_files=( /dev/null )
+  (( ${#twist_files[@]} > 0 )) || twist_files=( /dev/null )
+
+  for t in "${tilt_files[@]}"; do
+    for r in "${roll_files[@]}"; do
+      for w in "${twist_files[@]}"; do
+
+        tnum=$(extract_number "$t")
+        rnum=$(extract_number "$r")
+        wnum=$(extract_number "$w")
+
+        out_par="${tnum}-${rnum}-${wnum}.par"
+
+        combine_par_files "$bp_step_source" "$t" "$r" "$w" "$out_par"
+
+        echo "${out_par} generated"
+      done
+    done
+  done
+
+  for f in bp_step*; do
+    [[ -e "$f" ]] || continue
+    mv "$f" "$original_folder/"
+  done
+
+  : > "$checkpoint_file"
+fi
+
+for f in *.par; do
+  [[ -e "$f" ]] || continue
+
+  base="${f%.par}"
+  out_pdb="${file_prefix}-${base}.pdb"
+
+  if [[ -f "$out_pdb" ]]; then
+    echo "${out_pdb} already exists. Skipping rebuild for ${f}"
+    continue
+  fi
+
+  x3dna_utils cp_std "$std_type"
+  rebuild -atomic "$f" "$out_pdb"
+  cleanup_rebuild_files
+
+  echo "${out_pdb} generated"
+done
+
+minimize_all_pdbs "$directory" "${parent_directory}/min.params"
+
+if [[ "$phosphate_action" == "Remove" ]]; then
+  remove_5prime_phosphate_atoms "$directory"
+fi
+
+shopt -u nullglob
+
+echo "All finished"
