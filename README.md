@@ -158,7 +158,7 @@ If you use 4MRNA in your research, please cite the following reference.
 
 - Ando, S., Kondo, J. (2026). 4MRNA: a new approach for nucleic acid molecular replacement using models with diverse parameter patterns. _RNA_, _Published online in advance_. https://doi.org/10.1261/rna.081112.126
 
-In addition, please also cite the external software packages used by 4MRNA.
+In addition, it is recommended to cite the external software packages used in 4MRNA.
 
 - **3DNA**: Lu, X. J., Olson, W. K. (2008). 3DNA: a versatile, integrated software system for the analysis, rebuilding and visualization of three-dimensional nucleic-acid structures. _Nature Protocols_, _3_(7), 1213–1227. https://doi.org/10.1038/nprot.2008.104
 
