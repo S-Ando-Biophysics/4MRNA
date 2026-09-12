@@ -23,7 +23,7 @@ Instructions for installing and using the software are provided in [**Installati
 
 ## News
 
-- 4MRNA was updated on September 9, 2026. The latest version is **v2.5.0**.
+- 4MRNA was updated on September 12, 2026. The latest version is **v2.5.1**.
 
 - For details, please see the Changelog.
 
@@ -156,7 +156,7 @@ Phaser is included in the CCP4 suite, so please download the CCP4 installer from
 ## Citation
 If you use 4MRNA in your research, please cite the following reference. 
 
-- Ando, S., Kondo, J. (2026). 4MRNA: a new approach for nucleic acid molecular replacement using models with diverse parameter patterns. _RNA_, _Published online in advance_. https://doi.org/10.1261/rna.081112.126
+- Ando, S., Kondo, J. (2026). 4MRNA: a new approach for nucleic acid molecular replacement using models with diverse parameter patterns. _RNA_, _32_(10), 1544-1559. https://doi.org/10.1261/rna.081112.126
 
 In addition, it is recommended to cite the external software packages used in 4MRNA.
 
@@ -253,6 +253,8 @@ If you find a bug, please let me know using [this form](https://forms.gle/Hx2tvW
   - Previously, the generated models always contained phosphate groups at their 5′ termini. Users can now choose whether to retain or remove these groups, depending on how the nucleic acid was synthesized. This enables molecular replacement to be performed with a more accurate model and facilitates subsequent refinement.
 
   - In addition to specifying the nucleic acid type, sequence, and number of copies to search for during molecular replacement, users must now choose whether to keep or remove the 5′-terminal phosphate groups.
+
+- **2026-09-02** Bug Fix (v2.5.1)
 
 
 ### Comments
