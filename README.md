@@ -254,7 +254,7 @@ If you find a bug, please let me know using [this form](https://forms.gle/Hx2tvW
 
   - In addition to specifying the nucleic acid type, sequence, and number of copies to search for during molecular replacement, users must now choose whether to keep or remove the 5′-terminal phosphate groups.
 
-- **2026-09-02** Bug Fix (v2.5.1)
+- **2026-09-12** Bug Fix (v2.5.1)
 
 
 ### Comments
