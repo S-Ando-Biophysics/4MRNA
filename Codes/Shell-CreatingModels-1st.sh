@@ -12,15 +12,16 @@ parent_directory="$(pwd)"
 num_models=1
 
 # Information of models
-# " ID | Directory | Sequence | Type of NA | 5'-terminal phosphate "
+# " ID | Directory | Sequence | Type of NA | 5'-terminal phosphate | AMOUNT "
 # Please enter the sequence. Only the sequence of one strand of duplex is required.
 # The complementary strand is processed automatically.
 # Please enter the type of NA. Please choose from A-DNA, B-DNA, or A-RNA.
 # Please choose Keep or Remove for the 5'-terminal phosphate group.
+# AMOUNT is Full, Lite COUNT, or Lite PERCENT% (e.g. Lite 100 or Lite 10%).
 models=(
-  "1|${parent_directory}/Model01-1|||Keep"
-  "2|${parent_directory}/Model02-1|||Keep"
-  "3|${parent_directory}/Model03-1|||Keep"
+  "1|${parent_directory}/Model01-1|||Keep|Full"
+  "2|${parent_directory}/Model02-1|||Keep|Full"
+  "3|${parent_directory}/Model03-1|||Keep|Full"
 )
 
 # ====================================================================================================
@@ -280,13 +281,6 @@ process_parameter() {
   rm -f "$combo_file"
 
   echo "${param_name}: parameter file generation completed." >&2
-
-  # IMPORTANT:
-  # Only the number of generated parameter files is sent to stdout,
-  # because this function is called using command substitution:
-  #
-  #   n1=$(process_parameter ...)
-  #
   echo "$idx"
 }
 
@@ -371,6 +365,139 @@ build_fiber_and_analyze() {
 
     echo "3DNA analysis completed. bp_step.par generated."
   )
+}
+
+# AMOUNT controls model selection independently of execution mode.
+select_lite_pars() {
+  local amount_selection="${2:-Full}"
+  if [[ "$amount_selection" == "Full" ]]; then
+    if [[ -e "$1/Lite-Par-Backup" ]]; then
+      echo "Cannot use Full with an existing Lite backup. Use a fresh working directory." >&2
+      return 1
+    fi
+    return 0
+  fi
+
+  python3 - "$1" "$out_folder" "$file_prefix" "$amount_selection" <<'PY_LITE'
+import hashlib
+import json
+import os
+import re
+import secrets
+import sys
+from decimal import Decimal, InvalidOperation, ROUND_CEILING
+from pathlib import Path
+
+directory = Path(sys.argv[1])
+organized = directory / sys.argv[2]
+prefix = sys.argv[3]
+backup = directory / "Lite-Par-Backup"
+manifest = backup / "selection.json"
+parameters = ("Tilt", "Roll", "Twist")
+
+def fail(message):
+    raise SystemExit("Lite selection: " + message)
+
+def candidates(folder, parameter):
+    return sorted(p for p in folder.glob(f"bp_step_{parameter}*.par")
+                  if re.fullmatch(rf"bp_step_{parameter}[0-9]+\.par", p.name)
+                  and p.is_file() and not p.is_symlink())
+
+if manifest.exists():
+    plan = json.loads(manifest.read_text(encoding="utf-8"))
+    if plan.get("version") not in (1, 2):
+        fail(f"unsupported selection manifest: {manifest}")
+    if plan.get("request") is not None and sys.argv[4] != "Lite " + plan["request"]:
+        fail("AMOUNT differs from the saved selection; use a fresh working directory")
+    print(f"[LITE CHECKPOINT] Reusing selection in {manifest}", flush=True)
+else:
+    if any(candidates(organized, p) for p in parameters) or any(directory.glob(prefix + "*.pdb")):
+        fail("models have already been rebuilt or organized without a selection manifest. "
+             "Use a fresh working directory.")
+    if backup.exists():
+        fail(f"backup exists without a manifest: {backup}. Preserve it and use a fresh working directory.")
+    groups = {p: candidates(directory, p) for p in parameters}
+    if any(not files for files in groups.values()):
+        fail(f"expected Tilt, Roll and Twist .par files in {directory}")
+    if len({len(files) for files in groups.values()}) != 1:
+        fail("Tilt, Roll and Twist candidate counts must match for an equal split")
+    total = sum(len(files) for files in groups.values())
+    seed = os.environ.get("FOURMRNA_LITE_SEED")
+    if seed is None:
+        seed = str(secrets.randbits(128))
+    if not seed:
+        fail("FOURMRNA_LITE_SEED must not be empty")
+    print(f"[LITE] {directory}: seed={seed}", flush=True)
+    match = re.fullmatch(r"Lite\s+(.+)", sys.argv[4])
+    if not match:
+        fail("AMOUNT must be Full, Lite COUNT or Lite PERCENT%")
+    answer = match.group(1).strip()
+    try:
+        if answer.endswith("%"):
+            value = Decimal(answer[:-1].strip())
+            if not value.is_finite() or not 0 < value <= 100:
+                raise ValueError
+            keep = max(1, int((value * total / 100).to_integral_value(rounding=ROUND_CEILING)))
+        elif re.fullmatch(r"[0-9]+", answer):
+            keep = int(answer)
+            if not 1 <= keep <= total:
+                raise ValueError
+        else:
+            raise ValueError
+    except (InvalidOperation, ValueError, OverflowError):
+        fail(f"invalid AMOUNT; use Lite COUNT (1-{total}) or Lite PERCENT%")
+    requested_total = keep
+    share = (requested_total + 2) // 3
+    allocation = {p: share for p in parameters}
+    keep = share * 3
+    plan = {"version": 2, "seed": seed, "request": answer,
+            "total": total, "requested_total": requested_total,
+            "keep_total": keep, "allocation": allocation, "groups": {}}
+    print(f"[LITE] Keeping {keep}/{total} parameter models: "
+          + ", ".join(f"{p}={allocation[p]}" for p in parameters), flush=True)
+    for parameter, files in groups.items():
+        # Seeded hash ordering is deterministic across Python versions and
+        # independent of directory enumeration order and other model groups.
+        ranked = sorted(files, key=lambda p: (
+            hashlib.sha256((seed + "\0" + parameter + "\0" + p.name).encode("utf-8")).digest(),
+            p.name))
+        selected = {p.name for p in ranked[:allocation[parameter]]}
+        plan["groups"][parameter] = {
+            "total": len(files), "kept": sorted(selected),
+            "moved": sorted(p.name for p in files if p.name not in selected),
+        }
+    backup.mkdir()
+    temporary = backup / "selection.json.tmp"
+    temporary.write_text(json.dumps(plan, indent=2) + "\n", encoding="utf-8")
+    temporary.replace(manifest)
+
+# The plan is persisted before moving anything. A restart finishes pending moves
+# from that same plan, without resampling or overwriting a backup file.
+for parameter in parameters:
+    group = plan["groups"][parameter]
+    for name in group["kept"] + group["moved"]:
+        if not re.fullmatch(rf"bp_step_{parameter}[0-9]+\.par", name):
+            fail(f"invalid file name in {manifest}")
+    expected = set(group["kept"] + group["moved"])
+    actual = {p.name for folder in (directory, organized, backup)
+              for p in candidates(folder, parameter)}
+    if actual != expected:
+        fail(f"{parameter} files differ from the saved selection; use a fresh working directory")
+    for name in group["kept"]:
+        if not (directory / name).is_file() and not (organized / name).is_file():
+            fail(f"selected file is missing: {name}")
+    for name in group["moved"]:
+        source, destination = directory / name, backup / name
+        if destination.exists():
+            if source.exists():
+                fail(f"both source and backup exist for {name}; refusing to overwrite")
+        elif source.is_file():
+            source.rename(destination)
+        else:
+            fail(f"excluded file is missing: {name}")
+    print(f"[LITE] {parameter}: keeping {len(group['kept'])}/{group['total']}; "
+          f"{len(group['moved'])} files in {backup}", flush=True)
+PY_LITE
 }
 
 rebuild_all_pars() {
@@ -539,7 +666,7 @@ main() {
 
   for line in "${models[@]}"; do
 
-    IFS='|' read -r id directory sequence na_type phosphate_action <<< "$line"
+    IFS='|' read -r id directory sequence na_type phosphate_action amount_selection <<< "$line"
 
     if (( processed >= num_models )); then
       break
@@ -608,6 +735,8 @@ main() {
       mark_par_generation_done "$directory"
 
     fi
+
+    select_lite_pars "$directory" "${amount_selection:-Full}"
 
     rebuild_all_pars "$directory"
 
