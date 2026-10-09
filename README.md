@@ -23,7 +23,7 @@ Instructions for installing and using the software are provided in [**Installati
 
 ## News
 
-- Updates are scheduled from October 10 to October 12.
+- Updates are scheduled from October 10.
 
 
 <br>
