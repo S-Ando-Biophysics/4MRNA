@@ -15,9 +15,11 @@ Instructions for installing and using the software are provided in [**Installati
 
 
 >
-> #### - [Paper](https://doi.org/10.1261/rna.081112.126)  (Link to the journal page)
-> #### - [Supplemental materials](https://cdn.jsdelivr.net/gh/S-Ando-Biophysics/4MRNA@main/Docs/4MRNA-Paper-SM_Supplemental-methods.pdf) 
-> #### - [User manual](https://cdn.jsdelivr.net/gh/S-Ando-Biophysics/4MRNA@main/Docs/4MRNA-Manual.pdf)  (Latest updated: September 9, 2026)
+> #### [Paper](https://doi.org/10.1261/rna.081112.126)  (Link to the journal page)
+> #### [Supplemental materials](https://cdn.jsdelivr.net/gh/S-Ando-Biophysics/4MRNA@main/Docs/4MRNA-Paper-SM_Supplemental-methods.pdf) 
+> #### [User manual](https://cdn.jsdelivr.net/gh/S-Ando-Biophysics/4MRNA@main/Docs/4MRNA-Manual.pdf)  (Latest updated: September 9, 2026)
+
+(The current manual covers versions up to v2.5.1. An updated manual covering v2.6.0 will be published at a later date.)
 
 <br>
 
