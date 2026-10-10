@@ -215,10 +215,6 @@ If you find a bug, please let me know using [this form](https://forms.gle/Hx2tvW
 
 - **2026-08-27** Bug Fix
 
-  - A bug that occurred during model generation has been fixed.
-
-  - No reinstallation or update is required, and no changes to the execution procedure are necessary.
-
 - **2026-09-01** Minor Update (v2.4.0)
 
   - The robustness of the 4MRNA code has been improved.
@@ -245,3 +241,6 @@ If you find a bug, please let me know using [this form](https://forms.gle/Hx2tvW
   - In addition to specifying the nucleic acid type, sequence, and number of copies to search for during molecular replacement, users must now choose whether to keep or remove the 5′-terminal phosphate groups.
 
 - **2026-09-12** Bug Fix (v2.5.1)
+
+- **2026-10-10** Minor Update (v2.6.0)
+  - An option to reduce the number of models generated has been added.
