@@ -23,7 +23,18 @@ Instructions for installing and using the software are provided in [**Installati
 
 ## News
 
-- Updates are scheduled from October 10.
+- 4MRNA was updated on October 10, 2026. The latest version is **v2.6.0**.
+
+- For details, please see the Changelog.
+
+- If you are using a version earlier than v2.4.0, please reinstall 4MRNA using the following commands. If you are using v2.4.0 or later, reinstallation is not required.
+  
+    ```
+    cd ~
+    rm -rf 4MRNA-Install
+    git clone https://github.com/S-Ando-Biophysics/4MRNA-Install.git
+    bash 4MRNA-Install/install.sh
+    ```
 
 
 <br>
