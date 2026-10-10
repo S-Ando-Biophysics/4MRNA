@@ -104,6 +104,9 @@ In addition, please install and set up the following external software in advanc
 | Phenix | https://phenix-online.org/download |
 | Phaser | https://www.ccp4.ac.uk/download |
 
+<details>
+<summary>Detailed installation instructions</summary>
+
 #### 3DNA
 After registering on the official website (forum) and receiving approval, you will be able to download the installer. For details, please refer to the instructions on the official website. Once you have downloaded the installer, run the following commands in order. The following steps are for Windows (WSL, Ubuntu). The procedure for macOS and Linux is similar.
 
@@ -153,6 +156,9 @@ Phaser is included in the CCP4 suite, so please download the CCP4 installer from
     exit
     echo "source /usr/local/ccp4-9/bin/ccp4.setup-sh" >> ~/.bashrc
     source ~/.bashrc
+
+
+</details>
 
 <br>
 
