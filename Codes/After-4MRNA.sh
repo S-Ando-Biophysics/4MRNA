@@ -13,7 +13,6 @@ import shlex
 import shutil
 import subprocess
 import sys
-import tempfile
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
 
@@ -28,8 +27,8 @@ parser = argparse.ArgumentParser(
 parser.add_argument('--results-dir', default='4MRNA-Results')
 parser.add_argument('--mtz', help='Original reflection MTZ (including existing R-free flags). '
                     'Default: the sole *.mtz in the current working directory.')
-parser.add_argument('--output-dir', default='after-4MRNA-Results',
-                    help='Parent for a new, unique refinement run directory.')
+parser.add_argument('--output-dir', default='After-4MRNA',
+                    help='Parent for the refine_1_<MR model ID> directory (existing runs are not overwritten).')
 parser.add_argument('--dry-run', action='store_true', help='Print selection and command without running or writing files.')
 parser.add_argument('--generate-r-free', action='store_true',
                     help='Ask Phenix to generate R-free flags if absent; use only for data without an existing test set.')
@@ -107,29 +106,37 @@ else:
     mtz = mtz_files[0].resolve()
 if not mtz.is_file() or mtz.stat().st_size == 0:
     fail(f'Reflection MTZ missing or empty: {mtz}')
-cmd = ['phenix.refine', str(model), str(mtz), 'output.prefix=best_refine']
+output_parent = Path(args.output_dir).resolve()
+mr_id = model.parent.name[len('phaser-'):]
+run_dir = output_parent / ('refine_1_' + mr_id)
+# Phenix builds names from prefix + '_' + formatted serial.
+cmd = ['phenix.refine', str(model), str(mtz), 'output.prefix=refine',
+       'output.serial=1', 'output.serial_format=%d']
 if args.generate_r_free:
     cmd.append('xray_data.r_free_flags.generate=True')
 cmd.extend(extra)
 print(f'Best model: {best}\nLLG: {llg}\nTFZ: {tfz}\nLLG * TFZ: {llg * tfz}\nRule: {rule}', flush=True)
 print('Command: ' + shlex.join(cmd), flush=True)
 if args.dry_run:
+    print(f'Output directory: {run_dir}')
     print('Dry run: no refinement or output files created.')
     sys.exit(0)
 if shutil.which('phenix.refine') is None:
     fail('phenix.refine not found. Initialize your Phenix environment before running this script.')
-output_parent = Path(args.output_dir).resolve()
 output_parent.mkdir(parents=True, exist_ok=True)
-run_dir = Path(tempfile.mkdtemp(prefix='refine-', dir=output_parent))
+try:
+    run_dir.mkdir()
+except FileExistsError:
+    fail(f'Output directory already exists: {run_dir}. Use --output-dir to select another destination.')
 summary = {
-    'model': best, 'llg': str(llg), 'tfz': str(tfz), 'llg_times_tfz': str(llg * tfz),
+    'model': best, 'mr_id': mr_id, 'llg': str(llg), 'tfz': str(tfz), 'llg_times_tfz': str(llg * tfz),
     'rule': rule, 'candidate_count': len(scores), 'qualified_count': len(qualified),
     'result_rows': sources[best], 'pdb': str(model), 'mtz': str(mtz), 'command': cmd,
 }
-summary_path = run_dir / 'selection.json'
+summary_path = run_dir / 'refine_1_selection.json'
 summary_path.write_text(json.dumps(summary, indent=2) + '\n', encoding='utf-8')
 print(f'Output directory: {run_dir}', flush=True)
-with (run_dir / 'phenix-refine.log').open('w', encoding='utf-8') as log:
+with (run_dir / 'refine_1_console.log').open('w', encoding='utf-8') as log:
     process = subprocess.Popen(cmd, cwd=run_dir, stdout=subprocess.PIPE,
                                stderr=subprocess.STDOUT, text=True, errors='replace')
     for line in process.stdout:
