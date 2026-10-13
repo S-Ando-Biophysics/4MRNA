@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
-# Run from the same working directory as 4MRNA.sh.
-# Requires Bash, Python 3, and an initialized Phenix environment.
-# Source: https://github.com/S-Ando-Biophysics/4MRNA/blob/main/Codes/4MRNA.sh
-# Refine CLI: https://phenix-online.org/documentation/reference/refinement
+
 set -euo pipefail
 command -v python3 >/dev/null 2>&1 || { echo 'Error: python3 is required.' >&2; exit 1; }
 python3 - "$@" <<'PY'
