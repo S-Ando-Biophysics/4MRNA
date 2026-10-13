@@ -15,6 +15,7 @@ min_params_out="${here}/min.params"
 checkpoint_root="${final_bg_dir}/Checkpoints"
 checkpoint_scripts_dir="${checkpoint_root}"
 execution_mode_checkpoint="${checkpoint_root}/execution_mode.txt"
+tncs_checkpoint="${checkpoint_root}/tncs.txt"
 tmp_root="${final_bg_dir}/tmp"
 
 mkdir -p "$tmp_root"
@@ -41,12 +42,15 @@ L3_02_2_URL="https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Code
 L3_03_1_URL="https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Shell-MR-3model-Model03-1st.sh"
 L3_03_2_URL="https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Shell-MR-3model-Model03-2nd.sh"
 MIN_PARAMS_URL="https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/min.params"
+PHENIX_REFINE_URL="${PHENIX_REFINE_URL:-https://raw.githubusercontent.com/S-Ando-Biophysics/4MRNA/main/Codes/Phenix-Refine.sh}"
+refinement_script="$final_bg_dir/Phenix-Refine.sh"
 
 curl_get() {
   local url="$1"
   local out="$2"
   curl -fsSL "$url" -o "$out" || abort "Failed to download: $url"
 }
+
 
 ask_choice() {
   local q="$1" choices="$2" ans
@@ -63,10 +67,10 @@ ask_choice() {
 ask_yesno() {
   local ans
   while :; do
-    read -r -p "$1 [Y/N]: " ans
+    read -r -p "$1 [Y/N]: " ans || abort "Input ended while answering: $1"
     case "$ans" in
-      Y|y) return 0 ;;
-      N|n) return 1 ;;
+      Y|y|Yes|yes|YES) return 0 ;;
+      N|n|No|no|NO) return 1 ;;
     esac
     echo "Please answer Y or N."
   done
@@ -169,6 +173,172 @@ print(f"Model0{index}: {amount}; keeping {kept // 3} models each for "
       f"Tilt/Roll/Twist ({kept} in total).", file=sys.stderr, flush=True)
 print(amount)
 PY_AMOUNT
+}
+
+ask_model_advanced_settings() {
+  local index="$1" na_type="$2" sequence="$3"
+  local phosphate_done=0 amount_done=0 choice choices
+  local question="Please select the setting you would like to customize."
+
+  PHOS[$index]="Keep"
+  AMOUNT[$index]="Full"
+
+  if ! ask_yesno "Would you like to configure advanced settings for model #$index?"; then
+    return 0
+  fi
+
+  while :; do
+    echo ""
+    echo "$question"
+    choices=""
+    if (( phosphate_done == 0 )); then
+      echo "1. 5'-terminal phosphate group"
+      choices="1"
+    fi
+    if (( amount_done == 0 )); then
+      echo "2. Model amount"
+      choices="${choices:+$choices,}2"
+    fi
+    echo "0. No further settings (keep defaults for remaining items)"
+    choices="${choices:+$choices,}0"
+    choice="$(ask_choice "Select an option" "$choices")"
+
+    case "$choice" in
+      1)
+        PHOS[$index]="$(ask_choice "Do you want to keep or remove the 5'-terminal phosphate group?" "Keep,Remove")"
+        phosphate_done=1
+        ;;
+      2)
+        AMOUNT[$index]="$(ask_model_amount "$index" "$na_type" "$sequence")"
+        amount_done=1
+        ;;
+      0) return 0 ;;
+    esac
+
+    if (( phosphate_done == 1 && amount_done == 1 )); then
+      return 0
+    fi
+    question="Would you like to configure any other settings?"
+  done
+}
+
+# These options are global: they apply to every MR model and stage.
+ask_mr_advanced_settings() {
+  local tncs_done=0 refinement_done=0 choice choices
+  tncs_option="${tncs_option:-ON}"
+  refine_option="${refine_option:-No}"
+  if ! ask_yesno "Would you like to configure advanced settings for molecular replacement?"; then
+    return 0
+  fi
+  while :; do
+    echo ""
+    echo "Please select the setting you would like to customize."
+    choices=""
+    if (( tncs_done == 0 )); then
+      echo "1. Translational NCS (tNCS) treatment in Phaser"
+      choices="1"
+    fi
+    if (( refinement_done == 0 )); then
+      echo "2. Refinement after molecular replacement"
+      choices="${choices:+$choices,}2"
+    fi
+    echo "0. No further settings (keep current settings for remaining items)"
+    choice="$(ask_choice "Select an option" "${choices:+$choices,}0")"
+    case "$choice" in
+      1)
+        if ask_yesno "Turn OFF translational NCS (tNCS) correction in Phaser? (Default: ON)"; then
+          tncs_option="OFF"
+        else
+          tncs_option="ON"
+        fi
+        tncs_done=1
+        ;;
+      2)
+        if ask_yesno "Run Phenix-Refine.sh after molecular replacement?"; then
+          refine_option="Yes"
+        else
+          refine_option="No"
+        fi
+        refinement_done=1
+        ;;
+      0) break ;;
+    esac
+    if (( tncs_done == 1 && refinement_done == 1 )); then
+      break
+    fi
+  done
+}
+
+save_mr_options() {
+  python3 - "$inp" "$tncs_option" "$refine_option" <<'PY_SAVE_MR'
+import os
+import re
+import shutil
+import sys
+import tempfile
+from pathlib import Path
+path = Path(sys.argv[1])
+original = path.read_text(encoding="utf-8-sig")
+lines = [line for line in original.splitlines()
+         if not re.match(r"^-(?:TNCS|REFINE)(?:\s|$)", line)]
+updated = "\n".join(lines).rstrip() + f"\n\n-TNCS {sys.argv[2]}\n-REFINE {sys.argv[3]}\n"
+if updated != original:
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", newline="\n",
+                                     dir=path.parent, prefix=path.name + ".", delete=False) as temporary:
+        temporary.write(updated)
+        temporary_path = Path(temporary.name)
+    shutil.copymode(path, temporary_path)
+    os.replace(temporary_path, path)
+PY_SAVE_MR
+}
+
+# Replace the tNCS keyword inside Phaser input; preserve other customizations.
+apply_tncs_option() {
+  local fname="$1"
+  python3 - "$fname" "$tncs_option" <<'PY_TNCS'
+import re
+import sys
+from pathlib import Path
+path = Path(sys.argv[1])
+option = sys.argv[2]
+source = path.read_text(encoding="utf-8")
+lines = source.splitlines(keepends=True)
+output = []
+body = []
+delimiter = None
+strip_tabs = False
+blocks = 0
+for line in lines:
+    if delimiter is None:
+        # The repository MR scripts pass Phaser keywords through a here-document.
+        match = re.search(r"\b(?:[\w./-]+/)?phaser\s+<<(-?)\s*(['\"]?)([A-Za-z_][A-Za-z0-9_]*)\2", line)
+        if match:
+            strip_tabs = bool(match.group(1))
+            delimiter = match.group(3)
+            body = []
+        output.append(line)
+        continue
+    content = line.lstrip("\t") if strip_tabs else line
+    if content.rstrip("\r\n") != delimiter:
+        body.append(line)
+        continue
+    # Insert once, immediately before this Phaser input's closing delimiter.
+    if any(re.match(r"\s*MODE\s+MR_AUTO\s*(?:#.*)?$", row, re.I) for row in body):
+        blocks += 1
+        output.extend(row for row in body
+                      if not re.match(r"\s*TNCS\s+USE\b", row, re.I))
+        if option == "OFF":
+            output.append("TNCS USE OFF\n")
+    else:
+        output.extend(body)
+    output.append(line)
+    delimiter = None
+if not blocks or delimiter is not None:
+    raise SystemExit(f"Cannot safely insert TNCS USE {option} into Phaser MR_AUTO input in {path}")
+updated = "".join(output)
+if updated != source:
+    path.write_text(updated, encoding="utf-8", newline="\n")
+PY_TNCS
 }
 
 sync_bg_dir_to_final() {
@@ -345,7 +515,7 @@ if [[ ! -f "$inp" ]]; then
   echo "Input file '4MRNA-INP.txt' not found."
   echo "Generating it now by answering questions."
   n_models="$(ask_choice "The number of models for molecular replacement" "1,2,3")"
-  declare -a TYP SEQ PHOS NUM
+  declare -a TYP SEQ PHOS NUM AMOUNT
 
   for ((i=1; i<=n_models; i++)); do
     while :; do
@@ -354,14 +524,15 @@ if [[ ! -f "$inp" ]]; then
       TYP[$i]="$(ask_choice "Nucleic acid type" "A-DNA,B-DNA,A-RNA")"
       read -r -p "Sequence (one strand of duplex, 5'→3'): " seq_in
       SEQ[$i]="$seq_in"
-      PHOS[$i]="$(ask_choice "Do you want to keep or remove the 5'-terminal phosphate group?" "Keep,Remove")"
       NUM[$i]="$(ask_num "How many copies of the model to be searched in molecular replacement")"
+      ask_model_advanced_settings "$i" "${TYP[$i]}" "${SEQ[$i]}"
       echo ""
       echo "Confirm model #$i:"
       echo "-TYPE$i ${TYP[$i]}"
       echo "-SEQ$i ${SEQ[$i]}"
       echo "-5PHOS$i ${PHOS[$i]}"
       echo "-NUM$i ${NUM[$i]}"
+      echo "-AMOUNT$i ${AMOUNT[$i]}"
       if ask_yesno "Is this correct?"; then
         break
       else
@@ -370,14 +541,22 @@ if [[ ! -f "$inp" ]]; then
     done
   done
 
+  tncs_option="ON"
+  refine_option="No"
+  ask_mr_advanced_settings
+
   {
     for ((i=1; i<=n_models; i++)); do
       echo "-TYPE$i ${TYP[$i]}"
       echo "-SEQ$i ${SEQ[$i]}"
       echo "-5PHOS$i ${PHOS[$i]}"
       echo "-NUM$i ${NUM[$i]}"
+      echo "-AMOUNT$i ${AMOUNT[$i]}"
       [[ $i -lt n_models ]] && echo ""
     done
+    echo ""
+    echo "-TNCS $tncs_option"
+    echo "-REFINE $refine_option"
   } > "$inp"
 
   echo ""
@@ -390,6 +569,8 @@ fi
 norm_inp="$(mktemp "${work_root}/norm_inp.XXXXXX")"
 perl -pe 's/\r\n?/\n/g; s/^\xEF\xBB\xBF//' "$inp" > "$norm_inp"
 
+tncs_option=""
+refine_option=""
 declare -a TYPE SEQ PHOS NUM AMOUNT
 while IFS= read -r line || [[ -n "$line" ]]; do
   [[ -z "$line" ]] && continue
@@ -401,6 +582,10 @@ while IFS= read -r line || [[ -n "$line" ]]; do
     PHOS[${BASH_REMATCH[1]}]="${BASH_REMATCH[2]}"
   elif [[ "$line" =~ ^-NUM([1-3])\ (.+)$ ]]; then
     NUM[${BASH_REMATCH[1]}]="${BASH_REMATCH[2]}"
+  elif [[ "$line" =~ ^-TNCS\ (.+)$ ]]; then
+    tncs_option="${BASH_REMATCH[1]}"
+  elif [[ "$line" =~ ^-REFINE\ (.+)$ ]]; then
+    refine_option="${BASH_REMATCH[1]}"
   elif [[ "$line" =~ ^-AMOUNT([1-3])\ (.+)$ ]]; then
     AMOUNT[${BASH_REMATCH[1]}]="${BASH_REMATCH[2]}"
   fi
@@ -415,6 +600,58 @@ done
 
 n_models="${#model_indices[@]}"
 [[ $n_models -ge 1 && $n_models -le 3 ]] || abort "Unsupported number of models (only 1–3 are supported)"
+
+if [[ -z "$tncs_option" || -z "$refine_option" ]]; then
+  ask_mr_advanced_settings
+fi
+# Migrate the previous Default spelling to Phaser's default, ON.
+[[ "$tncs_option" != "Default" ]] || tncs_option="ON"
+case "$tncs_option" in ON|OFF) ;; *) abort "Invalid -TNCS: use ON or OFF" ;; esac
+case "$refine_option" in Yes|No) ;; *) abort "Invalid -REFINE: use Yes or No" ;; esac
+save_mr_options
+echo "MR settings: tNCS=$tncs_option; refinement=$refine_option"
+# Migrate files and completion state created by the previous naming scheme.
+legacy_payload="$final_bg_dir/After-4MRNA.sh"
+if [[ -f "$legacy_payload" ]] && grep -qx '# Run from the same working directory as 4MRNA.sh.' "$legacy_payload"; then
+  [[ ! -e "$refinement_script" ]] || abort "Both legacy After-4MRNA.sh and Phenix-Refine.sh exist; move the legacy file before continuing."
+  mv "$legacy_payload" "$refinement_script"
+fi
+legacy_launcher="$final_bg_dir/11.4MRNA-Refinement.sh"
+if [[ -f "$legacy_launcher" ]]; then
+  grep -qx '# 4MRNA managed refinement launcher' "$legacy_launcher" || abort "Unexpected file at $legacy_launcher; move it before continuing."
+  rm -f "$legacy_launcher"
+fi
+legacy_refinement_checkpoint="$checkpoint_root/11.4MRNA-Refinement"
+if [[ -d "$legacy_refinement_checkpoint" && ! -e "$checkpoint_root/After-4MRNA" ]]; then
+  mv "$legacy_refinement_checkpoint" "$checkpoint_root/After-4MRNA"
+fi
+
+if [[ "$refine_option" == "Yes" ]]; then
+  mkdir -p "$final_bg_dir"
+  if [[ -s "$refinement_script" ]]; then
+    echo "[EXISTS] Phenix-Refine.sh already exists. Skipping download."
+  else
+    echo "Downloading: Phenix-Refine.sh -> $refinement_script"
+    curl_get "$PHENIX_REFINE_URL" "$work_root/Phenix-Refine.sh"
+    [[ -s "$work_root/Phenix-Refine.sh" ]] || abort "Downloaded Phenix-Refine.sh is empty."
+    bash -n "$work_root/Phenix-Refine.sh" || abort "Downloaded Phenix-Refine.sh has invalid Bash syntax."
+    chmod +x "$work_root/Phenix-Refine.sh"
+    mv "$work_root/Phenix-Refine.sh" "$refinement_script"
+  fi
+fi
+
+# Keep resumed MR results consistent with the tNCS option used to obtain them.
+previous_tncs="ON"
+if [[ -f "$tncs_checkpoint" ]]; then
+  previous_tncs="$(cat "$tncs_checkpoint")"
+fi
+[[ "$previous_tncs" != "Default" ]] || previous_tncs="ON"
+if [[ "$previous_tncs" != "$tncs_option" ]]; then
+  mr_progress="$(find "$checkpoint_root" "$here"/MR-Model* -type f \
+    \( -path '*Shell-MR-*/*' -o -path '*/Checkpoints/*.done' \) -print -quit 2>/dev/null || true)"
+  [[ -z "$mr_progress" ]] || abort "tNCS differs from the previous MR run. Use a fresh working directory to change tNCS."
+fi
+
 
 payload='['
 for idx in "${model_indices[@]}"; do
@@ -539,7 +776,7 @@ done
 declare -a AMOUNT2
 echo "" >&2
 for i in "${model_indices[@]}"; do
-  AMOUNT2[$i]="$(ask_model_amount "$i" "${TYPE2[$i]}" "${SEQ2[$i]}" "${AMOUNT[$i]:-}")"
+  AMOUNT2[$i]="$(ask_model_amount "$i" "${TYPE2[$i]}" "${SEQ2[$i]}" "${AMOUNT[$i]:-Full}")"
 done
 
 amount_args=()
@@ -923,6 +1160,33 @@ path.write_text(source, encoding="utf-8", newline="\n")
 PY_UPDATE_AMOUNT
 fi
 
+# Apply to cached as well as newly downloaded MR scripts, across all stages.
+for spec in "${FILES_TO_GET[@]}"; do
+  out="${spec##*|}"
+  case "$out" in *Shell-MR-*) apply_tncs_option "$final_bg_dir/$out" ;; esac
+done
+
+refinement_launcher="$final_bg_dir/After-4MRNA.sh"
+if [[ -f "$refinement_launcher" ]] && ! grep -qx '# 4MRNA managed refinement launcher' "$refinement_launcher"; then
+  abort "Unexpected file at $refinement_launcher; move it before continuing."
+fi
+if [[ "$refine_option" == "Yes" ]]; then
+  {
+    echo '#!/usr/bin/env bash'
+    echo '# 4MRNA managed refinement launcher'
+    echo 'set -euo pipefail'
+    printf 'cd -- %s\n' "$(shell_quote "$here")"
+    printf 'bash %s\n' "$(shell_quote "$refinement_script")"
+  } > "$refinement_launcher"
+  chmod +x "$refinement_launcher"
+elif [[ -f "$refinement_launcher" ]]; then
+  if grep -qx '# 4MRNA managed refinement launcher' "$refinement_launcher"; then
+    rm -f "$refinement_launcher"
+  else
+    abort "Unexpected file at $refinement_launcher; move it before continuing."
+  fi
+fi
+
 choose_execution_mode
 
 for i in "${model_indices[@]}"; do
@@ -946,9 +1210,13 @@ done
 
 if [[ "$run_mode" == "customize" ]]; then
   write_checkpoint_value "$execution_mode_checkpoint" "$run_mode"
+  write_checkpoint_value "$tncs_checkpoint" "$tncs_option"
   echo "Customize mode was selected."
   echo "Scripts have been prepared in: $final_bg_dir"
   echo "You can edit each downloaded code. Please run the edited scripts with the bash command in the numerical order."
+  if [[ "$refine_option" == "Yes" ]]; then
+    echo "After all MR scripts finish, run: bash \"$final_bg_dir/After-4MRNA.sh\""
+  fi
   exit 0
 fi
 
@@ -959,8 +1227,12 @@ for ordered_path in "$final_bg_dir"/[0-9][0-9].*.sh; do
   ordered[${#ordered[@]}]="$(basename "$ordered_path")"
 done
 write_checkpoint_value "$execution_mode_checkpoint" "$run_mode"
+write_checkpoint_value "$tncs_checkpoint" "$tncs_option"
 
 for f in "${ordered[@]}"; do
   run_ordered_script "$f"
 done
+if [[ "$refine_option" == "Yes" ]]; then
+  run_ordered_script "After-4MRNA.sh"
+fi
 echo "=== All finished ==="
