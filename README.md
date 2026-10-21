@@ -272,3 +272,5 @@ If you find a bug, please let me know using [this form](https://forms.gle/Hx2tvW
 
   - An option to reduce the number of models generated has been added.
   - Options for molecular replacement and processing after the 4MRNA workflow can now be configured.
+ 
+- **2026-10-21** Bug Fix (v2.6.1)
